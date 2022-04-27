@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">RewardsKotlin</string>
+
+    <string-array name="debugView">
+        <item>x1</item>
+        <item>x1.5</item>
+        <item>x0.75</item>
+    </string-array>
+
+    <string-array name="Reward">
+        <item> >5 min</item>
+        <item> >30 min</item>
+        <item> >1 Hora</item>
+    </string-array>
+
+    <string-array name="Actividad">
+        <item>Normal</item>
+        <item>Importante</item>
+        <item>Importantisimisimosuper</item>
+    </string-array>
+</resources>
