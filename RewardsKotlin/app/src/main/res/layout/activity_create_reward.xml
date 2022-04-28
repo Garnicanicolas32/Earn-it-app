@@ -10,14 +10,14 @@
         android:id="@+id/txtNombre"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="16dp"
+        android:inputType="text"
         android:maxLength="20"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:inputType="text"
-        tools:text="nombre"></EditText>
+        tools:text="nombre" />
 
     <Button
         android:id="@+id/btnChooseActivty"
@@ -51,24 +51,24 @@
         app:layout_constraintTop_toBottomOf="@+id/btnchooseReward" />
 
     <EditText
-        android:visibility="gone"
         android:id="@+id/txtLimitedTimes"
         android:layout_width="259dp"
         android:layout_height="48dp"
         android:layout_marginTop="12dp"
+        android:inputType="number"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/isLimited"
-        android:inputType="number"
         tools:text="limited times" />
 
     <Button
-        android:backgroundTint="@color/teal_200"
         android:id="@+id/btnDay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
+        android:backgroundTint="@color/teal_200"
         android:text="Day"
         app:layout_constraintEnd_toStartOf="@+id/btnWeek"
         app:layout_constraintTop_toBottomOf="@+id/txtLimitedTimes" />
@@ -99,12 +99,12 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:inputType="number"
         android:maxLength="3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.528"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnWeek"
-        android:inputType="number"
         tools:text="num" />
 
     <Spinner
@@ -144,7 +144,6 @@
         app:layout_constraintTop_toBottomOf="@+id/getPrioridad" />
 
     <Button
-        android:visibility="gone"
         android:id="@+id/commitAddTag"
         android:layout_width="70dp"
         android:layout_height="45dp"
@@ -152,23 +151,24 @@
         android:layout_marginTop="12dp"
         android:backgroundTint="@color/teal_200"
         android:text="add"
-        android:textSize="10dp"
+        android:textSize="11sp"
+        android:visibility="gone"
         app:layout_constraintStart_toEndOf="@+id/txtNombreTag"
         app:layout_constraintTop_toBottomOf="@+id/btnAddTag" />
 
     <EditText
-        android:visibility="gone"
         android:id="@+id/txtNombreTag"
         android:layout_width="128dp"
         android:layout_height="45dp"
         android:layout_marginTop="20dp"
+        android:inputType="text"
         android:maxLength="10"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.279"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/getTag"
-        android:inputType="text"
-        tools:text="nombre"></EditText>
+        tools:text="nombre" />
 
     <Button
         android:id="@+id/btnSubmit"
@@ -180,4 +180,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtNombreTag" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

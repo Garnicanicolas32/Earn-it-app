@@ -1,23 +1,23 @@
-package com.example.rewardskotlin.Adapter
+package com.example.rewardskotlin.adapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.example.rewardskotlin.DataAndClasses.reward
+import com.example.rewardskotlin.dataAndClasses.Reward
 import com.example.rewardskotlin.databinding.ItemRewardBinding
 
-class rewardViewHolder(view: View): RecyclerView.ViewHolder(view) {
+class RewardViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
     private val binding = ItemRewardBinding.bind(view)
-    fun render(reward: reward, onClickListener:(reward) -> Unit){
-        binding.buttonSubmit.text = reward.precioActual.toString()
-        binding.textView.text = reward.nombre
+    fun render(useThis: Reward, onClickListener:(Reward) -> Unit){
+        binding.buttonSubmit.text = useThis.price.toString()
+        binding.textView.text = useThis.name
         binding.buttonSubmit.setOnClickListener{
-            onClickListener(reward)
+            onClickListener(useThis)
         }
         binding.textView.setOnClickListener{
-            reward.modificar = true
-            onClickListener(reward)
-            reward.modificar = false
+            useThis.isModify = true
+            onClickListener(useThis)
+            useThis.isModify = false
         }
     }
 }

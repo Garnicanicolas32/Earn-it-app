@@ -1,31 +1,31 @@
-package com.example.rewardskotlin.DataAndClasses
+package com.example.rewardskotlin.dataAndClasses
 
-data class reward(
-    var nombre: String,
-    var precioActual: Int,
+data class Reward(
+    var name: String,
+    var price: Int,
+    var basePrice: Float,
     //
     val isReward: Boolean,
-    var modificar: Boolean,
+    var isModify: Boolean,
     //
-    var limited: Boolean,
+    var isLimited: Boolean,
     var TimesLeft: Int,
     //
-    var UsagePercentageCount: Float,
-    var UsagePercentageAdd: Float,
+    var usagePercentageCount: Float,
+    var usagePercentageADD: Float,
     //
-    var Prioridad_TiempoGastaMOD: Float,
-    var TimesPerMonthMOD: Float,
+    var prioridadMOD: Float,
+    var timesPerMonthMOD: Float,
     //
-    var DiscountMOD: Float,
-    var DiscountTimeLeft: Int,
+    var discountMOD: Float,
+    var discountTimeLeft: Int,
     //
-    var Tag: String
+    var tagName: String
 )
 
 data class SaveFormat(
-    var listaA: List<reward>,
-    var listaB: List<reward>,
-    var listaC: List<reward>,
-    val puntos: Int,
-    val RewardRatio: Int
+    var listRewards: List<Reward>,
+    var listActivities: List<Reward>,
+    var globalPoints: Int,
+    var rewardRatio: Float
 )

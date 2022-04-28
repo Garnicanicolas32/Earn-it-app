@@ -5,124 +5,131 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.rewardskotlin.Adapter.rewardAdapter
-import com.example.rewardskotlin.DataAndClasses.DataReward
-import com.example.rewardskotlin.DataAndClasses.RewardsActuales
-import com.example.rewardskotlin.DataAndClasses.SaveFormat
-import com.example.rewardskotlin.DataAndClasses.reward
+import com.example.rewardskotlin.dataAndClasses.MutablePoints
+import com.example.rewardskotlin.dataAndClasses.SaveFormat
+import com.example.rewardskotlin.dataAndClasses.Reward
+import com.example.rewardskotlin.adapter.rewardAdapter
 import com.example.rewardskotlin.databinding.ActivityMainBinding
 import com.google.gson.Gson
 
 class MainActivity : AppCompatActivity() {
 
-    // -V- KEYS -V-
-    private val SHARED = "Data"
-    private val KEY = "json"
-    private val FIRSTIME = "First"
+    //KEYS
+    private val SHARED = "HelloItsamemario"
+    private val KEY = "NewKEY"
+    private val FIRSTIME = "JesusChrist"
 
-    // -V- global vars -V-
-    private lateinit var preferences: SharedPreferences
-    private lateinit var accesoView: ActivityMainBinding
-    private lateinit var datosGlobales: DataReward
-    private var data = SaveFormat(
-        RewardsActuales.listaVacia,
-        RewardsActuales.listaVacia,
-        RewardsActuales.listaVacia,
+    //GLOBAL VAR
+    private val listEmpty: List<Reward> = listOf<Reward>()
+    private var globalData = SaveFormat(
+        listEmpty,
+        listEmpty,
         0,
-        1
+        1f
     )
 
+    //LATEINIT VARS
+    private lateinit var preferences: SharedPreferences
+    private lateinit var viewBinding: ActivityMainBinding
+    private lateinit var mutablePoints: MutablePoints
+
+    //ON CREATE
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        accesoView = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(accesoView.root)
-        datosGlobales = ViewModelProvider(this).get(DataReward::class.java)
+        //INFLATE BINDING
+        viewBinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(viewBinding.root)
 
+        //DATA MANAGMENT
         preferences = this.getSharedPreferences(SHARED, 0)
         if (preferences.getBoolean(FIRSTIME, true)) {
-            //first time
+            //first time (STILL DOESN'T WORK)
             preferences.edit().putBoolean(FIRSTIME, false).apply()
         }
+        globalData = loadData()
 
-        data = Load()
+        //MUTABLE POINTS
+        mutablePoints = ViewModelProvider(this).get(MutablePoints::class.java)
 
-        accesoView.TxtPuntos.text = data.puntos.toString()
-        datosGlobales.changePoints(data.puntos)
+        viewBinding.txtPoints.text = globalData.globalPoints.toString()
+        mutablePoints.changePoints(globalData.globalPoints)
 
-        // -V- points change -V-
-        datosGlobales.currentPoints.observe(this, Observer {
-            accesoView.TxtPuntos.text = it.toString()
-        })
-
-        // -V- Recycle View -V-
-        initRecyclerView(data.listaA)
-        // -V- Change list-V-
-        accesoView.button.setOnClickListener {
-            initRecyclerView(data.listaA)
+        mutablePoints.currentPoints.observe(this) {
+            viewBinding.txtPoints.text = it.toString()
         }
 
-        accesoView.button2.setOnClickListener {
-            initRecyclerView(data.listaB)
+        //RECYCLER VIEW
+        initRecyclerView(globalData.listActivities)
+
+        viewBinding.btnListActivities.setOnClickListener {
+            initRecyclerView(globalData.listActivities)
+        }
+        viewBinding.btnListRewards.setOnClickListener {
+            initRecyclerView(globalData.listRewards)
         }
 
-        //Change view
-        accesoView.btnCreateReward.setOnClickListener {
-            val intent = Intent(this, createReward::class.java)
+        //CREATE REWARD
+        viewBinding.btnCreateReward.setOnClickListener {
+            saveData(globalData)
+            val intent = Intent(this, CreateReward::class.java)
             startActivity(intent)
         }
-
-        //NEW OBJECT OBTAINED
+        //-- if new reward obtained
         if (!intent.getStringExtra("NewReward").isNullOrBlank()) {
-            //NEW OBJECT YEY
-            val objeto =
-                Gson().fromJson(intent.getStringExtra("NewReward") + "", reward::class.java)
-            data.listaA = data.listaA + objeto
-            Save(data)
+            val newRewardObtained =
+                Gson().fromJson(intent.getStringExtra("NewReward") + "", Reward::class.java)
+            globalData.listRewards = globalData.listRewards + newRewardObtained
+            saveData(globalData)
             refresh()
         }
     }
 
     //Recycler View
-    private fun initRecyclerView(lista: List<reward>) {
-        accesoView.listaViewRewards.layoutManager = LinearLayoutManager(this)
-        accesoView.listaViewRewards.adapter = rewardAdapter(lista) {
+    private fun initRecyclerView(lista: List<Reward>) {
+        viewBinding.listOfRewards.layoutManager = LinearLayoutManager(this)
+        viewBinding.listOfRewards.adapter = rewardAdapter(lista) {
             onItemSelected(
                 it
             )
         }
     }
 
-    private fun onItemSelected(objectiveReward: reward) {
+    private fun onItemSelected(objectiveReward: Reward) {
         // -V- apreto boton -V-
-        if (objectiveReward.modificar)
-            Toast.makeText(this, "Modificar " + objectiveReward.nombre, Toast.LENGTH_SHORT).show()
-        else if (!datosGlobales.changePoints(objectiveReward.precioActual))
+        if (objectiveReward.isModify)
+            Toast.makeText(this, "Modificar " + objectiveReward.name, Toast.LENGTH_SHORT).show()
+        else if (!mutablePoints.changePoints(objectiveReward.price))
             Toast.makeText(this, "Puntos Insuficientes", Toast.LENGTH_SHORT).show()
     }
 
+    //DATA FUNCTIONS
     private fun refresh() {
-        initRecyclerView(data.listaA)
-    }
-    //DATA
+        globalData.listRewards.forEach{
+           it.price = ((it.basePrice * it.discountMOD * it.usagePercentageCount * if(it.isReward) globalData.rewardRatio else 1f ) / 5).toInt() * 5
+        }
+        Toast.makeText(this,"amogus",Toast.LENGTH_SHORT).show()
 
-    private fun Save(saveFormat: SaveFormat) {
+        initRecyclerView(globalData.listRewards)
+    }
+
+    private fun saveData(saveFormat: SaveFormat) {
+        preferences.edit().clear().apply()
         preferences.edit().putString(KEY, Gson().toJson(saveFormat)).apply()
     }
 
-    private fun Load(): SaveFormat {
+    private fun loadData(): SaveFormat {
 
         //first blank
         var saveFormat = SaveFormat(
-            RewardsActuales.listaVacia,
-            RewardsActuales.listaVacia,
-            RewardsActuales.listaVacia,
+            listEmpty,
+            listEmpty,
             0,
-            1
+            1f
         )
         //check if exist
+
         val str: String? = preferences.getString(KEY, "")
         if (!str.isNullOrBlank())
             saveFormat = Gson().fromJson(str, SaveFormat::class.java)
