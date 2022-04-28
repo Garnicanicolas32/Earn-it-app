@@ -16,6 +16,12 @@ import com.google.gson.Gson
 
 class MainActivity : AppCompatActivity() {
 
+    ///TO-DO:
+    ///      MODIFY ACTIVTY
+    ///      SEPARATE REWARD AND ACTIVITY LIST
+    ///      ADD USAGE AND DISCOUNTS
+    ///      IMPLEMENT TAGS
+
     //KEYS
     private val SHARED = "HelloItsamemario"
     private val KEY = "NewKEY"
@@ -72,18 +78,28 @@ class MainActivity : AppCompatActivity() {
 
         //CREATE REWARD
         viewBinding.btnCreateReward.setOnClickListener {
-            saveData(globalData)
-            val intent = Intent(this, CreateReward::class.java)
-            startActivity(intent)
+            createRewardGoview()
         }
         //-- if new reward obtained
         if (!intent.getStringExtra("NewReward").isNullOrBlank()) {
             val newRewardObtained =
                 Gson().fromJson(intent.getStringExtra("NewReward") + "", Reward::class.java)
+            if(newRewardObtained.isDelete){
+                deleteReward(newRewardObtained)
+            }
+            else
             globalData.listRewards = globalData.listRewards + newRewardObtained
             saveData(globalData)
             refresh()
         }
+
+        viewBinding.btnDeleteAll.setOnClickListener{ //TEMPORAL DELETE ALL
+            globalData.listRewards = listOf<Reward>()
+            saveData(globalData)
+            refresh()
+        }
+
+        refresh() //LASTLY
     }
 
     //Recycler View
@@ -96,12 +112,45 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun onItemSelected(objectiveReward: Reward) {
-        // -V- apreto boton -V-
-        if (objectiveReward.isModify)
-            Toast.makeText(this, "Modificar " + objectiveReward.name, Toast.LENGTH_SHORT).show()
-        else if (!mutablePoints.changePoints(objectiveReward.price))
+    private fun onItemSelected(clickedReward: Reward) {
+        //modify
+        if (clickedReward.isModify){
+            createRewardGoview(clickedReward)
+        }
+        else if (!mutablePoints.changePoints(clickedReward.price))
             Toast.makeText(this, "Puntos Insuficientes", Toast.LENGTH_SHORT).show()
+    }
+
+    //DELETE REWARD
+    private fun deleteReward(theONE: Reward){
+        theONE.isDelete = false
+        var bufferListRewards = globalData.listRewards.toMutableList()
+        var bufferListActivities = globalData.listActivities.toMutableList()
+        globalData.listActivities.forEachIndexed(){index, element ->
+            if(theONE == element){
+                bufferListActivities.removeAt(index)
+            }
+        }
+        globalData.listRewards.forEachIndexed(){index, element ->
+            if(theONE == element){
+                bufferListRewards.removeAt(index)
+            }
+        }
+        globalData.listRewards = bufferListRewards
+        globalData.listActivities = bufferListActivities
+    }
+
+    //CREATE REWARD - CHANGE VIEW
+    private fun createRewardGoview(reward: Reward){
+        saveData(globalData)
+        val intent = Intent(this, CreateReward::class.java)
+        intent.putExtra("ModifyReward", Gson().toJson(reward))
+        startActivity(intent)
+    }
+    private fun createRewardGoview(){
+        saveData(globalData)
+        val intent = Intent(this, CreateReward::class.java)
+        startActivity(intent)
     }
 
     //DATA FUNCTIONS
@@ -109,7 +158,6 @@ class MainActivity : AppCompatActivity() {
         globalData.listRewards.forEach{
            it.price = ((it.basePrice * it.discountMOD * it.usagePercentageCount * if(it.isReward) globalData.rewardRatio else 1f ) / 5).toInt() * 5
         }
-        Toast.makeText(this,"amogus",Toast.LENGTH_SHORT).show()
 
         initRecyclerView(globalData.listRewards)
     }

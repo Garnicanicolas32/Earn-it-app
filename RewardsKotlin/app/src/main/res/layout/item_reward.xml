@@ -7,11 +7,11 @@
 
     <Button
         android:id="@+id/buttonSubmit"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
+        android:layout_width="75dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="16dp"
 
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:background="@color/white"
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toTopOf="parent"
@@ -19,18 +19,16 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="250dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="28dp"
+        android:layout_width="209dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="64dp"
 
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:background="@color/purple_500"
         android:gravity="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="hola hola hola hola hola">
-
-
     </TextView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

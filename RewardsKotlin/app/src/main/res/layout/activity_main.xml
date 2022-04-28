@@ -7,19 +7,19 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:padding="10dp"
-        android:autoSizeTextType="uniform"
-        tools:text="puntos"
         android:id="@+id/txtPoints"
         android:layout_width="83dp"
         android:layout_height="58dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:autoSizeTextType="uniform"
         android:background="@drawable/rounded_corner"
         android:gravity="center"
+        android:padding="10dp"
         android:textSize="35sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="puntos" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listOfRewards"
@@ -27,8 +27,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.167"
-        tools:layout_editor_absoluteX="-16dp" />
+        app:layout_constraintVertical_bias="0.271"
+        tools:layout_editor_absoluteX="0dp" />
 
     <Button
         android:id="@+id/btnListActivities"
@@ -52,12 +52,22 @@
 
     <Button
         android:id="@+id/btnCreateReward"
-        android:backgroundTint ="#94cf1f"
         android:layout_width="42dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="24dp"
+        android:backgroundTint="#94cf1f"
         android:text="+"
         app:layout_constraintStart_toEndOf="@+id/btnListRewards"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnDeleteAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="delete all"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnListActivities" />
 </androidx.constraintlayout.widget.ConstraintLayout>

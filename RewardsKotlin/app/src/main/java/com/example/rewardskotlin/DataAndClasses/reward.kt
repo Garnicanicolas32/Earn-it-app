@@ -7,15 +7,18 @@ data class Reward(
     //
     val isReward: Boolean,
     var isModify: Boolean,
+    var isDelete: Boolean,
     //
     var isLimited: Boolean,
-    var TimesLeft: Int,
+    var limitedTimes: Int,
     //
     var usagePercentageCount: Float,
     var usagePercentageADD: Float,
     //
     var prioridadMOD: Float,
     var timesPerMonthMOD: Float,
+    var dayWeekMonthOption: Int,
+    var timesPerX: Int,
     //
     var discountMOD: Float,
     var discountTimeLeft: Int,
