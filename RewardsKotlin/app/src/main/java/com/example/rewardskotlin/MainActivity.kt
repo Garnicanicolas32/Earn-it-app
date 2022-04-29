@@ -7,10 +7,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.rewardskotlin.dataAndClasses.MutablePoints
-import com.example.rewardskotlin.dataAndClasses.SaveFormat
-import com.example.rewardskotlin.dataAndClasses.Reward
 import com.example.rewardskotlin.adapter.rewardAdapter
+import com.example.rewardskotlin.dataAndClasses.MutablePoints
+import com.example.rewardskotlin.dataAndClasses.Reward
+import com.example.rewardskotlin.dataAndClasses.SaveFormat
 import com.example.rewardskotlin.databinding.ActivityMainBinding
 import com.google.gson.Gson
 
@@ -64,6 +64,7 @@ class MainActivity : AppCompatActivity() {
 
         mutablePoints.currentPoints.observe(this) {
             viewBinding.txtPoints.text = it.toString()
+            globalData.globalPoints = it
         }
 
         //RECYCLER VIEW
@@ -84,16 +85,18 @@ class MainActivity : AppCompatActivity() {
         if (!intent.getStringExtra("NewReward").isNullOrBlank()) {
             val newRewardObtained =
                 Gson().fromJson(intent.getStringExtra("NewReward") + "", Reward::class.java)
-            if(newRewardObtained.isDelete){
+            if (newRewardObtained.isDelete) {
                 deleteReward(newRewardObtained)
+            } else {
+                if (newRewardObtained.isReward) globalData.listRewards =
+                    globalData.listRewards + newRewardObtained
+                else globalData.listActivities = globalData.listActivities + newRewardObtained
             }
-            else
-            globalData.listRewards = globalData.listRewards + newRewardObtained
             saveData(globalData)
             refresh()
         }
 
-        viewBinding.btnDeleteAll.setOnClickListener{ //TEMPORAL DELETE ALL
+        viewBinding.btnDeleteAll.setOnClickListener { //TEMPORAL DELETE ALL
             globalData.listRewards = listOf<Reward>()
             saveData(globalData)
             refresh()
@@ -114,40 +117,43 @@ class MainActivity : AppCompatActivity() {
 
     private fun onItemSelected(clickedReward: Reward) {
         //modify
-        if (clickedReward.isModify){
+        if (clickedReward.isModify) {
             createRewardGoview(clickedReward)
-        }
-        else if (!mutablePoints.changePoints(clickedReward.price))
+        } else if (!mutablePoints.changePoints(clickedReward.price))
             Toast.makeText(this, "Puntos Insuficientes", Toast.LENGTH_SHORT).show()
     }
 
     //DELETE REWARD
-    private fun deleteReward(theONE: Reward){
+    private fun deleteReward(theONE: Reward) {
         theONE.isDelete = false
-        var bufferListRewards = globalData.listRewards.toMutableList()
-        var bufferListActivities = globalData.listActivities.toMutableList()
-        globalData.listActivities.forEachIndexed(){index, element ->
-            if(theONE == element){
-                bufferListActivities.removeAt(index)
+        if (theONE.isReward) {
+            val bufferListRewards = globalData.listRewards.toMutableList()
+            globalData.listRewards.forEachIndexed { index, element ->
+                if (theONE == element) {
+                    bufferListRewards.removeAt(index)
+                }
             }
-        }
-        globalData.listRewards.forEachIndexed(){index, element ->
-            if(theONE == element){
-                bufferListRewards.removeAt(index)
+            globalData.listRewards = bufferListRewards
+        } else {
+            val bufferListActivities = globalData.listActivities.toMutableList()
+            globalData.listActivities.forEachIndexed { index, element ->
+                if (theONE == element) {
+                    bufferListActivities.removeAt(index)
+                }
             }
+            globalData.listActivities = bufferListActivities
         }
-        globalData.listRewards = bufferListRewards
-        globalData.listActivities = bufferListActivities
     }
 
     //CREATE REWARD - CHANGE VIEW
-    private fun createRewardGoview(reward: Reward){
+    private fun createRewardGoview(reward: Reward) {
         saveData(globalData)
         val intent = Intent(this, CreateReward::class.java)
         intent.putExtra("ModifyReward", Gson().toJson(reward))
         startActivity(intent)
     }
-    private fun createRewardGoview(){
+
+    private fun createRewardGoview() {
         saveData(globalData)
         val intent = Intent(this, CreateReward::class.java)
         startActivity(intent)
@@ -155,8 +161,9 @@ class MainActivity : AppCompatActivity() {
 
     //DATA FUNCTIONS
     private fun refresh() {
-        globalData.listRewards.forEach{
-           it.price = ((it.basePrice * it.discountMOD * it.usagePercentageCount * if(it.isReward) globalData.rewardRatio else 1f ) / 5).toInt() * 5
+        globalData.listRewards.forEach {
+            it.price =
+                ((it.basePrice * it.discountMOD * it.usagePercentageCount * if (it.isReward) globalData.rewardRatio else 1f) / 5).toInt() * 5
         }
 
         initRecyclerView(globalData.listRewards)
