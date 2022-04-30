@@ -17,10 +17,10 @@ import com.google.gson.Gson
 class MainActivity : AppCompatActivity() {
 
     ///TO-DO:
-    ///      MODIFY ACTIVTY
-    ///      SEPARATE REWARD AND ACTIVITY LIST
+    ///
     ///      ADD USAGE AND DISCOUNTS
     ///      IMPLEMENT TAGS
+    /// LIMITED TIMES (implementado solo falta AVISAR)
 
     //KEYS
     private val SHARED = "HelloItsamemario"
@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     private val FIRSTIME = "JesusChrist"
 
     //GLOBAL VAR
+    private var rewardSelected = false
     private val listEmpty: List<Reward> = listOf<Reward>()
     private var globalData = SaveFormat(
         listEmpty,
@@ -72,9 +73,11 @@ class MainActivity : AppCompatActivity() {
 
         viewBinding.btnListActivities.setOnClickListener {
             initRecyclerView(globalData.listActivities)
+            rewardSelected = false
         }
         viewBinding.btnListRewards.setOnClickListener {
             initRecyclerView(globalData.listRewards)
+            rewardSelected = true
         }
 
         //CREATE REWARD
@@ -119,11 +122,55 @@ class MainActivity : AppCompatActivity() {
         //modify
         if (clickedReward.isModify) {
             createRewardGoview(clickedReward)
-        } else if (!mutablePoints.changePoints(clickedReward.price))
-            Toast.makeText(this, "Puntos Insuficientes", Toast.LENGTH_SHORT).show()
+        } else {
+            if (mutablePoints.changePoints(clickedReward.price)) {//Enough points
+                if (clickedReward.isLimited) if (minusOneLimited(clickedReward)) { //IF bought and limited
+                    deleteReward(clickedReward)
+                    refresh()
+                }
+
+            } else //Not enough points
+                Toast.makeText(this, "Puntos Insuficientes", Toast.LENGTH_SHORT).show()
+        }
     }
 
-    //DELETE REWARD
+    //MODIFY EDIT INDEX EVERYTHING TO DO WITH REWARD
+    private fun addUsageOrDiscount(usage: Boolean, amount: Float, reward: Reward) {
+        val index = getIndexSavedReward(reward)
+        val list = if (reward.isReward) {
+            globalData.listRewards
+        } else globalData.listActivities
+
+        if (index >= 0) {
+            if (usage) {
+                list[index].usagePercentageCount += amount
+            } else {
+                list[index].discountMOD += amount
+            }
+
+            if (reward.isReward) globalData.listRewards = list
+            else globalData.listActivities = list
+        }
+    }
+
+    private fun removeUsageOrDiscount(usage: Boolean, reward: Reward) {
+        val index = getIndexSavedReward(reward)
+        val list = if (reward.isReward) {
+            globalData.listRewards
+        } else globalData.listActivities
+
+        if (index >= 0) {
+            if (usage) {
+                list[index].usagePercentageCount = 1f
+            } else {
+                list[index].discountMOD = 1f
+            }
+
+            if (reward.isReward) globalData.listRewards = list
+            else globalData.listActivities = list
+        }
+    }
+
     private fun deleteReward(theONE: Reward) {
         theONE.isDelete = false
         if (theONE.isReward) {
@@ -143,6 +190,40 @@ class MainActivity : AppCompatActivity() {
             }
             globalData.listActivities = bufferListActivities
         }
+    }
+
+    private fun minusOneLimited(reward: Reward): Boolean {
+        var noMore = false
+        val list = if (reward.isReward) {
+            globalData.listRewards
+        } else globalData.listActivities
+        val index = getIndexSavedReward(reward)
+        if (index >= 0) {
+            if (list[index].limitedTimes <= 1) noMore = true
+            else list[index].limitedTimes--
+
+            if (reward.isReward) globalData.listRewards = list
+            else globalData.listActivities = list
+        }
+        return noMore
+    }
+
+    private fun getIndexSavedReward(theONE: Reward): Int {
+        var founded = -1
+        if (theONE.isReward) {
+            globalData.listRewards.forEachIndexed { index, element ->
+                if (theONE == element) {
+                    founded = index
+                }
+            }
+        } else {
+            globalData.listActivities.forEachIndexed { index, element ->
+                if (theONE == element) {
+                    founded = index
+                }
+            }
+        }
+        return founded
     }
 
     //CREATE REWARD - CHANGE VIEW
@@ -165,8 +246,11 @@ class MainActivity : AppCompatActivity() {
             it.price =
                 ((it.basePrice * it.discountMOD * it.usagePercentageCount * if (it.isReward) globalData.rewardRatio else 1f) / 5).toInt() * 5
         }
-
-        initRecyclerView(globalData.listRewards)
+        if (rewardSelected)
+            initRecyclerView(globalData.listRewards)
+        else
+            initRecyclerView(globalData.listActivities)
+        saveData(globalData)
     }
 
     private fun saveData(saveFormat: SaveFormat) {
