@@ -23,9 +23,9 @@ class MainActivity : AppCompatActivity() {
     /// LIMITED TIMES (implementado solo falta AVISAR)
 
     //KEYS
-    private val SHARED = "HelloItsamemario"
-    private val KEY = "NewKEY"
-    private val FIRSTIME = "JesusChrist"
+    private val SHARED = "Shared"
+    private val KEY = "MainKey"
+    private val FIRSTIME = "IsFirstTime"
 
     //GLOBAL VAR
     private var rewardSelected = false
@@ -91,6 +91,16 @@ class MainActivity : AppCompatActivity() {
             if (newRewardObtained.isDelete) {
                 deleteReward(newRewardObtained)
             } else {
+                if (intent.getBooleanExtra("isChangeAndDelete", false)) {
+                    val oldReward =
+                        Gson().fromJson(intent.getStringExtra("OldObject") + "", Reward::class.java)
+                    if (getIndexSavedReward(oldReward) > -1) {
+                        //OLD REWARD FOUND
+                    }
+                }else{
+
+                }
+
                 if (newRewardObtained.isReward) globalData.listRewards =
                     globalData.listRewards + newRewardObtained
                 else globalData.listActivities = globalData.listActivities + newRewardObtained
@@ -99,9 +109,20 @@ class MainActivity : AppCompatActivity() {
             refresh()
         }
 
-        viewBinding.btnDeleteAll.setOnClickListener { //TEMPORAL DELETE ALL
+        //TEMPORAL DELETE ALL // REMOVE IN FINAL
+        viewBinding.btnDeleteAll.setOnClickListener {
             globalData.listRewards = listOf<Reward>()
             saveData(globalData)
+            refresh()
+        }
+        //TEMPORAL REMOVE USAGE // REMOVE IN FINAL
+        viewBinding.btnRemoveUsage.setOnClickListener {
+            globalData.listRewards.forEach {
+                removeUsageOrDiscount(true, it)
+            }
+            globalData.listActivities.forEach {
+                removeUsageOrDiscount(true, it)
+            }
             refresh()
         }
 
@@ -126,12 +147,14 @@ class MainActivity : AppCompatActivity() {
             if (mutablePoints.changePoints(clickedReward.price)) {//Enough points
                 if (clickedReward.isLimited) if (minusOneLimited(clickedReward)) { //IF bought and limited
                     deleteReward(clickedReward)
-                    refresh()
                 }
+                addUsageOrDiscount(true, 1f, clickedReward)
+
 
             } else //Not enough points
-                Toast.makeText(this, "Puntos Insuficientes", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Puntos Insuficientes", Toast.LENGTH_SHORT).show() //TEMP??
         }
+        refresh()
     }
 
     //MODIFY EDIT INDEX EVERYTHING TO DO WITH REWARD
@@ -143,7 +166,7 @@ class MainActivity : AppCompatActivity() {
 
         if (index >= 0) {
             if (usage) {
-                list[index].usagePercentageCount += amount
+                list[index].usagePercentageCount += list[index].usagePercentageADD
             } else {
                 list[index].discountMOD += amount
             }
@@ -164,6 +187,7 @@ class MainActivity : AppCompatActivity() {
                 list[index].usagePercentageCount = 1f
             } else {
                 list[index].discountMOD = 1f
+                list[index].discountTimeLeft = -1
             }
 
             if (reward.isReward) globalData.listRewards = list
@@ -230,7 +254,7 @@ class MainActivity : AppCompatActivity() {
     private fun createRewardGoview(reward: Reward) {
         saveData(globalData)
         val intent = Intent(this, CreateReward::class.java)
-        intent.putExtra("ModifyReward", Gson().toJson(reward))
+        intent.putExtra("ModifyRewardKEY", Gson().toJson(reward))
         startActivity(intent)
     }
 

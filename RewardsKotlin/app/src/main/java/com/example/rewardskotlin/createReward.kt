@@ -42,9 +42,9 @@ class CreateReward : AppCompatActivity() {
         setContentView(viewBinding.root)
 
         //IF EDITING REWARD
-        if (!intent.getStringExtra("ModifyReward").isNullOrBlank()) {
+        if (!intent.getStringExtra("ModifyRewardKEY").isNullOrBlank()) {
             val newRewardObtained =
-                Gson().fromJson(intent.getStringExtra("ModifyReward") + "", Reward::class.java)
+                Gson().fromJson(intent.getStringExtra("ModifyRewardKEY") + "", Reward::class.java)
 
             editing = true
             // name
@@ -107,8 +107,13 @@ class CreateReward : AppCompatActivity() {
 
         //SUBMIT AND GO
         viewBinding.btnSubmit.setOnClickListener {
+            val json1 = Gson().toJson(createReward())
             if (checkIFok()) {
-                sendAndGo(Gson().toJson(createReward()))
+                if (editing) {
+                    sendAndGo(json1, intent.getStringExtra("ModifyRewardKEY") + "")
+                }
+                else
+                    sendAndGo(json1)
             }
         }
 
@@ -116,7 +121,7 @@ class CreateReward : AppCompatActivity() {
         viewBinding.btnDelete.setOnClickListener {
             if (editing) { //If delete editing
                 val newRewardObtained =
-                    Gson().fromJson(intent.getStringExtra("ModifyReward") + "", Reward::class.java)
+                    Gson().fromJson(intent.getStringExtra("ModifyRewardKEY") + "", Reward::class.java)
                 newRewardObtained.isDelete = true
                 sendAndGo(Gson().toJson(newRewardObtained))
             } else { //If delete a new one
@@ -192,6 +197,14 @@ class CreateReward : AppCompatActivity() {
         startActivity(intent)
     }
 
+    private fun sendAndGo(json: String, json2: String) {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("NewReward", json)
+        intent.putExtra("isChangeAndDelete", true)
+        intent.putExtra("OldObject", json2)
+        startActivity(intent)
+    }
+
     private fun createReward(): Reward {
         //PrioridadTiempoGasta
         val modPrioridad = if (isReward)
@@ -232,7 +245,7 @@ class CreateReward : AppCompatActivity() {
             viewBinding.isLimited.isChecked,
             limitedtimes,
             1f, //temp?
-            0.25f, //temp?
+            0.5f, //temp?
             modPrioridad,
             timesPerMonthMOD,
             dayWeekMonth,

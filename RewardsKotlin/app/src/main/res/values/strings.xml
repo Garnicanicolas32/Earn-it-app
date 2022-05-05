@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">RewardsKotlin</string>
+    <string name="activities">Activities</string>
+    <string name="rewards">REWARDS</string>
+    <string name="addPLUS">+</string>
+    <string name="delete_all">delete all</string>
+    <string name="usage">USAGE</string>
 
     <string-array name="debugView">
         <item>x1</item>
