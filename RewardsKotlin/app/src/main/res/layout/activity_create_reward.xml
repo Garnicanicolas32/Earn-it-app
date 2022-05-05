@@ -13,11 +13,13 @@
         android:layout_marginTop="100dp"
         android:inputType="text"
         android:maxLength="20"
+        android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="nombre" />
+        tools:text="nombre"
+        android:importantForAutofill="no" />
 
     <Button
         android:id="@+id/btnChooseActivty"
@@ -25,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
         android:layout_marginTop="28dp"
-        android:text="Activity"
+        android:text="@string/activity"
         app:layout_constraintStart_toEndOf="@+id/btnchooseReward"
         app:layout_constraintTop_toBottomOf="@+id/txtNombre" />
 
@@ -35,16 +37,16 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="76dp"
         android:layout_marginTop="28dp"
-        android:text="Reward"
+        android:text="@string/reward"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtNombre" />
 
     <Switch
         android:id="@+id/isLimited"
         android:layout_width="257dp"
-        android:layout_height="43dp"
+        android:layout_height="48dp"
         android:layout_marginTop="32dp"
-        android:text="is limited?"
+        android:text="@string/is_limited"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +62,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/isLimited"
-        tools:text="limited times" />
+        tools:text="limited times"
+        android:importantForAutofill="no" />
 
     <Button
         android:id="@+id/btnDay"
@@ -69,7 +72,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         android:backgroundTint="@color/teal_200"
-        android:text="Day"
+        android:text="@string/day"
         app:layout_constraintEnd_toStartOf="@+id/btnWeek"
         app:layout_constraintTop_toBottomOf="@+id/txtLimitedTimes" />
 
@@ -79,7 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:text="month"
+        android:text="@string/month"
         app:layout_constraintStart_toEndOf="@+id/btnWeek"
         app:layout_constraintTop_toBottomOf="@+id/txtLimitedTimes" />
 
@@ -88,7 +91,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Week"
+        android:text="@string/week"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
@@ -101,11 +104,13 @@
         android:layout_marginTop="24dp"
         android:inputType="number"
         android:maxLength="3"
+        android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.528"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnWeek"
-        tools:text="num" />
+        tools:text="num"
+        android:importantForAutofill="no" />
 
     <Spinner
         android:id="@+id/getPrioridad"
@@ -113,6 +118,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:entries="@array/Reward"
+        android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -123,7 +129,7 @@
     <Spinner
         android:id="@+id/getTag"
         android:layout_width="150dp"
-        android:layout_height="30dp"
+        android:layout_height="48dp"
         android:layout_marginTop="36dp"
         android:entries="@array/debugView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -138,8 +144,8 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:text="+"
+        android:layout_marginTop="36dp"
+        android:text="@string/addPLUS"
         app:layout_constraintStart_toEndOf="@+id/getTag"
         app:layout_constraintTop_toBottomOf="@+id/getPrioridad" />
 
@@ -150,7 +156,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="12dp"
         android:backgroundTint="@color/teal_200"
-        android:text="add"
+        android:text="@string/add"
         android:textSize="11sp"
         android:visibility="gone"
         app:layout_constraintStart_toEndOf="@+id/txtNombreTag"
@@ -168,7 +174,8 @@
         app:layout_constraintHorizontal_bias="0.279"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/getTag"
-        tools:text="nombre" />
+        tools:text="nombre"
+        android:importantForAutofill="no" />
 
     <Button
         android:id="@+id/btnSubmit"
@@ -176,7 +183,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:backgroundTint="@color/purple_200"
-        android:text="SUBMIT"
+        android:text="@string/submit"
+        android:textColor="#311B92"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtNombreTag" />
@@ -187,7 +195,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:backgroundTint="#a8323e"
-        android:text="delete"
+        android:text="@string/delete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.535"
         app:layout_constraintStart_toStartOf="parent"

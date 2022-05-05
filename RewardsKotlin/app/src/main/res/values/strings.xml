@@ -5,6 +5,15 @@
     <string name="addPLUS">+</string>
     <string name="delete_all">delete all</string>
     <string name="usage">USAGE</string>
+    <string name="activity">Activity</string>
+    <string name="reward">Reward</string>
+    <string name="is_limited">is limited?</string>
+    <string name="month">month</string>
+    <string name="week">Week</string>
+    <string name="add">add</string>
+    <string name="submit">SUBMIT</string>
+    <string name="delete">delete</string>
+    <string name="day">Day</string>
 
     <string-array name="debugView">
         <item>x1</item>

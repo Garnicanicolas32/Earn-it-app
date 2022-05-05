@@ -94,24 +94,26 @@ class MainActivity : AppCompatActivity() {
                 if (intent.getBooleanExtra("isChangeAndDelete", false)) {
                     val oldReward =
                         Gson().fromJson(intent.getStringExtra("OldObject") + "", Reward::class.java)
-                    if (getIndexSavedReward(oldReward) > -1) {
-                        //OLD REWARD FOUND
-                    }
-                }else{
-
+                    deleteReward(oldReward)
                 }
-
-                if (newRewardObtained.isReward) globalData.listRewards =
-                    globalData.listRewards + newRewardObtained
-                else globalData.listActivities = globalData.listActivities + newRewardObtained
+                if (newRewardObtained.isReward){
+                    globalData.listRewards = globalData.listRewards + newRewardObtained
+                    rewardSelected = true
+                }
+                else{
+                    globalData.listActivities = globalData.listActivities + newRewardObtained
+                    rewardSelected = false
+                }
             }
             saveData(globalData)
+
             refresh()
         }
 
         //TEMPORAL DELETE ALL // REMOVE IN FINAL
         viewBinding.btnDeleteAll.setOnClickListener {
-            globalData.listRewards = listOf<Reward>()
+            globalData.listRewards = emptyList()
+            globalData.listRewards = emptyList()
             saveData(globalData)
             refresh()
         }
