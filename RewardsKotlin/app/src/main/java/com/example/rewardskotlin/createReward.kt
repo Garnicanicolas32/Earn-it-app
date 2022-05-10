@@ -7,9 +7,11 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import com.example.rewardskotlin.dataAndClasses.MyOwnClock
 import com.example.rewardskotlin.dataAndClasses.Reward
 import com.example.rewardskotlin.databinding.ActivityCreateRewardBinding
 import com.google.gson.Gson
+import java.time.LocalDateTime
 
 class CreateReward : AppCompatActivity() {
 
@@ -234,6 +236,8 @@ class CreateReward : AppCompatActivity() {
         //val points = 100 * if(isReward) -1 else 1 //temporal
         val points: Float = NUMEROBASE * modPrioridad * timesPerMonthMOD * if (isReward) -1f else 1f
 
+        val now = MyOwnClock(LocalDateTime.now())
+        Toast.makeText(this, now.toString(), Toast.LENGTH_SHORT).show()
         // Create variable
         return Reward(
             viewBinding.txtNombre.text.toString(),
@@ -244,15 +248,17 @@ class CreateReward : AppCompatActivity() {
             false,
             viewBinding.isLimited.isChecked,
             limitedtimes,
-            1f, //temp?
-            0.5f, //temp?
+            1f,
+            0.25f, //temp?
             modPrioridad,
             timesPerMonthMOD,
             dayWeekMonth,
             viewBinding.txtTimesPerMonth.text.toString().toInt(),
             1f,
-            -1,
-            "default" //temp
+            now,
+            "default", //temp
+            now,
+            now
         )
     }
 

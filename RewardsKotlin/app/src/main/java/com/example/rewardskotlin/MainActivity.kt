@@ -9,25 +9,30 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rewardskotlin.adapter.rewardAdapter
 import com.example.rewardskotlin.dataAndClasses.MutablePoints
+import com.example.rewardskotlin.dataAndClasses.MyOwnClock
 import com.example.rewardskotlin.dataAndClasses.Reward
 import com.example.rewardskotlin.dataAndClasses.SaveFormat
 import com.example.rewardskotlin.databinding.ActivityMainBinding
 import com.google.gson.Gson
+import java.time.Duration
+import java.time.LocalDateTime
 
 class MainActivity : AppCompatActivity() {
 
     ///TO-DO:
-    ///
-    ///      ADD USAGE AND DISCOUNTS
+    ///        CHECK TIME
+    ///      ADD DISCOUNTS
+    ///      Implement time (remove discount and usage)
     ///      IMPLEMENT TAGS
     /// LIMITED TIMES (implementado solo falta AVISAR)
 
     //KEYS
-    private val SHARED = "Shared"
-    private val KEY = "MainKey"
-    private val FIRSTIME = "IsFirstTime"
+    private val SHARED = "Shared4"
+    private val KEY = "MainKey4"
+    private val FIRSTIME = "IsFirstTime4"
 
     //GLOBAL VAR
+    private var howManyDaysToDiscount = 2
     private var rewardSelected = false
     private val listEmpty: List<Reward> = listOf<Reward>()
     private var globalData = SaveFormat(
@@ -42,7 +47,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityMainBinding
     private lateinit var mutablePoints: MutablePoints
 
-    //ON CREATE
+    ///// ON CREATE /////
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //INFLATE BINDING
@@ -96,28 +101,36 @@ class MainActivity : AppCompatActivity() {
                         Gson().fromJson(intent.getStringExtra("OldObject") + "", Reward::class.java)
                     deleteReward(oldReward)
                 }
-                if (newRewardObtained.isReward){
+                if (newRewardObtained.isReward) {
                     globalData.listRewards = globalData.listRewards + newRewardObtained
                     rewardSelected = true
-                }
-                else{
+                } else {
                     globalData.listActivities = globalData.listActivities + newRewardObtained
                     rewardSelected = false
                 }
             }
             saveData(globalData)
-
             refresh()
         }
 
-        //TEMPORAL DELETE ALL // REMOVE IN FINAL
+        //----------------TEMPORAL REFRESH ALL // REMOVE IN FINAL
+        viewBinding.btnRefresh.setOnClickListener{
+            val checkDuration = Duration.between(globalData.listActivities[0].lastTimeChecked.devolver(), LocalDateTime.now())
+            val usedDuration = Duration.between(globalData.listActivities[0].lastTimeUsed.devolver(), LocalDateTime.now())
+            val show = "Check ${checkDuration.seconds}, Used ${usedDuration.seconds}  "
+            globalData.listActivities[0].lastTimeChecked = MyOwnClock(LocalDateTime.now())
+
+
+            Toast.makeText(this, show, Toast.LENGTH_SHORT).show()
+        }
+        //----------------TEMPORAL DELETE ALL // REMOVE IN FINAL
         viewBinding.btnDeleteAll.setOnClickListener {
             globalData.listRewards = emptyList()
-            globalData.listRewards = emptyList()
+            globalData.listActivities = emptyList()
             saveData(globalData)
             refresh()
         }
-        //TEMPORAL REMOVE USAGE // REMOVE IN FINAL
+        //----------------TEMPORAL REMOVE USAGE // REMOVE IN FINAL
         viewBinding.btnRemoveUsage.setOnClickListener {
             globalData.listRewards.forEach {
                 removeUsageOrDiscount(true, it)
@@ -130,6 +143,8 @@ class MainActivity : AppCompatActivity() {
 
         refresh() //LASTLY
     }
+
+    //TIME MANAGMENT
 
     //Recycler View
     private fun initRecyclerView(lista: List<Reward>) {
@@ -153,18 +168,16 @@ class MainActivity : AppCompatActivity() {
                 addUsageOrDiscount(true, 1f, clickedReward)
 
 
-            } else //Not enough points
-                Toast.makeText(this, "Puntos Insuficientes", Toast.LENGTH_SHORT).show() //TEMP??
+            } //  else //Not enough points
+              //  Toast.makeText(this, "Puntos Insuficientes", Toast.LENGTH_SHORT).show() //TEMP??
         }
         refresh()
     }
 
-    //MODIFY EDIT INDEX EVERYTHING TO DO WITH REWARD
+    // depracated --- See later
     private fun addUsageOrDiscount(usage: Boolean, amount: Float, reward: Reward) {
         val index = getIndexSavedReward(reward)
-        val list = if (reward.isReward) {
-            globalData.listRewards
-        } else globalData.listActivities
+        val list = if (reward.isReward) globalData.listRewards else globalData.listActivities
 
         if (index >= 0) {
             if (usage) {
@@ -177,7 +190,7 @@ class MainActivity : AppCompatActivity() {
             else globalData.listActivities = list
         }
     }
-
+    // depracated --- See later
     private fun removeUsageOrDiscount(usage: Boolean, reward: Reward) {
         val index = getIndexSavedReward(reward)
         val list = if (reward.isReward) {
@@ -189,7 +202,7 @@ class MainActivity : AppCompatActivity() {
                 list[index].usagePercentageCount = 1f
             } else {
                 list[index].discountMOD = 1f
-                list[index].discountTimeLeft = -1
+                list[index].discountRemoveAfter = MyOwnClock(LocalDateTime.MAX)
             }
 
             if (reward.isReward) globalData.listRewards = list
@@ -197,6 +210,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //MODIFY EDIT INDEX EVERYTHING TO DO WITH REWARD
     private fun deleteReward(theONE: Reward) {
         theONE.isDelete = false
         if (theONE.isReward) {
@@ -268,14 +282,75 @@ class MainActivity : AppCompatActivity() {
 
     //DATA FUNCTIONS
     private fun refresh() {
+        //Los 2 son mismo, si cambia uno, cambiar el otro (Ver desp como hacer que "IT" sea Var instead of Val)
         globalData.listRewards.forEach {
+
+            val today = LocalDateTime.now()
+
+            if(it.discountRemoveAfter.devolver().isAfter(today)){//Discount Vencio
+                it.discountMOD = 1f
+                it.discountRemoveAfter = MyOwnClock(LocalDateTime.MAX)
+                }
+
+            val dayPassed = today.isAfter(it.lastTimeUsed.devolver().plusDays(1))
+            val hourPassed = today.isAfter(it.lastTimeUsed.devolver().plusHours(1))
+            val duration = Duration.between(it.lastTimeUsed.devolver(), today)
+
+            if(hourPassed && it.usagePercentageCount != 1f){
+                //Hours but not days
+                val timeSinceCheck = Duration.between(it.lastTimeChecked.devolver(), today) //different from line 4 lines up
+                val hourCount  = timeSinceCheck.toHours().toInt()
+                val new = it.usagePercentageCount - (hourCount * -it.usagePercentageADD)
+                it.usagePercentageCount = if(new > 1f) new else 1f
+            }else if(dayPassed){
+                //Days passed
+                if(duration.toDays().toInt() > howManyDaysToDiscount){
+                    it.discountMOD = 1.25f //temp
+                    it.discountRemoveAfter = MyOwnClock(today.plusDays(1))
+                }
+                it.usagePercentageCount = 1f
+            }
+
             it.price =
                 ((it.basePrice * it.discountMOD * it.usagePercentageCount * if (it.isReward) globalData.rewardRatio else 1f) / 5).toInt() * 5
         }
+
+        globalData.listActivities.forEach {
+            val today = LocalDateTime.now()
+
+            if(it.discountRemoveAfter.devolver().isAfter(today)){//Discount Vencio
+                it.discountMOD = 1f
+                it.discountRemoveAfter = MyOwnClock(LocalDateTime.MAX)
+            }
+
+            val dayPassed = today.isAfter(it.lastTimeUsed.devolver().plusDays(1))
+            val hourPassed = today.isAfter(it.lastTimeUsed.devolver().plusHours(1))
+            val duration = Duration.between(it.lastTimeUsed.devolver(), today)
+
+            if(hourPassed && it.usagePercentageCount != 1f){
+                //Hours but not days
+                val timeSinceCheck = Duration.between(it.lastTimeChecked.devolver(), today) //different from line 4 lines up
+                val hourCount  = timeSinceCheck.toHours().toInt()
+                val new = it.usagePercentageCount - (hourCount * -it.usagePercentageADD)
+                it.usagePercentageCount = if(new > 1f) new else 1f
+            }else if(dayPassed){
+                //Days passed
+                if(duration.toDays().toInt() > howManyDaysToDiscount){
+                    it.discountMOD = 1.25f //temp
+                    it.discountRemoveAfter = MyOwnClock(today.plusDays(1))
+                }
+                it.usagePercentageCount = 1f
+            }
+
+            it.price =
+                ((it.basePrice * it.discountMOD * it.usagePercentageCount * if (it.isReward) globalData.rewardRatio else 1f) / 5).toInt() * 5
+        }
+
         if (rewardSelected)
             initRecyclerView(globalData.listRewards)
         else
             initRecyclerView(globalData.listActivities)
+
         saveData(globalData)
     }
 
