@@ -11,6 +11,7 @@ class RewardViewHolder(view: View): RecyclerView.ViewHolder(view) {
     fun render(useThis: Reward, onClickListener:(Reward) -> Unit){
         binding.buttonSubmit.text = useThis.price.toString()
         binding.textView.text = useThis.name
+
         binding.buttonSubmit.setOnClickListener{
             onClickListener(useThis)
         }

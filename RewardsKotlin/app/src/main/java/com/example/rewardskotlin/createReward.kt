@@ -17,6 +17,7 @@ class CreateReward : AppCompatActivity() {
 
     //GLOBAL VARS
     private var editing = false
+    private var oldOne = ""
 
     private val NUMEROBASE = 100f //Vewy importent
     private var perMonthMultiplie = 30
@@ -45,8 +46,12 @@ class CreateReward : AppCompatActivity() {
 
         //IF EDITING REWARD
         if (!intent.getStringExtra("ModifyRewardKEY").isNullOrBlank()) {
+            oldOne = intent.getStringExtra("ModifyRewardKEY") + ""
             val newRewardObtained =
-                Gson().fromJson(intent.getStringExtra("ModifyRewardKEY") + "", Reward::class.java)
+                Gson().fromJson(oldOne, Reward::class.java)
+
+            //newRewardObtained.isModify = false
+            oldOne = Gson().toJson(newRewardObtained)
 
             editing = true
             // name
@@ -66,7 +71,7 @@ class CreateReward : AppCompatActivity() {
                 switchRewardOrActivity(2)
 
             //day week month
-            Toast.makeText(this,newRewardObtained.dayWeekMonthOption.toString(),Toast.LENGTH_LONG).show()
+            //Toast.makeText(this,newRewardObtained.dayWeekMonthOption.toString(),Toast.LENGTH_LONG).show()
             switchDayWeekMonth(newRewardObtained.dayWeekMonthOption)
             viewBinding.txtTimesPerMonth.setText(newRewardObtained.timesPerX.toString())
 
@@ -112,7 +117,7 @@ class CreateReward : AppCompatActivity() {
             val json1 = Gson().toJson(createReward())
             if (checkIFok()) {
                 if (editing) {
-                    sendAndGo(json1, intent.getStringExtra("ModifyRewardKEY") + "")
+                    sendAndGo(json1, oldOne)
                 }
                 else
                     sendAndGo(json1)
@@ -237,7 +242,7 @@ class CreateReward : AppCompatActivity() {
         val points: Float = NUMEROBASE * modPrioridad * timesPerMonthMOD * if (isReward) -1f else 1f
 
         val now = MyOwnClock(LocalDateTime.now())
-        Toast.makeText(this, now.toString(), Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, now.toString(), Toast.LENGTH_SHORT).show()
         // Create variable
         return Reward(
             viewBinding.txtNombre.text.toString(),
@@ -258,7 +263,7 @@ class CreateReward : AppCompatActivity() {
             now,
             "default", //temp
             now,
-            now
+            0
         )
     }
 

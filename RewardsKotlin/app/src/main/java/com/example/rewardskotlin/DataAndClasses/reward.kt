@@ -9,7 +9,6 @@ class MyOwnClock(localDateTime: LocalDateTime) {
     var day: Int = localDateTime.dayOfMonth
     var hour: Int = localDateTime.hour
     var minute: Int = localDateTime.minute
-    var sec: Int = localDateTime.second //temp
 
     fun devolver(): LocalDateTime{
         return LocalDateTime.of(this.year,this.month,this.day,this.hour,this.minute)
@@ -42,7 +41,7 @@ data class Reward(
     var tagName: String,
     //
     var lastTimeUsed: MyOwnClock,
-    var lastTimeChecked: MyOwnClock
+    var timesRemoved: Int
 )
 
 data class SaveFormat(
