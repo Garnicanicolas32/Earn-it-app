@@ -1,9 +1,16 @@
 package com.example.rewardskotlin
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.Bundle
+import android.os.CountDownTimer
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -17,14 +24,22 @@ import com.example.rewardskotlin.databinding.ActivityMainBinding
 import com.google.gson.Gson
 import java.time.Duration
 import java.time.LocalDateTime
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
+    //Podes crear, modificar y eleminar recompensas y actividades
+    //Esta programado que cambie el precio segun Uso, cuantas veces al mes se usa la recompensa y prioridad
+    //Se guarda tod0 en el celu asi que si cerras la app cuando abras devuelta sigue estando
+    //
 
     ///TO-DO:
+    ///      Sort by points or Alphabetically
+    ///      import export data
     ///        CHECK TIME
     ///      ADD DISCOUNTS
     ///      Implement time (remove discount and usage)
     ///      IMPLEMENT TAGS
+    ///      IMPLEMENT CONFIGURATION
     /// LIMITED TIMES (implementado solo falta AVISAR)
 
     //KEYS
@@ -47,6 +62,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var preferences: SharedPreferences
     private lateinit var viewBinding: ActivityMainBinding
     private lateinit var mutablePoints: MutablePoints
+
+    //COLORS
+    private val NOTSELECTEDCOLOR = "#ccbb8b"
+    private val SELECTEDCOLOR = "#fcba03"
 
     ///// ON CREATE /////
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,10 +99,14 @@ class MainActivity : AppCompatActivity() {
         viewBinding.btnListActivities.setOnClickListener {
             initRecyclerView(globalData.listActivities)
             rewardSelected = false
+            viewBinding.btnListActivities.setBackgroundColor(Color.parseColor(SELECTEDCOLOR))
+            viewBinding.btnListRewards.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
         }
         viewBinding.btnListRewards.setOnClickListener {
             initRecyclerView(globalData.listRewards)
             rewardSelected = true
+            viewBinding.btnListActivities.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
+            viewBinding.btnListRewards.setBackgroundColor(Color.parseColor(SELECTEDCOLOR))
         }
 
         //CREATE REWARD
@@ -114,6 +137,16 @@ class MainActivity : AppCompatActivity() {
             refresh()
         }
 
+        viewBinding.swiperefresh.setOnRefreshListener {
+            refresh()
+            viewBinding.swiperefresh.isRefreshing = false
+        }
+
+        //----------------TEMPORAL DELETE ALL // REMOVE IN FINAL
+        viewBinding.btnCheckList.setOnClickListener {
+           Log.i("Rewards", Gson().toJson(globalData.listRewards))
+           Log.i("Activities", Gson().toJson(globalData.listActivities))
+        }
         //----------------TEMPORAL DELETE ALL // REMOVE IN FINAL
         viewBinding.btnDeleteAll.setOnClickListener {
             globalData.listRewards = emptyList()
@@ -133,6 +166,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         refresh() //LASTLY
+        //startTimeCounter()
     }
 
     //TIME MANAGMENT
@@ -317,11 +351,15 @@ class MainActivity : AppCompatActivity() {
                 ((it.basePrice * it.discountMOD * it.usagePercentageCount) / 5).toInt() * 5
         }
 
-        if (rewardSelected)
-            initRecyclerView(globalData.listRewards)
-        else
+        if (rewardSelected){
+            viewBinding.btnListActivities.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
+            viewBinding.btnListRewards.setBackgroundColor(Color.parseColor(SELECTEDCOLOR))
+            initRecyclerView(globalData.listRewards)}
+        else {
+            viewBinding.btnListActivities.setBackgroundColor(Color.parseColor(SELECTEDCOLOR))
+            viewBinding.btnListRewards.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
             initRecyclerView(globalData.listActivities)
-
+        }
         saveData(globalData)
     }
 
@@ -346,5 +384,18 @@ class MainActivity : AppCompatActivity() {
             saveFormat = Gson().fromJson(str, SaveFormat::class.java)
 
         return saveFormat
+    }
+
+    fun startTimeCounter() {
+        object : CountDownTimer(60000, 1000) {
+
+            override fun onTick(millisUntilFinished: Long) {
+            }
+
+            override fun onFinish() {
+                refresh()
+                startTimeCounter()
+            }
+        }.start()
     }
 }
