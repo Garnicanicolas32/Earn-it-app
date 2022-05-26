@@ -15,25 +15,19 @@ class MyOwnClock(localDateTime: LocalDateTime) {
     }
 }
 
-data class Reward(
+data class Reward(  // Find a way to change ISMODIFY or ISDELETE TODO
     var name: String,
     var price: Int,
     var basePrice: Float,
     //
-    val isReward: Boolean,
     var isModify: Boolean,
     var isDelete: Boolean,
     //
-    var isLimited: Boolean,
     var limitedTimes: Int,
     //
     var usagePercentageCount: Float,
-    var usagePercentageADD: Float,
     //
-    var prioridadMOD: Float,
-    var timesPerMonthMOD: Float,
-    var dayWeekMonthOption: Int,
-    var timesPerX: Int,
+    var options: List<Int>, //first daymonthyear second xtimes third prioridad
     //
     var discountMOD: Float,
     var discountRemoveAfter: MyOwnClock,

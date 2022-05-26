@@ -4,7 +4,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.example.rewardskotlin.dataAndClasses.MyOwnClock
@@ -15,16 +14,23 @@ import java.time.LocalDateTime
 
 class CreateReward : AppCompatActivity() {
 
+
+    //FIXED VALUES YOU CAN EDIT
+    private val NUMEROBASE = 100f //Vewy importent
+    private val listRewardMOD = listOf(0.95f, 1f, 1.5f)
+    private val listActivitiesMOD = listOf(1f, 1.25f, 1.75f)
+    //--colors
+    private val CORRECTCOLOR = "#94d162"
+    private val ERRORCOLOR = "#c71616"
+    private val NOTSELECTEDCOLOR = "#b0a78f"
+    private val SELECTEDCOLOR = "#ffbc00"
+
     //GLOBAL VARS
     private var editing = false
     private var oldOne = ""
 
-    private val NUMEROBASE = 100f //Vewy importent
     private var perMonthMultiplie = 30
     private var dayWeekMonth = 1
-
-    private val listRewardMOD = listOf(0.95f, 1f, 1.5f)
-    private val listActivitiesMOD = listOf(1f, 1.25f, 1.75f)
 
     private var isNewTag = false
     private var isReward = true
@@ -32,12 +38,7 @@ class CreateReward : AppCompatActivity() {
     //LATEINIT VARS
     private lateinit var viewBinding: ActivityCreateRewardBinding
 
-    //COLORS
-    private val ERRORCOLOR = "#c71616"
-    private val NOTSELECTEDCOLOR = "#b0a78f"
-    private val SELECTEDCOLOR = "#ffbc00"
-
-    //ON CREATE
+    //---------------ON CREATE
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //INFLATE BINDING
@@ -46,42 +47,28 @@ class CreateReward : AppCompatActivity() {
 
         //IF EDITING REWARD
         if (!intent.getStringExtra("ModifyRewardKEY").isNullOrBlank()) {
+            editing = true
             oldOne = intent.getStringExtra("ModifyRewardKEY") + ""
             val newRewardObtained =
                 Gson().fromJson(oldOne, Reward::class.java)
-
-            //newRewardObtained.isModify = false
-            oldOne = Gson().toJson(newRewardObtained)
-
-            editing = true
             // name
             viewBinding.txtNombre.setText(newRewardObtained.name)
             //is limited
-            if (newRewardObtained.isLimited) {
+            if (newRewardObtained.limitedTimes > -1) {
                 viewBinding.isLimited.isChecked = true
                 viewBinding.txtLimitedTimes.isVisible = true
                 viewBinding.txtLimitedTimes.setText(newRewardObtained.limitedTimes.toString())
             }
             //reward or activity // importance mod
-            var browseList = listActivitiesMOD
-            if (newRewardObtained.isReward) {
+            if (newRewardObtained.basePrice < 0)
                 switchRewardOrActivity(1)
-                browseList = listRewardMOD
-            } else
+            else
                 switchRewardOrActivity(2)
-
             //day week month
-            //Toast.makeText(this,newRewardObtained.dayWeekMonthOption.toString(),Toast.LENGTH_LONG).show()
-            switchDayWeekMonth(newRewardObtained.dayWeekMonthOption)
-            viewBinding.txtTimesPerMonth.setText(newRewardObtained.timesPerX.toString())
-
+            switchDayWeekMonth(newRewardObtained.options[0])
+            viewBinding.txtTimesPerMonth.setText(newRewardObtained.options[1].toString())
             //spinner
-            var counter = 0
-            browseList.forEach {
-                if (it == newRewardObtained.prioridadMOD && counter < viewBinding.getPrioridad.adapter.count)
-                    viewBinding.getPrioridad.setSelection(counter)
-                counter++
-            }
+            viewBinding.getPrioridad.setSelection(newRewardObtained.options[2])
         }
 
         //REWARD OR ACTIVITY CHOOSEN
@@ -114,12 +101,11 @@ class CreateReward : AppCompatActivity() {
 
         //SUBMIT AND GO
         viewBinding.btnSubmit.setOnClickListener {
-            val json1 = Gson().toJson(createReward())
             if (checkIFok()) {
+                val json1 = Gson().toJson(createReward())
                 if (editing) {
                     sendAndGo(json1, oldOne)
-                }
-                else
+                } else
                     sendAndGo(json1)
             }
         }
@@ -127,10 +113,8 @@ class CreateReward : AppCompatActivity() {
         //DELETE
         viewBinding.btnDelete.setOnClickListener {
             if (editing) { //If delete editing
-                val newRewardObtained =
-                    Gson().fromJson(intent.getStringExtra("ModifyRewardKEY") + "", Reward::class.java)
-                newRewardObtained.isDelete = true
-                sendAndGo(Gson().toJson(newRewardObtained))
+                oldOne = oldOne.replace("\"isDelete\":false", "\"isDelete\":true")
+                sendAndGo(oldOne)
             } else { //If delete a new one
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
@@ -138,7 +122,7 @@ class CreateReward : AppCompatActivity() {
         }
     }
 
-    //FUNCTIONS
+    //---------------FUNCTIONS
 
     //SWITCHS
     private fun switchDayWeekMonth(option: Int) {
@@ -220,12 +204,12 @@ class CreateReward : AppCompatActivity() {
             listActivitiesMOD[viewBinding.getPrioridad.selectedItemPosition]
 
         //limited times
-        var limitedtimes = 1
+        var limitedtimes = -1
         if (viewBinding.isLimited.isChecked) {
             limitedtimes = try {
                 viewBinding.txtLimitedTimes.text.toString().toInt()
             } catch (nfe: NumberFormatException) {
-                1
+                -1
             }
         }
         //times per month
@@ -233,7 +217,7 @@ class CreateReward : AppCompatActivity() {
         try {
             timesPerMonth = viewBinding.txtTimesPerMonth.text.toString().toInt() * perMonthMultiplie
         } catch (nfe: NumberFormatException) {
-            limitedtimes = 2
+
         }
         val timesPerMonthMOD: Float = 30f / timesPerMonth.toFloat()
 
@@ -248,17 +232,15 @@ class CreateReward : AppCompatActivity() {
             viewBinding.txtNombre.text.toString(),
             points.toInt(),
             points,
-            isReward,
             false,
             false,
-            viewBinding.isLimited.isChecked,
             limitedtimes,
             1f,
-            0.25f, //temp?
-            modPrioridad,
-            timesPerMonthMOD,
-            dayWeekMonth,
-            viewBinding.txtTimesPerMonth.text.toString().toInt(),
+            listOf(
+                dayWeekMonth,
+                viewBinding.txtTimesPerMonth.text.toString().toInt(),
+                viewBinding.getPrioridad.selectedItemPosition
+            ),
             1f,
             now,
             "default", //temp
@@ -272,22 +254,22 @@ class CreateReward : AppCompatActivity() {
         if (viewBinding.txtNombre.text.trim().isBlank()) {
             viewBinding.txtNombre.setBackgroundColor(Color.parseColor(ERRORCOLOR))
             retorno = false
-        } else viewBinding.txtNombre.setBackgroundColor(0x00000000)
+        } else viewBinding.txtNombre.setBackgroundColor(Color.parseColor(CORRECTCOLOR))
 
         if (viewBinding.isLimited.isChecked && viewBinding.txtLimitedTimes.text.trim().isBlank()) {
             viewBinding.txtLimitedTimes.setBackgroundColor(Color.parseColor(ERRORCOLOR))
             retorno = false
-        } else viewBinding.txtLimitedTimes.setBackgroundColor(0x00000000)
+        } else viewBinding.txtLimitedTimes.setBackgroundColor(Color.parseColor(CORRECTCOLOR))
 
         if (viewBinding.txtTimesPerMonth.text.trim().isBlank()) {
             viewBinding.txtTimesPerMonth.setBackgroundColor(Color.parseColor(ERRORCOLOR))
             retorno = false
-        } else viewBinding.txtTimesPerMonth.setBackgroundColor(0x00000000)
+        } else viewBinding.txtTimesPerMonth.setBackgroundColor(Color.parseColor(CORRECTCOLOR))
 
         if (isNewTag && viewBinding.txtNombreTag.text.trim().isBlank()) {
             viewBinding.txtNombreTag.setBackgroundColor(Color.parseColor(ERRORCOLOR))
             retorno = false
-        } else viewBinding.txtNombreTag.setBackgroundColor(0x00000000)
+        } else viewBinding.txtNombreTag.setBackgroundColor(Color.parseColor(CORRECTCOLOR))
 
         return retorno
     }

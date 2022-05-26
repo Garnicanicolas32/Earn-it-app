@@ -1,16 +1,10 @@
 package com.example.rewardskotlin
 
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
-import android.os.CountDownTimer
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
-import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -24,13 +18,8 @@ import com.example.rewardskotlin.databinding.ActivityMainBinding
 import com.google.gson.Gson
 import java.time.Duration
 import java.time.LocalDateTime
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
-    //Podes crear, modificar y eleminar recompensas y actividades
-    //Esta programado que cambie el precio segun Uso, cuantas veces al mes se usa la recompensa y prioridad
-    //Se guarda tod0 en el celu asi que si cerras la app cuando abras devuelta sigue estando
-    //
 
     ///TO-DO:
     ///      Sort by points or Alphabetically
@@ -42,13 +31,19 @@ class MainActivity : AppCompatActivity() {
     ///      IMPLEMENT CONFIGURATION
     /// LIMITED TIMES (implementado solo falta AVISAR)
 
+    //FIXED VALUES YOU CAN EDIT
+    private var USAGEPORCENTAGEADD = 0.25f
+    private var howManyDaysToDiscount = 2
+    //--colors
+    private val NOTSELECTEDCOLOR = "#ccbb8b"
+    private val SELECTEDCOLOR = "#fcba03"
+
     //KEYS
-    private val SHARED = "Shared4"
-    private val KEY = "MainKey4"
-    private val FIRSTIME = "IsFirstTime4"
+    private val SHARED = "Shared5"
+    private val KEY = "MainKey5"
+    private val FIRSTIME = "IsFirstTime5"
 
     //GLOBAL VAR
-    private var howManyDaysToDiscount = 2
     private var rewardSelected = false
     private val listEmpty: List<Reward> = listOf()
     private var globalData = SaveFormat(
@@ -63,9 +58,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityMainBinding
     private lateinit var mutablePoints: MutablePoints
 
-    //COLORS
-    private val NOTSELECTEDCOLOR = "#ccbb8b"
-    private val SELECTEDCOLOR = "#fcba03"
+
 
     ///// ON CREATE /////
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -125,7 +118,7 @@ class MainActivity : AppCompatActivity() {
                         Gson().fromJson(intent.getStringExtra("OldObject") + "", Reward::class.java)
                     deleteReward(oldReward)
                 }
-                if (newRewardObtained.isReward) {
+                if (newRewardObtained.basePrice < 0) {
                     globalData.listRewards = globalData.listRewards + newRewardObtained
                     rewardSelected = true
                 } else {
@@ -133,6 +126,7 @@ class MainActivity : AppCompatActivity() {
                     rewardSelected = false
                 }
             }
+            intent.putExtra("NewReward", false) //IF SOMETHING ISN'T WORKING CHECK IF IT ISN'T THIS                       IMPORTENT
             saveData(globalData)
             refresh()
         }
@@ -165,6 +159,7 @@ class MainActivity : AppCompatActivity() {
             refresh()
         }
 
+
         refresh() //LASTLY
         //startTimeCounter()
     }
@@ -190,15 +185,14 @@ class MainActivity : AppCompatActivity() {
             Log.i("Price", clickedReward.price.toString())
             if (mutablePoints.changePoints(clickedReward.price)) {//Enough points
 
-                if (clickedReward.isReward) clickedReward.usagePercentageCount += clickedReward.usagePercentageADD
+                if (clickedReward.basePrice < 0) clickedReward.usagePercentageCount += USAGEPORCENTAGEADD
                 clickedReward.lastTimeUsed = MyOwnClock(LocalDateTime.now())
-                //clickedReward.lastTimeChecked = MyOwnClock(LocalDateTime.now())
                 if (index >= 0)
                     modifyReward(index, clickedReward)
                 else
                     Toast.makeText(this, "item not found", Toast.LENGTH_SHORT).show()
 
-                if (clickedReward.isLimited) if (minusOneLimited(clickedReward)) { //IF bought and limited
+                if (clickedReward.limitedTimes > -1) if (minusOneLimited(clickedReward)) { //IF bought and limited
                     deleteReward(clickedReward)
                 }//This has to be the last thing because it deletes the reward
             } else //Not enough points
@@ -209,7 +203,7 @@ class MainActivity : AppCompatActivity() {
 
     //MODIFY EDIT INDEX EVERYTHING TO DO WITH REWARD
     private fun modifyReward(index: Int, theNewOne: Reward) {
-        if (theNewOne.isReward) {
+        if (theNewOne.basePrice < 0) {
             val bufferListRewards = globalData.listRewards.toMutableList()
             bufferListRewards[index] = theNewOne
             globalData.listRewards = bufferListRewards
@@ -223,7 +217,7 @@ class MainActivity : AppCompatActivity() {
     private fun deleteReward(theONE: Reward) {
         val index = getIndexSavedReward(theONE)
         if (index >= 0) {
-            if (theONE.isReward) {
+            if (theONE.basePrice < 0) {
                 val bufferListRewards = globalData.listRewards.toMutableList()
                 bufferListRewards.removeAt(index)
                 globalData.listRewards = bufferListRewards
@@ -237,7 +231,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun minusOneLimited(reward: Reward): Boolean {
         var noMore = false
-        val list = if (reward.isReward) {
+        val list = if (reward.basePrice < 0) {
             globalData.listRewards
         } else globalData.listActivities
         val index = getIndexSavedReward(reward)
@@ -245,7 +239,7 @@ class MainActivity : AppCompatActivity() {
             if (list[index].limitedTimes <= 1) noMore = true
             else list[index].limitedTimes--
 
-            if (reward.isReward) globalData.listRewards = list
+            if (reward.basePrice < 0) globalData.listRewards = list
             else globalData.listActivities = list
         }
         return noMore
@@ -253,7 +247,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getIndexSavedReward(theONE: Reward): Int {
         var founded = -1
-        if (theONE.isReward) {
+        if (theONE.basePrice < 0) {
             globalData.listRewards.forEachIndexed { index, element ->
                 if (theONE.name == element.name && theONE.basePrice == element.basePrice) {
                     founded = index
@@ -304,7 +298,7 @@ class MainActivity : AppCompatActivity() {
                 //Hours but not days
                 val removeTimes = duration.toHours().toInt() - it.timesRemoved //How many more hours to remove
                 it.timesRemoved = duration.toHours().toInt()
-                val new = it.usagePercentageCount - (-it.usagePercentageADD * removeTimes)
+                val new = it.usagePercentageCount - (USAGEPORCENTAGEADD * removeTimes)
                 it.usagePercentageCount = if(new > 1f) new else 1f
 
             }else if(dayPassed){
@@ -335,7 +329,7 @@ class MainActivity : AppCompatActivity() {
                 //Hours but not days
                 val removeTimes = duration.toHours().toInt() - it.timesRemoved //How many more hours to remove
                 it.timesRemoved = duration.toHours().toInt()
-                val new = it.usagePercentageCount - (-it.usagePercentageADD * removeTimes)
+                val new = it.usagePercentageCount - (USAGEPORCENTAGEADD * removeTimes)
                 it.usagePercentageCount = if(new > 1f) new else 1f
 
             }else if(dayPassed){
@@ -375,7 +369,7 @@ class MainActivity : AppCompatActivity() {
             listEmpty,
             listEmpty,
             0,
-            1f
+            1.2f
         )
         //check if exist
 
@@ -386,7 +380,7 @@ class MainActivity : AppCompatActivity() {
         return saveFormat
     }
 
-    fun startTimeCounter() {
+   /* fun startTimeCounter() {
         object : CountDownTimer(60000, 1000) {
 
             override fun onTick(millisUntilFinished: Long) {
@@ -397,5 +391,5 @@ class MainActivity : AppCompatActivity() {
                 startTimeCounter()
             }
         }.start()
-    }
+    } */
 }
