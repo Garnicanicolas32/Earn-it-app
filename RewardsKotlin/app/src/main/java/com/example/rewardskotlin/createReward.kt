@@ -8,29 +8,26 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.example.rewardskotlin.dataAndClasses.MyOwnClock
 import com.example.rewardskotlin.dataAndClasses.Reward
-import com.example.rewardskotlin.dataAndClasses.createInformation
-import com.example.rewardskotlin.dataAndClasses.sendBack
+import com.example.rewardskotlin.dataAndClasses.CreateInformation
+import com.example.rewardskotlin.dataAndClasses.SendBack
 import com.example.rewardskotlin.databinding.ActivityCreateRewardBinding
 import com.google.gson.Gson
 import java.time.LocalDateTime
 
+//FIXED VALUES YOU CAN EDIT
+private const val NUMEROBASE = 100f //Vewy importent
+private val listRewardMOD = listOf(0.95f, 1f, 1.5f)
+private val listActivitiesMOD = listOf(1f, 1.25f, 1.75f)
+
+//KEYS
+private const val KEYsendAndGo = "recieve"
+private const val KEYpackage = "package"
+//--Colors
+private const val CORRECTCOLOR = "#94d162"
+private const val ERRORCOLOR = "#c71616"
+private const val NOTSELECTEDCOLOR = "#b0a78f"
+private const val SELECTEDCOLOR = "#ffbc00"
 class CreateReward : AppCompatActivity() {
-
-    //KEYS
-    private val KEYsendAndGo = "recieve"  //try changing this if it doesnt work
-    private val KEYpackage = "package"  //try changing this if it doesnt work
-
-    //FIXED VALUES YOU CAN EDIT
-    private val NUMEROBASE = 100f //Vewy importent
-    private val listRewardMOD = listOf(0.95f, 1f, 1.5f)
-    private val listActivitiesMOD = listOf(1f, 1.25f, 1.75f)
-
-    //--colors
-    private val CORRECTCOLOR = "#94d162"
-    private val ERRORCOLOR = "#c71616"
-    private val NOTSELECTEDCOLOR = "#b0a78f"
-    private val SELECTEDCOLOR = "#ffbc00"
-
     //GLOBAL VARS
     private var perMonthMultiplie = 30
     private var dayWeekMonth = 1
@@ -49,7 +46,7 @@ class CreateReward : AppCompatActivity() {
         setContentView(viewBinding.root)
 
         val obtained =
-            Gson().fromJson(intent.getStringExtra(KEYpackage), createInformation::class.java)
+            Gson().fromJson(intent.getStringExtra(KEYpackage), CreateInformation::class.java)
         //IF EDITING REWARD
         if (obtained.isEdit){
 
@@ -105,7 +102,7 @@ class CreateReward : AppCompatActivity() {
         //SUBMIT AND GO
         viewBinding.btnSubmit.setOnClickListener {
             if (checkIFok()) {
-                val send = sendBack(
+                val send = SendBack(
                     obtained.isEdit,
                     false,
                     createReward(),
@@ -118,7 +115,12 @@ class CreateReward : AppCompatActivity() {
         //DELETE
         viewBinding.btnDelete.setOnClickListener {
             if (obtained.isEdit) { //If delete editing
-                val send = Gson().toJson(sendBack(true, true, obtained.reward!!, null))
+                val send = Gson().toJson(SendBack(
+                    isEdit = true,
+                    isDelete = true,
+                    reward = obtained.reward!!,
+                    oldOne = null
+                ))
                 sendAndGo(send)
             } else { //If delete a new one
                 val intent = Intent(this, MainActivity::class.java)

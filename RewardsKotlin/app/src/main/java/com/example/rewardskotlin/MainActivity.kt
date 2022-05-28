@@ -5,7 +5,6 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,32 +15,30 @@ import com.google.gson.Gson
 import java.time.Duration
 import java.time.LocalDateTime
 
+///TO-DO:
+///      Sort by points or Alphabetically
+///      import export data
+///      ADD DISCOUNTS
+///      IMPLEMENT TAGS
+///      IMPLEMENT CONFIGURATION
+/// LIMITED TIMES (implementado solo falta AVISAR)
+
+//FIXED VALUES YOU CAN EDIT
+private var USAGEPORCENTAGEADD = 0.25f
+private var howManyDaysToDiscount = 2
+
+//--colors
+private const val NOTSELECTEDCOLOR = "#ccbb8b"
+private const val SELECTEDCOLOR = "#fcba03"
+
+//KEYS
+private const val KEYsendAndGo = "recieve"
+private const val KEYpackage = "package"
+private const val SHARED = "Shared6"
+private const val KEY = "MainKey6"
+private const val FIRSTIME = "IsFirstTime6"
+
 class MainActivity : AppCompatActivity() {
-
-    ///TO-DO:
-    ///      Sort by points or Alphabetically
-    ///      import export data
-    ///      ADD DISCOUNTS
-    ///      IMPLEMENT TAGS
-    ///      IMPLEMENT CONFIGURATION
-    /// LIMITED TIMES (implementado solo falta AVISAR)
-
-
-    //FIXED VALUES YOU CAN EDIT
-    private var USAGEPORCENTAGEADD = 0.25f
-    private var howManyDaysToDiscount = 2
-    //--colors
-    private val NOTSELECTEDCOLOR = "#ccbb8b"
-    private val SELECTEDCOLOR = "#fcba03"
-
-    //KEYS
-    private val KEYsendAndGo = "recieve"  //try changing this if it doesnt work
-    private val KEYpackage = "package"  //try changing this if it doesnt work
-
-    private val SHARED = "Shared6"
-    private val KEY = "MainKey6"
-    private val FIRSTIME = "IsFirstTime6"
-
     //GLOBAL VAR
     private var rewardSelected = false
     private val listEmpty: List<Reward> = listOf()
@@ -56,8 +53,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var preferences: SharedPreferences
     private lateinit var viewBinding: ActivityMainBinding
     private lateinit var mutablePoints: MutablePoints
-
-
 
     ///// ON CREATE /////
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -108,11 +103,11 @@ class MainActivity : AppCompatActivity() {
         //-- if new reward obtained
         if (!intent.getStringExtra(KEYsendAndGo).isNullOrBlank()) {
             val obtained =
-                Gson().fromJson(intent.getStringExtra(KEYsendAndGo) + "", sendBack::class.java)
-            if(obtained.isDelete){//if its deleting an existing one
+                Gson().fromJson(intent.getStringExtra(KEYsendAndGo) + "", SendBack::class.java)
+            if (obtained.isDelete) {//if its deleting an existing one
                 deleteReward(obtained.reward)
-            }else{//new or editing an old one
-                if(obtained.isEdit)
+            } else {//new or editing an old one
+                if (obtained.isEdit)
                     deleteReward(obtained.oldOne!!)
 
                 if (obtained.reward.basePrice < 0) {
@@ -134,8 +129,8 @@ class MainActivity : AppCompatActivity() {
 
         //----------------TEMPORAL DELETE ALL // REMOVE IN FINAL
         viewBinding.btnCheckList.setOnClickListener {
-           Log.i("Rewards", Gson().toJson(globalData.listRewards))
-           Log.i("Activities", Gson().toJson(globalData.listActivities))
+            Log.i("Rewards", Gson().toJson(globalData.listRewards))
+            Log.i("Activities", Gson().toJson(globalData.listActivities))
         }
         //----------------TEMPORAL DELETE ALL // REMOVE IN FINAL
         viewBinding.btnDeleteAll.setOnClickListener {
@@ -155,34 +150,23 @@ class MainActivity : AppCompatActivity() {
             refresh()
         }
 
-
         refresh() //LASTLY
         //startTimeCounter()
     }
 
-    //FUNCTIONS
-
-    //Return tags
-    private fun crearTags(lista: List<Reward>): List<String>{
-        var retorno = listOf<String>()
-        lista.forEach {
-           if(!retorno.contains(it.tagName))
-               retorno += it.tagName
-        }
-        return  retorno
-    }
+    ////FUNCTIONS////
 
     //Recycler View
     private fun initRecyclerView(lista: List<Reward>) {
         viewBinding.listOfRewards.layoutManager = LinearLayoutManager(this)
-        viewBinding.listOfRewards.adapter = rewardAdapter(lista) {reward ->
+        viewBinding.listOfRewards.adapter = rewardAdapter(lista) { reward ->
             onItemSelected(
                 reward
             )
         }
     }
 
-    private fun onItemSelected(clickedReward: onClickReturn) {
+    private fun onItemSelected(clickedReward: OnClickReturn) {
         //modify
         if (clickedReward.isEdit) {
             createRewardGoview(clickedReward.reward)
@@ -271,7 +255,7 @@ class MainActivity : AppCompatActivity() {
     //CREATE REWARD - CHANGE VIEW
     private fun createRewardGoview(reward: Reward?) {
         saveData(globalData)
-        val mandar = createInformation(
+        val mandar = CreateInformation(
             reward != null,
             listOf(),
             reward
@@ -288,25 +272,26 @@ class MainActivity : AppCompatActivity() {
 
             val today = LocalDateTime.now()
 
-            if(it.discountRemoveAfter.devolver().isAfter(today)){//Discount Vencio
+            if (it.discountRemoveAfter.devolver().isAfter(today)) {//Discount Vencio
                 it.discountMOD = 1f
                 it.discountRemoveAfter = MyOwnClock(LocalDateTime.MAX)
-                }
+            }
 
             val dayPassed = today.isAfter(it.lastTimeUsed.devolver().plusDays(1))
             val hourPassed = today.isAfter(it.lastTimeUsed.devolver().plusHours(1))
             val duration = Duration.between(it.lastTimeUsed.devolver(), today)
 
-            if(hourPassed && it.usagePercentageCount != 1f && !dayPassed){
+            if (hourPassed && it.usagePercentageCount != 1f && !dayPassed) {
                 //Hours but not days
-                val removeTimes = duration.toHours().toInt() - it.timesRemoved //How many more hours to remove
+                val removeTimes =
+                    duration.toHours().toInt() - it.timesRemoved //How many more hours to remove
                 it.timesRemoved = duration.toHours().toInt()
                 val new = it.usagePercentageCount - (USAGEPORCENTAGEADD * removeTimes)
-                it.usagePercentageCount = if(new > 1f) new else 1f
+                it.usagePercentageCount = if (new > 1f) new else 1f
 
-            }else if(dayPassed){
+            } else if (dayPassed) {
                 //Days passed
-                if(duration.toDays().toInt() > howManyDaysToDiscount){
+                if (duration.toDays().toInt() > howManyDaysToDiscount) {
                     it.discountMOD = 1.25f //temp
                     it.discountRemoveAfter = MyOwnClock(today.plusDays(1))
                 }
@@ -319,7 +304,7 @@ class MainActivity : AppCompatActivity() {
         globalData.listActivities.forEach {
             val today = LocalDateTime.now()
 
-            if(it.discountRemoveAfter.devolver().isAfter(today)){//Discount Vencio
+            if (it.discountRemoveAfter.devolver().isAfter(today)) {//Discount Vencio
                 it.discountMOD = 1f
                 it.discountRemoveAfter = MyOwnClock(LocalDateTime.MAX)
             }
@@ -328,16 +313,17 @@ class MainActivity : AppCompatActivity() {
             val hourPassed = today.isAfter(it.lastTimeUsed.devolver().plusHours(1))
             val duration = Duration.between(it.lastTimeUsed.devolver(), today)
 
-            if(hourPassed && it.usagePercentageCount != 1f && !dayPassed){
+            if (hourPassed && it.usagePercentageCount != 1f && !dayPassed) {
                 //Hours but not days
-                val removeTimes = duration.toHours().toInt() - it.timesRemoved //How many more hours to remove
+                val removeTimes =
+                    duration.toHours().toInt() - it.timesRemoved //How many more hours to remove
                 it.timesRemoved = duration.toHours().toInt()
                 val new = it.usagePercentageCount - (USAGEPORCENTAGEADD * removeTimes)
-                it.usagePercentageCount = if(new > 1f) new else 1f
+                it.usagePercentageCount = if (new > 1f) new else 1f
 
-            }else if(dayPassed){
+            } else if (dayPassed) {
                 //Days passed
-                if(duration.toDays().toInt() > howManyDaysToDiscount){
+                if (duration.toDays().toInt() > howManyDaysToDiscount) {
                     it.discountMOD = 1.25f //temp
                     it.discountRemoveAfter = MyOwnClock(today.plusDays(1))
                 }
@@ -348,11 +334,11 @@ class MainActivity : AppCompatActivity() {
                 ((it.basePrice * it.discountMOD * it.usagePercentageCount) / 5).toInt() * 5
         }
 
-        if (rewardSelected){
+        if (rewardSelected) {
             viewBinding.btnListActivities.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
             viewBinding.btnListRewards.setBackgroundColor(Color.parseColor(SELECTEDCOLOR))
-            initRecyclerView(globalData.listRewards)}
-        else {
+            initRecyclerView(globalData.listRewards)
+        } else {
             viewBinding.btnListActivities.setBackgroundColor(Color.parseColor(SELECTEDCOLOR))
             viewBinding.btnListRewards.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
             initRecyclerView(globalData.listActivities)
@@ -382,17 +368,28 @@ class MainActivity : AppCompatActivity() {
 
         return saveFormat
     }
-
-   /* fun startTimeCounter() {
-        object : CountDownTimer(60000, 1000) {
-
-            override fun onTick(millisUntilFinished: Long) {
-            }
-
-            override fun onFinish() {
-                refresh()
-                startTimeCounter()
-            }
-        }.start()
-    } */
 }
+//old code in case needed
+/*
+ //Return tags
+private fun crearTags(lista: List<Reward>): List<String> {
+    val retorno = mutableListOf<String>()
+    lista.forEach {
+        if (!retorno.contains(it.tagName))
+            retorno += it.tagName
+    }
+    return retorno
+}
+
+fun startTimeCounter() {
+     object : CountDownTimer(60000, 1000) {
+
+         override fun onTick(millisUntilFinished: Long) {
+         }
+
+         override fun onFinish() {
+             refresh()
+             startTimeCounter()
+         }
+     }.start()
+ } */
