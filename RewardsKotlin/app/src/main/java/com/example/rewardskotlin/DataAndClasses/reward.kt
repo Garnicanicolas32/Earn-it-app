@@ -44,3 +44,16 @@ data class SaveFormat(
     var globalPoints: Int,
     var rewardRatio: Float
 )
+
+data class createInformation(
+    var isEdit: Boolean,
+    var tags: List<String>,
+    var reward: Reward?
+)
+
+data class sendBack(
+    var isEdit: Boolean,
+    var isDelete: Boolean,
+    var reward: Reward,
+    var oldOne: Reward?
+)

@@ -24,9 +24,7 @@ class MainActivity : AppCompatActivity() {
     ///TO-DO:
     ///      Sort by points or Alphabetically
     ///      import export data
-    ///        CHECK TIME
     ///      ADD DISCOUNTS
-    ///      Implement time (remove discount and usage)
     ///      IMPLEMENT TAGS
     ///      IMPLEMENT CONFIGURATION
     /// LIMITED TIMES (implementado solo falta AVISAR)
@@ -164,7 +162,17 @@ class MainActivity : AppCompatActivity() {
         //startTimeCounter()
     }
 
-    //TIME MANAGMENT
+    //FUNCTIONS
+
+    //Return tags
+    private fun crearTags(lista: List<Reward>): List<String>{
+        var retorno = listOf<String>()
+        lista.forEach {
+           if(!retorno.contains(it.tagName))
+               retorno += it.tagName
+        }
+        return  retorno
+    }
 
     //Recycler View
     private fun initRecyclerView(lista: List<Reward>) {
