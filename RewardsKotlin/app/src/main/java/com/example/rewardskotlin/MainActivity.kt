@@ -10,10 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rewardskotlin.adapter.rewardAdapter
-import com.example.rewardskotlin.dataAndClasses.MutablePoints
-import com.example.rewardskotlin.dataAndClasses.MyOwnClock
-import com.example.rewardskotlin.dataAndClasses.Reward
-import com.example.rewardskotlin.dataAndClasses.SaveFormat
+import com.example.rewardskotlin.dataAndClasses.*
 import com.example.rewardskotlin.databinding.ActivityMainBinding
 import com.google.gson.Gson
 import java.time.Duration
@@ -29,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     ///      IMPLEMENT CONFIGURATION
     /// LIMITED TIMES (implementado solo falta AVISAR)
 
+
     //FIXED VALUES YOU CAN EDIT
     private var USAGEPORCENTAGEADD = 0.25f
     private var howManyDaysToDiscount = 2
@@ -37,9 +35,12 @@ class MainActivity : AppCompatActivity() {
     private val SELECTEDCOLOR = "#fcba03"
 
     //KEYS
-    private val SHARED = "Shared5"
-    private val KEY = "MainKey5"
-    private val FIRSTIME = "IsFirstTime5"
+    private val KEYsendAndGo = "recieve"  //try changing this if it doesnt work
+    private val KEYpackage = "package"  //try changing this if it doesnt work
+
+    private val SHARED = "Shared6"
+    private val KEY = "MainKey6"
+    private val FIRSTIME = "IsFirstTime6"
 
     //GLOBAL VAR
     private var rewardSelected = false
@@ -102,29 +103,26 @@ class MainActivity : AppCompatActivity() {
 
         //CREATE REWARD
         viewBinding.btnCreateReward.setOnClickListener {
-            createRewardGoview()
+            createRewardGoview(null)
         }
         //-- if new reward obtained
-        if (!intent.getStringExtra("NewReward").isNullOrBlank()) {
-            val newRewardObtained =
-                Gson().fromJson(intent.getStringExtra("NewReward") + "", Reward::class.java)
-            if (newRewardObtained.isDelete) {
-                deleteReward(newRewardObtained)
-            } else {
-                if (intent.getBooleanExtra("isChangeAndDelete", false)) {
-                    val oldReward =
-                        Gson().fromJson(intent.getStringExtra("OldObject") + "", Reward::class.java)
-                    deleteReward(oldReward)
-                }
-                if (newRewardObtained.basePrice < 0) {
-                    globalData.listRewards = globalData.listRewards + newRewardObtained
+        if (!intent.getStringExtra(KEYsendAndGo).isNullOrBlank()) {
+            val obtained =
+                Gson().fromJson(intent.getStringExtra(KEYsendAndGo) + "", sendBack::class.java)
+            if(obtained.isDelete){//if its deleting an existing one
+                deleteReward(obtained.reward)
+            }else{//new or editing an old one
+                if(obtained.isEdit)
+                    deleteReward(obtained.oldOne!!)
+
+                if (obtained.reward.basePrice < 0) {
+                    globalData.listRewards = globalData.listRewards + obtained.reward
                     rewardSelected = true
                 } else {
-                    globalData.listActivities = globalData.listActivities + newRewardObtained
+                    globalData.listActivities = globalData.listActivities + obtained.reward
                     rewardSelected = false
                 }
             }
-            intent.putExtra("NewReward", false) //IF SOMETHING ISN'T WORKING CHECK IF IT ISN'T THIS                       IMPORTENT
             saveData(globalData)
             refresh()
         }
@@ -177,34 +175,32 @@ class MainActivity : AppCompatActivity() {
     //Recycler View
     private fun initRecyclerView(lista: List<Reward>) {
         viewBinding.listOfRewards.layoutManager = LinearLayoutManager(this)
-        viewBinding.listOfRewards.adapter = rewardAdapter(lista) {
+        viewBinding.listOfRewards.adapter = rewardAdapter(lista) {reward ->
             onItemSelected(
-                it
+                reward
             )
         }
     }
 
-    private fun onItemSelected(clickedReward: Reward) {
+    private fun onItemSelected(clickedReward: onClickReturn) {
         //modify
-        val index = getIndexSavedReward(clickedReward)
-        if (clickedReward.isModify) {
-            createRewardGoview(clickedReward)
+        if (clickedReward.isEdit) {
+            createRewardGoview(clickedReward.reward)
         } else {
-            Log.i("Price", clickedReward.price.toString())
-            if (mutablePoints.changePoints(clickedReward.price)) {//Enough points
-
-                if (clickedReward.basePrice < 0) clickedReward.usagePercentageCount += USAGEPORCENTAGEADD
-                clickedReward.lastTimeUsed = MyOwnClock(LocalDateTime.now())
+            if (mutablePoints.changePoints(clickedReward.reward.price)) {//Enough points
+                //modify
+                if (clickedReward.reward.basePrice < 0)
+                    clickedReward.reward.usagePercentageCount += USAGEPORCENTAGEADD
+                clickedReward.reward.lastTimeUsed = MyOwnClock(LocalDateTime.now())
+                //save
+                val index = getIndexSavedReward(clickedReward.reward)
                 if (index >= 0)
-                    modifyReward(index, clickedReward)
-                else
-                    Toast.makeText(this, "item not found", Toast.LENGTH_SHORT).show()
+                    modifyReward(index, clickedReward.reward)
 
-                if (clickedReward.limitedTimes > -1) if (minusOneLimited(clickedReward)) { //IF bought and limited
-                    deleteReward(clickedReward)
+                if (clickedReward.reward.limitedTimes > -1) if (minusOneLimited(clickedReward.reward)) { //IF bought and limited
+                    deleteReward(clickedReward.reward)
                 }//This has to be the last thing because it deletes the reward
-            } else //Not enough points
-                Toast.makeText(this, "Puntos Insuficientes", Toast.LENGTH_SHORT).show() //TEMP??
+            } // else //Not enough points
         }
         refresh()
     }
@@ -273,16 +269,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     //CREATE REWARD - CHANGE VIEW
-    private fun createRewardGoview(reward: Reward) {
+    private fun createRewardGoview(reward: Reward?) {
         saveData(globalData)
+        val mandar = createInformation(
+            reward != null,
+            listOf(),
+            reward
+        )
         val intent = Intent(this, CreateReward::class.java)
-        intent.putExtra("ModifyRewardKEY", Gson().toJson(reward))
-        startActivity(intent)
-    }
-
-    private fun createRewardGoview() {
-        saveData(globalData)
-        val intent = Intent(this, CreateReward::class.java)
+        intent.putExtra(KEYpackage, Gson().toJson(mandar))
         startActivity(intent)
     }
 

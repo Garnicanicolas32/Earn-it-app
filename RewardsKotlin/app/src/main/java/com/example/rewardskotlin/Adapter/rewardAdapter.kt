@@ -5,8 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rewardskotlin.dataAndClasses.Reward
 import com.example.rewardskotlin.R
+import com.example.rewardskotlin.dataAndClasses.onClickReturn
 
-class rewardAdapter(private val listaRewards: List<Reward>, private val onClickListener:(Reward) -> Unit) : RecyclerView.Adapter<RewardViewHolder>() {
+class rewardAdapter(private val listaRewards: List<Reward>, private val onClickListener:(onClickReturn) -> Unit) : RecyclerView.Adapter<RewardViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RewardViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)

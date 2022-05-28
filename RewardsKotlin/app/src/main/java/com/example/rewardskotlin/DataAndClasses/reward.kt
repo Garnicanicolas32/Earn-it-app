@@ -20,8 +20,8 @@ data class Reward(  // Find a way to change ISMODIFY or ISDELETE TODO
     var price: Int,
     var basePrice: Float,
     //
-    var isModify: Boolean,
-    var isDelete: Boolean,
+    //var isModify: Boolean,
+    //var isDelete: Boolean,
     //
     var limitedTimes: Int,
     //
@@ -57,3 +57,37 @@ data class sendBack(
     var reward: Reward,
     var oldOne: Reward?
 )
+
+data class onClickReturn(
+    val reward: Reward,
+    val isEdit: Boolean
+)
+/*
+if (obtained.isDelete) {
+                deleteReward(obtained.reward)
+            } else {
+                if (intent.getBooleanExtra("isChangeAndDelete", false)) {
+                    val oldReward =
+                        Gson().fromJson(intent.getStringExtra("OldObject") + "", Reward::class.java)
+                    deleteReward(oldReward)
+                }
+                if (obtained.basePrice < 0) {
+                    globalData.listRewards = globalData.listRewards + obtained
+                    rewardSelected = true
+                } else {
+                    globalData.listActivities = globalData.listActivities + obtained
+                    rewardSelected = false
+                }
+            }
+
+
+intent.putExtra("NewReward", false) //IF SOMETHING ISN'T WORKING CHECK IF IT ISN'T THIS
+
+        private fun sendAndGo(json: String, json2: String) {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("NewReward", json)
+        intent.putExtra("isChangeAndDelete", true)
+        intent.putExtra("OldObject", json2)
+        startActivity(intent)
+    }
+* */
