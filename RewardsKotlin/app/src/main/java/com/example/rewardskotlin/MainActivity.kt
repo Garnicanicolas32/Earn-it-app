@@ -4,7 +4,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -17,6 +16,7 @@ import com.example.rewardskotlin.databinding.ActivityMainBinding
 import com.google.gson.Gson
 import java.time.Duration
 import java.time.LocalDateTime
+import kotlin.math.abs
 
 ///TO-DO:
 ///      Sort by points or Alphabetically
@@ -149,24 +149,20 @@ class MainActivity : AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
-                Log.i("Paso","entra")
                 var listaR = globalData.listRewards
                 var listaA = globalData.listActivities
                 when(position){
                     0 -> {
-                        Log.i("Paso"," alpha")
 
                         listaR = sortAlphabetically(globalData.listRewards)
                         listaA = sortAlphabetically(globalData.listActivities)
                     }
                     1 -> {
-                        Log.i("Paso","puntos")
 
                         listaR = sortByPoints(globalData.listRewards, LETTERS)
                         listaA = sortByPoints(globalData.listActivities, LETTERS)
                     }
                     2 -> {
-                        Log.i("Paso","puntos")
 
                         listaR = sortByPoints(globalData.listRewards, LETTERSREVERSE)
                         listaA = sortByPoints(globalData.listActivities, LETTERSREVERSE)
@@ -309,10 +305,21 @@ class MainActivity : AppCompatActivity() {
     //CREATE REWARD - CHANGE VIEW
     private fun createRewardGoview(reward: Reward?) {
         saveData(globalData)
+        val lista: MutableList<String> = mutableListOf(DEFAULTTAG)
+        globalData.listActivities.forEach {
+            if (!lista.contains(it.tagName))
+                lista.add(it.tagName)
+        }
+        globalData.listRewards.forEach {
+            if (!lista.contains(it.tagName))
+                lista.add(it.tagName)
+        }
+        lista.sortBy { it }
+
         val mandar = CreateInformation(
-            reward != null,
-            listOf(),
-            reward
+            isEdit = reward != null,
+            tags = lista,
+            reward = reward
         )
         val intent = Intent(this, CreateReward::class.java)
         intent.putExtra(KEYpackage, Gson().toJson(mandar))
@@ -321,7 +328,6 @@ class MainActivity : AppCompatActivity() {
 
     //DATA FUNCTIONS
     private fun sortAlphabetically(arrayList: List< Reward >): List< Reward >{
-        Log.i("Paso", "AlphabeticalEnter")
         val retorno = arrayList.toMutableList()
         retorno.sortWith { o1: Reward, o2: Reward ->
             val first = if(o1.tagName == DEFAULTTAG) 'b' else 'a'
@@ -331,36 +337,23 @@ class MainActivity : AppCompatActivity() {
         return retorno
     }
     private fun sortByPoints(arrayList: List< Reward >, lettersUse: List<Char>): List< Reward >{
-        Log.i("Paso", "Points enter")
         val retorno = arrayList.toMutableList()
         retorno.sortWith { o1: Reward, o2: Reward ->
-            var txtPrice = Math.abs(o1.price).toString()
+            var txtPrice = abs(o1.price).toString()
             var letter = lettersUse[if(txtPrice.length>10) 10 else txtPrice.length]
             var sepparateDefault = if(o1.tagName == DEFAULTTAG) 'b' else 'a'
             val compareA: String = sepparateDefault + o1.tagName + letter + txtPrice
 
-            txtPrice = Math.abs(o2.price).toString()
+            txtPrice = abs(o2.price).toString()
             letter = lettersUse[if(txtPrice.length>10) 10 else txtPrice.length]
             sepparateDefault = if(o2.tagName == DEFAULTTAG) 'b' else 'a'
             val compareB: String = sepparateDefault + o2.tagName + letter + txtPrice
-            Log.i("Paso", compareA)
-            Log.i("Paso", compareB)
             compareA.compareTo(compareB)
         }
         return retorno
     }
 
-    /*private fun Sort(option: Int, data: SaveFormat){
-        val listReward = data.listRewards.toMutableList()
-        val listActivity = data.listActivities.toMutableList()
 
-
-        val sum2 = {input: MutableList<Reward> ->
-           1
-        }
-
-
-    }*/
 
     private fun refresh() {
         //Los 2 son mismo, si cambia uno, cambiar el otro (Ver desp como hacer que "IT" sea Var instead of Val)
@@ -467,16 +460,16 @@ class MainActivity : AppCompatActivity() {
 }
 //old code in case needed
 /*
- //Return tags
-private fun crearTags(lista: List<Reward>): List<String> {
-    val retorno = mutableListOf<String>()
-    lista.forEach {
-        if (!retorno.contains(it.tagName))
-            retorno += it.tagName
-    }
-    return retorno
-}
 
+    //Return tags
+    private fun crearTags(lista: List<Reward>): List<String> {
+        val retorno = mutableListOf<String>()
+        lista.forEach {
+            if (!retorno.contains(it.tagName))
+                retorno += it.tagName
+        }
+        return retorno
+    }
 fun startTimeCounter() {
      object : CountDownTimer(60000, 1000) {
 

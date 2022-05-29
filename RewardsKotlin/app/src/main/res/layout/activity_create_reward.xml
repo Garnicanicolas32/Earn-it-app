@@ -126,7 +126,7 @@
     </Spinner>
 
     <Spinner
-        android:id="@+id/getTag"
+        android:id="@+id/spinnerGetTag"
         android:layout_width="150dp"
         android:layout_height="48dp"
         android:layout_marginTop="36dp"
@@ -142,10 +142,10 @@
         android:id="@+id/btnAddTag"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
         android:text="@string/addPLUS"
-        app:layout_constraintStart_toEndOf="@+id/getTag"
+        app:layout_constraintStart_toEndOf="@+id/spinnerGetTag"
         app:layout_constraintTop_toBottomOf="@+id/getPrioridad" />
 
     <Button
@@ -161,20 +161,20 @@
         app:layout_constraintStart_toEndOf="@+id/txtNombreTag"
         app:layout_constraintTop_toBottomOf="@+id/btnAddTag" />
 
+    <!--android:visibility="gone" -->
+
     <EditText
         android:id="@+id/txtNombreTag"
         android:layout_width="128dp"
         android:layout_height="45dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:importantForAutofill="no"
         android:inputType="text"
         android:maxLength="10"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.279"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/getTag"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerGetTag"
+        tools:layout_editor_absoluteX="79dp"
         tools:text="default" />
-    <!--android:visibility="gone" -->
+
     <Button
         android:id="@+id/btnSubmit"
         android:layout_width="wrap_content"

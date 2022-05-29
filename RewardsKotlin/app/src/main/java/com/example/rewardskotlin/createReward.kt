@@ -6,15 +6,16 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import com.example.rewardskotlin.dataAndClasses.CreateInformation
 import com.example.rewardskotlin.dataAndClasses.MyOwnClock
 import com.example.rewardskotlin.dataAndClasses.Reward
-import com.example.rewardskotlin.dataAndClasses.CreateInformation
 import com.example.rewardskotlin.dataAndClasses.SendBack
 import com.example.rewardskotlin.databinding.ActivityCreateRewardBinding
 import com.google.gson.Gson
 import java.time.LocalDateTime
 
 //FIXED VALUES YOU CAN EDIT
+private const val DEFAULTTAG = "default"
 private const val NUMEROBASE = 100f //Vewy importent
 private val listRewardMOD = listOf(0.95f, 1f, 1.5f)
 private val listActivitiesMOD = listOf(1f, 1.25f, 1.75f)
@@ -50,7 +51,7 @@ class CreateReward : AppCompatActivity() {
         val obtained = if(jsonObtained.trim().isBlank())
             CreateInformation(
                 false,
-                listOf(),
+                listOf(DEFAULTTAG),
                 null
             )
             else
@@ -108,20 +109,6 @@ class CreateReward : AppCompatActivity() {
         viewBinding.btnMonth.setOnClickListener {
             switchDayWeekMonth(3)
         }
-
-        //SUBMIT AND GO
-        viewBinding.btnSubmit.setOnClickListener {
-            if (checkIFok()) {
-                val send = SendBack(
-                    obtained.isEdit,
-                    false,
-                    createReward(),
-                    if (obtained.isEdit) obtained.reward else null
-                )
-                sendAndGo(Gson().toJson(send))
-            }
-        }
-
         //DELETE
         viewBinding.btnDelete.setOnClickListener {
             if (obtained.isEdit) { //If delete editing
@@ -135,6 +122,25 @@ class CreateReward : AppCompatActivity() {
             } else { //If delete a new one
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
+            }
+        }
+        //TAG SPINNER
+        val dataAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
+            this,
+            android.R.layout.simple_spinner_item, obtained.tags
+        )
+        viewBinding.spinnerGetTag.adapter = dataAdapter
+
+        //SUBMIT AND GO
+        viewBinding.btnSubmit.setOnClickListener {
+            if (checkIFok()) {
+                val send = SendBack(
+                    obtained.isEdit,
+                    false,
+                    createReward(),
+                    if (obtained.isEdit) obtained.reward else null
+                )
+                sendAndGo(Gson().toJson(send))
             }
         }
     }
