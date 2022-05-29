@@ -20,19 +20,20 @@ private val listRewardMOD = listOf(0.95f, 1f, 1.5f)
 private val listActivitiesMOD = listOf(1f, 1.25f, 1.75f)
 
 //KEYS
-private const val KEYsendAndGo = "recieve"
-private const val KEYpackage = "package"
+private const val KEYsendAndGo = "recieve7"
+private const val KEYpackage = "package7"
 //--Colors
 private const val CORRECTCOLOR = "#94d162"
 private const val ERRORCOLOR = "#c71616"
 private const val NOTSELECTEDCOLOR = "#b0a78f"
 private const val SELECTEDCOLOR = "#ffbc00"
+
 class CreateReward : AppCompatActivity() {
     //GLOBAL VARS
     private var perMonthMultiplie = 30
     private var dayWeekMonth = 1
 
-    private var isNewTag = false
+    //private var isNewTag = false
     private var isReward = true
 
     //LATEINIT VARS
@@ -45,11 +46,18 @@ class CreateReward : AppCompatActivity() {
         viewBinding = ActivityCreateRewardBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
-        val obtained =
-            Gson().fromJson(intent.getStringExtra(KEYpackage), CreateInformation::class.java)
+        val jsonObtained = intent.getStringExtra(KEYpackage) + "" //SAFE IN CASE ERROR
+        val obtained = if(jsonObtained.trim().isBlank())
+            CreateInformation(
+                false,
+                listOf(),
+                null
+            )
+            else
+            Gson().fromJson(jsonObtained, CreateInformation::class.java)
+
         //IF EDITING REWARD
         if (obtained.isEdit){
-
             val newRewardObtained: Reward = obtained.reward!!
             // name
             viewBinding.txtNombre.setText(newRewardObtained.name)
@@ -69,6 +77,8 @@ class CreateReward : AppCompatActivity() {
             viewBinding.txtTimesPerMonth.setText(newRewardObtained.options[1].toString())
             //spinner
             viewBinding.getPrioridad.setSelection(newRewardObtained.options[2])
+            //tag name
+            viewBinding.txtNombreTag.setText(newRewardObtained.tagName)
         }
         else{
             switchRewardOrActivity(1)
@@ -235,7 +245,7 @@ class CreateReward : AppCompatActivity() {
             ),
             1f,
             now,
-            "default", //temp
+            viewBinding.txtNombreTag.text.toString(), //"default", //temp
             now,
             0
         )
@@ -258,7 +268,7 @@ class CreateReward : AppCompatActivity() {
             retorno = false
         } else viewBinding.txtTimesPerMonth.setBackgroundColor(Color.parseColor(CORRECTCOLOR))
 
-        if (isNewTag && viewBinding.txtNombreTag.text.trim().isBlank()) {
+        if (viewBinding.txtNombreTag.text.trim().isBlank()) {
             viewBinding.txtNombreTag.setBackgroundColor(Color.parseColor(ERRORCOLOR))
             retorno = false
         } else viewBinding.txtNombreTag.setBackgroundColor(Color.parseColor(CORRECTCOLOR))

@@ -31,4 +31,17 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="hola hola hola hola hola"></TextView>
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+
+        android:layout_marginTop="44dp"
+        android:background="@color/purple_200"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="tag"></TextView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

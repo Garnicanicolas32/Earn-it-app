@@ -10,7 +10,8 @@
         android:id="@+id/txtNombre"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="80dp"
+        android:importantForAutofill="no"
         android:inputType="text"
         android:maxLength="20"
         android:minHeight="48dp"
@@ -18,15 +19,14 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="nombre"
-        android:importantForAutofill="no" />
+        tools:text="nombre" />
 
     <Button
         android:id="@+id/btnChooseActivty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="16dp"
         android:text="@string/activity"
         app:layout_constraintStart_toEndOf="@+id/btnchooseReward"
         app:layout_constraintTop_toBottomOf="@+id/txtNombre" />
@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="76dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="16dp"
         android:text="@string/reward"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtNombre" />
@@ -45,10 +45,9 @@
         android:id="@+id/isLimited"
         android:layout_width="257dp"
         android:layout_height="48dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="12dp"
         android:text="@string/is_limited"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnchooseReward" />
 
@@ -57,13 +56,13 @@
         android:layout_width="259dp"
         android:layout_height="48dp"
         android:layout_marginTop="12dp"
+        android:importantForAutofill="no"
         android:inputType="number"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/isLimited"
-        tools:text="limited times"
-        android:importantForAutofill="no" />
+        tools:text="limited times" />
 
     <Button
         android:id="@+id/btnDay"
@@ -102,6 +101,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:importantForAutofill="no"
         android:inputType="number"
         android:maxLength="3"
         android:minHeight="48dp"
@@ -109,14 +109,13 @@
         app:layout_constraintHorizontal_bias="0.528"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnWeek"
-        tools:text="num"
-        android:importantForAutofill="no" />
+        tools:text="num" />
 
     <Spinner
         android:id="@+id/getPrioridad"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="16dp"
         android:entries="@array/Reward"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -167,16 +166,15 @@
         android:layout_width="128dp"
         android:layout_height="45dp"
         android:layout_marginTop="20dp"
+        android:importantForAutofill="no"
         android:inputType="text"
         android:maxLength="10"
-        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.279"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/getTag"
-        tools:text="nombre"
-        android:importantForAutofill="no" />
-
+        tools:text="default" />
+    <!--android:visibility="gone" -->
     <Button
         android:id="@+id/btnSubmit"
         android:layout_width="wrap_content"
@@ -193,11 +191,11 @@
         android:id="@+id/btnDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="#a8323e"
         android:text="@string/delete"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.535"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

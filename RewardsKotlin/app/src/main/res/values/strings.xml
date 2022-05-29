@@ -3,7 +3,7 @@
     <string name="activities">Activities</string>
     <string name="rewards">REWARDS</string>
     <string name="addPLUS">+</string>
-    <string name="delete_all">delete all</string>
+    <string name="delete_all">delete</string>
     <string name="usage">USAGE</string>
     <string name="activity">Activity</string>
     <string name="reward">Reward</string>
@@ -31,5 +31,11 @@
         <item>Normal</item>
         <item>Importante</item>
         <item>Importantisimisimosuper</item>
+    </string-array>
+
+    <string-array name="ordenar">
+    <item>By alphabetical</item>
+    <item>By price</item>
+    <item>By price REVERSE</item>
     </string-array>
 </resources>
