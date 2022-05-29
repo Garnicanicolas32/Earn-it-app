@@ -4,13 +4,15 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.rewardskotlin.adapter.rewardAdapter
+import com.example.rewardskotlin.adapter.RewardAdapter
 import com.example.rewardskotlin.dataAndClasses.*
 import com.example.rewardskotlin.databinding.ActivityMainBinding
 import com.google.gson.Gson
@@ -19,31 +21,31 @@ import java.time.LocalDateTime
 import kotlin.math.abs
 
 ///TO-DO:
-///      Sort by points or Alphabetically
 ///      import export data
 ///      ADD DISCOUNTS
-///      IMPLEMENT TAGS
 ///      IMPLEMENT CONFIGURATION
 /// LIMITED TIMES (implementado solo falta AVISAR)
 
 //FIXED VALUES YOU CAN EDIT
 private var USAGEPORCENTAGEADD = 0.25f
 private var howManyDaysToDiscount = 2
+private var DEBUGMODE = true //Desactiva o activa features
 
 //--colors
 private const val NOTSELECTEDCOLOR = "#ccbb8b"
 private const val SELECTEDCOLOR = "#fcba03"
 
-//KEYS
+//SHARED KEYS [CHECK IF == IN OTHER ACTIVITY]
 private const val DEFAULTTAG = "default"
 private const val KEYsendAndGo = "recieve7"
 private const val KEYpackage = "package7"
+
+//KEYS
 private const val SHARED = "Shared7"
 private const val KEY = "MainKey7"
 private const val FIRSTIME = "IsFirstTime7"
 
-private val LETTERS = listOf('a','b','c','d','e','f','g','h','i','j','k')
-private val LETTERSREVERSE = LETTERS.reversed()
+private val LETTERS = listOf('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k')
 
 class MainActivity : AppCompatActivity() {
     //GLOBAL VAR
@@ -142,66 +144,71 @@ class MainActivity : AppCompatActivity() {
             android.R.layout.simple_spinner_dropdown_item,
             resources.getStringArray(R.array.ordenar)
         )
-        viewBinding.spinnerSort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>,
-                view: View,
-                position: Int,
-                id: Long
-            ) {
-                var listaR = globalData.listRewards
-                var listaA = globalData.listActivities
-                when(position){
-                    0 -> {
+        viewBinding.spinnerSort.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View,
+                    position: Int,
+                    id: Long
+                ) {
+                    var listaR = globalData.listRewards
+                    var listaA = globalData.listActivities
+                    when (position) {
+                        0 -> {
 
-                        listaR = sortAlphabetically(globalData.listRewards)
-                        listaA = sortAlphabetically(globalData.listActivities)
-                    }
-                    1 -> {
+                            listaR = sortAlphabetically(globalData.listRewards)
+                            listaA = sortAlphabetically(globalData.listActivities)
+                        }
+                        1 -> {
 
-                        listaR = sortByPoints(globalData.listRewards, LETTERS)
-                        listaA = sortByPoints(globalData.listActivities, LETTERS)
-                    }
-                    2 -> {
+                            listaR = sortByPoints(globalData.listRewards, LETTERS)
+                            listaA = sortByPoints(globalData.listActivities, LETTERS)
+                        }
+                        2 -> {
 
-                        listaR = sortByPoints(globalData.listRewards, LETTERSREVERSE)
-                        listaA = sortByPoints(globalData.listActivities, LETTERSREVERSE)
+                            listaR = sortByPoints(globalData.listRewards, LETTERS.reversed())
+                            listaA = sortByPoints(globalData.listActivities, LETTERS.reversed())
+                        }
                     }
+                    globalData.listActivities = listaA
+                    globalData.listRewards = listaR
+                    refresh()
                 }
-                globalData.listActivities = listaA
-                globalData.listRewards = listaR
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    // another interface callback
+                }
+            }
+
+        ///- - - - - - - DEBUG FEATURES
+        viewBinding.btnDebugAnything.isVisible = DEBUGMODE
+        viewBinding.btnRemoveUsage.isVisible = DEBUGMODE
+        viewBinding.btnDeleteAll.isVisible = DEBUGMODE
+
+        if (DEBUGMODE) {
+            viewBinding.btnDebugAnything.setOnClickListener {
+                Log.i("ver", Gson().toJson(globalData.listActivities.map { it.name } + globalData.listRewards.map { it.name }))
+            }
+            viewBinding.btnDeleteAll.setOnClickListener {
+                globalData.listRewards = emptyList()
+                globalData.listActivities = emptyList()
+                saveData(globalData)
                 refresh()
             }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                // another interface callback
+            viewBinding.btnRemoveUsage.setOnClickListener {
+                globalData.listRewards.forEach {
+                    it.usagePercentageCount = 1f
+                }
+                globalData.listActivities.forEach {
+                    it.usagePercentageCount = 1f
+                }
+                refresh()
             }
         }
-
-        //----------------TEMPORAL DO ANYTHING // REMOVE IN FINAL
-        viewBinding.btnDebugAnything.setOnClickListener {
-
-        }
-        //----------------TEMPORAL DELETE ALL // REMOVE IN FINAL
-        viewBinding.btnDeleteAll.setOnClickListener {
-            globalData.listRewards = emptyList()
-            globalData.listActivities = emptyList()
-            saveData(globalData)
-            refresh()
-        }
-        //----------------TEMPORAL REMOVE USAGE // REMOVE IN FINAL
-        viewBinding.btnRemoveUsage.setOnClickListener {
-            globalData.listRewards.forEach {
-                it.usagePercentageCount = 1f
-            }
-            globalData.listActivities.forEach {
-                it.usagePercentageCount = 1f
-            }
-            refresh()
-        }
+        //END OF DEBUG FEATURES / / / / / /
 
         refresh() //LASTLY
-        //startTimeCounter()
     }
 
     ////FUNCTIONS////
@@ -209,7 +216,7 @@ class MainActivity : AppCompatActivity() {
     //Recycler View
     private fun initRecyclerView(lista: List<Reward>) {
         viewBinding.listOfRewards.layoutManager = LinearLayoutManager(this)
-        viewBinding.listOfRewards.adapter = rewardAdapter(lista) { reward ->
+        viewBinding.listOfRewards.adapter = RewardAdapter(lista) { reward ->
             onItemSelected(
                 reward
             )
@@ -305,20 +312,23 @@ class MainActivity : AppCompatActivity() {
     //CREATE REWARD - CHANGE VIEW
     private fun createRewardGoview(reward: Reward?) {
         saveData(globalData)
-        val lista: MutableList<String> = mutableListOf(DEFAULTTAG)
+        //tags list
+        val tagsList: MutableList<String> = mutableListOf()
         globalData.listActivities.forEach {
-            if (!lista.contains(it.tagName))
-                lista.add(it.tagName)
+            if (!tagsList.contains(it.tagName))
+                tagsList.add(it.tagName)
         }
         globalData.listRewards.forEach {
-            if (!lista.contains(it.tagName))
-                lista.add(it.tagName)
+            if (!tagsList.contains(it.tagName))
+                tagsList.add(it.tagName)
         }
-        lista.sortBy { it }
-
+        tagsList.sortBy { it }
+        tagsList.remove(DEFAULTTAG)
+        //AlreadyExistingNames
         val mandar = CreateInformation(
             isEdit = reward != null,
-            tags = lista,
+            tags = mutableListOf(DEFAULTTAG) + tagsList,
+            existingNames = globalData.listActivities.map { it.name.lowercase() } + globalData.listRewards.map { it.name.lowercase() },
             reward = reward
         )
         val intent = Intent(this, CreateReward::class.java)
@@ -327,32 +337,32 @@ class MainActivity : AppCompatActivity() {
     }
 
     //DATA FUNCTIONS
-    private fun sortAlphabetically(arrayList: List< Reward >): List< Reward >{
+    private fun sortAlphabetically(arrayList: List<Reward>): List<Reward> {
         val retorno = arrayList.toMutableList()
         retorno.sortWith { o1: Reward, o2: Reward ->
-            val first = if(o1.tagName == DEFAULTTAG) 'b' else 'a'
-            val second = if(o2.tagName == DEFAULTTAG) 'b' else 'a'
+            val first = if (o1.tagName == DEFAULTTAG) 'b' else 'a'
+            val second = if (o2.tagName == DEFAULTTAG) 'b' else 'a'
             (first + o1.tagName + o1.name).compareTo(second + o2.tagName + o2.name)
         }
         return retorno
     }
-    private fun sortByPoints(arrayList: List< Reward >, lettersUse: List<Char>): List< Reward >{
+
+    private fun sortByPoints(arrayList: List<Reward>, lettersUse: List<Char>): List<Reward> {
         val retorno = arrayList.toMutableList()
         retorno.sortWith { o1: Reward, o2: Reward ->
             var txtPrice = abs(o1.price).toString()
-            var letter = lettersUse[if(txtPrice.length>10) 10 else txtPrice.length]
-            var sepparateDefault = if(o1.tagName == DEFAULTTAG) 'b' else 'a'
+            var letter = lettersUse[if (txtPrice.length > 10) 10 else txtPrice.length]
+            var sepparateDefault = if (o1.tagName == DEFAULTTAG) 'b' else 'a'
             val compareA: String = sepparateDefault + o1.tagName + letter + txtPrice
 
             txtPrice = abs(o2.price).toString()
-            letter = lettersUse[if(txtPrice.length>10) 10 else txtPrice.length]
-            sepparateDefault = if(o2.tagName == DEFAULTTAG) 'b' else 'a'
+            letter = lettersUse[if (txtPrice.length > 10) 10 else txtPrice.length]
+            sepparateDefault = if (o2.tagName == DEFAULTTAG) 'b' else 'a'
             val compareB: String = sepparateDefault + o2.tagName + letter + txtPrice
             compareA.compareTo(compareB)
         }
         return retorno
     }
-
 
 
     private fun refresh() {

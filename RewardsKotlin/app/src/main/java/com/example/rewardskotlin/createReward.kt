@@ -3,6 +3,7 @@ package com.example.rewardskotlin
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -15,12 +16,12 @@ import com.google.gson.Gson
 import java.time.LocalDateTime
 
 //FIXED VALUES YOU CAN EDIT
-private const val DEFAULTTAG = "default"
 private const val NUMEROBASE = 100f //Vewy importent
-private val listRewardMOD = listOf(0.95f, 1f, 1.5f)
+private val listRewardMOD = listOf(0.95f, 1f, 1.25f)
 private val listActivitiesMOD = listOf(1f, 1.25f, 1.75f)
 
-//KEYS
+//SHARED KEYS [CHECK IF == IN OTHER ACTIVITY]
+private const val DEFAULTTAG = "default"
 private const val KEYsendAndGo = "recieve7"
 private const val KEYpackage = "package7"
 //--Colors
@@ -33,8 +34,6 @@ class CreateReward : AppCompatActivity() {
     //GLOBAL VARS
     private var perMonthMultiplie = 30
     private var dayWeekMonth = 1
-
-    //private var isNewTag = false
     private var isReward = true
 
     //LATEINIT VARS
@@ -52,6 +51,7 @@ class CreateReward : AppCompatActivity() {
             CreateInformation(
                 false,
                 listOf(DEFAULTTAG),
+                listOf(),
                 null
             )
             else
@@ -127,13 +127,13 @@ class CreateReward : AppCompatActivity() {
         //TAG SPINNER
         val dataAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
             this,
-            android.R.layout.simple_spinner_item, obtained.tags
+            android.R.layout.simple_spinner_dropdown_item, obtained.tags
         )
         viewBinding.spinnerGetTag.adapter = dataAdapter
 
         //SUBMIT AND GO
         viewBinding.btnSubmit.setOnClickListener {
-            if (checkIFok()) {
+            if (checkIFok(obtained.existingNames)) {
                 val send = SendBack(
                     obtained.isEdit,
                     false,
@@ -257,9 +257,12 @@ class CreateReward : AppCompatActivity() {
         )
     }
 
-    private fun checkIFok(): Boolean {
+    private fun checkIFok(nombres: List<String>): Boolean {
         var retorno = true
-        if (viewBinding.txtNombre.text.trim().isBlank()) {
+        Log.i("Diglet", Gson().toJson(nombres))
+        Log.i("Diglet", viewBinding.txtNombre.text.toString().lowercase())
+        Log.i("Diglet", nombres.contains(viewBinding.txtNombre.text.toString().lowercase()).toString())
+        if (viewBinding.txtNombre.text.trim().isBlank() or nombres.contains(viewBinding.txtNombre.text.toString().lowercase())) {
             viewBinding.txtNombre.setBackgroundColor(Color.parseColor(ERRORCOLOR))
             retorno = false
         } else viewBinding.txtNombre.setBackgroundColor(Color.parseColor(CORRECTCOLOR))

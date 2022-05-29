@@ -39,6 +39,7 @@ data class SaveFormat(
 data class CreateInformation(
     var isEdit: Boolean,
     var tags: List<String>,
+    var existingNames: List<String>,
     var reward: Reward?
 )
 

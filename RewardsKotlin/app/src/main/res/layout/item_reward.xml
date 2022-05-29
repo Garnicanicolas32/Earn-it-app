@@ -7,14 +7,14 @@
 
     <Button
         android:id="@+id/buttonSubmit"
-        android:layout_width="161dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="151dp"
+        android:layout_height="41dp"
 
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="1dp"
         android:background="@color/white"
         app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
         tools:ignore="TouchTargetSizeCheck,TextContrastCheck"
         tools:text="+100" />
 
@@ -22,26 +22,26 @@
         android:id="@+id/textView"
         android:layout_width="209dp"
         android:layout_height="34dp"
-        android:layout_marginStart="4dp"
 
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="1dp"
         android:background="@color/purple_500"
         android:gravity="center"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="hola hola hola hola hola"></TextView>
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        tools:text="hola hola hola hola hola" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="70dp"
         android:layout_height="30dp"
-        android:layout_marginStart="16dp"
 
-        android:layout_marginTop="44dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:background="@color/purple_200"
         android:gravity="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="tag"></TextView>
+        tools:text="tag" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
