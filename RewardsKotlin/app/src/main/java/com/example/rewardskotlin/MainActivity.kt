@@ -216,7 +216,7 @@ class MainActivity : AppCompatActivity() {
     //Recycler View
     private fun initRecyclerView(lista: List<Reward>) {
         viewBinding.listOfRewards.layoutManager = LinearLayoutManager(this)
-        viewBinding.listOfRewards.adapter = RewardAdapter(lista) { reward ->
+        viewBinding.listOfRewards.adapter = RewardAdapter(lista, getTags()) { reward ->
             onItemSelected(
                 reward
             )
@@ -312,22 +312,10 @@ class MainActivity : AppCompatActivity() {
     //CREATE REWARD - CHANGE VIEW
     private fun createRewardGoview(reward: Reward?) {
         saveData(globalData)
-        //tags list
-        val tagsList: MutableList<String> = mutableListOf()
-        globalData.listActivities.forEach {
-            if (!tagsList.contains(it.tagName))
-                tagsList.add(it.tagName)
-        }
-        globalData.listRewards.forEach {
-            if (!tagsList.contains(it.tagName))
-                tagsList.add(it.tagName)
-        }
-        tagsList.sortBy { it }
-        tagsList.remove(DEFAULTTAG)
         //AlreadyExistingNames
         val mandar = CreateInformation(
             isEdit = reward != null,
-            tags = mutableListOf(DEFAULTTAG) + tagsList,
+            tags = getTags(),
             existingNames = globalData.listActivities.map { it.name.lowercase() } + globalData.listRewards.map { it.name.lowercase() },
             reward = reward
         )
@@ -364,6 +352,20 @@ class MainActivity : AppCompatActivity() {
         return retorno
     }
 
+    private fun getTags(): List<String>{
+        val tagsList: MutableList<String> = mutableListOf()
+        globalData.listActivities.forEach {
+            if (!tagsList.contains(it.tagName))
+                tagsList.add(it.tagName)
+        }
+        globalData.listRewards.forEach {
+            if (!tagsList.contains(it.tagName))
+                tagsList.add(it.tagName)
+        }
+        tagsList.sortBy { it }
+        tagsList.remove(DEFAULTTAG)
+        return mutableListOf(DEFAULTTAG) + tagsList
+    }
 
     private fun refresh() {
         //Los 2 son mismo, si cambia uno, cambiar el otro (Ver desp como hacer que "IT" sea Var instead of Val)

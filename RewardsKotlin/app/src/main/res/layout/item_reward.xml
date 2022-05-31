@@ -5,41 +5,62 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/buttonSubmit"
-        android:layout_width="151dp"
-        android:layout_height="41dp"
 
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/white"
+    <TextView
+        android:backgroundTint="#E1E1E1"
+        android:id="@+id/buttonSubmit"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:shadowColor="#000000"
+        android:shadowDx="-2"
+        android:shadowDy="1.5"
+        android:shadowRadius="2"
+        android:maxLines="1"
+        android:autoSizeTextType="uniform"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/pointsbutton"
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
-        tools:ignore="TouchTargetSizeCheck,TextContrastCheck"
         tools:text="+100" />
 
     <TextView
+        android:maxLines="1"
         android:id="@+id/textView"
-        android:layout_width="209dp"
-        android:layout_height="34dp"
-
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/purple_500"
+        android:layout_width="313dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="10dp"
+        android:autoSizeTextType="uniform"
+        android:background="@drawable/rewardbutton"
         android:gravity="center"
+        android:shadowColor="#2E231F"
+        android:shadowDx="-2"
+        android:shadowDy="1.5"
+        android:shadowRadius="3"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
-        tools:text="hola hola hola hola hola" />
+        tools:text="Hacer ejercicio" />
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="70dp"
+        android:layout_width="170dp"
         android:layout_height="30dp"
-
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/purple_200"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/pointsbutton"
         android:gravity="center"
+        android:shadowColor="#2E231F"
+        android:shadowDx="-2"
+        android:shadowDy="1.5"
+        android:shadowRadius="3"
+        android:textColor="#DADADA"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="tag" />

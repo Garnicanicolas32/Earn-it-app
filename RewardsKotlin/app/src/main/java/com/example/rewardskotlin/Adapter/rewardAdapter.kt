@@ -7,7 +7,7 @@ import com.example.rewardskotlin.dataAndClasses.Reward
 import com.example.rewardskotlin.R
 import com.example.rewardskotlin.dataAndClasses.OnClickReturn
 
-class RewardAdapter(private val listaRewards: List<Reward>, private val onClickListener:(OnClickReturn) -> Unit) : RecyclerView.Adapter<RewardViewHolder>() {
+class RewardAdapter(private val listaRewards: List<Reward>, private val listTags: List<String> , private val onClickListener:(OnClickReturn) -> Unit) : RecyclerView.Adapter<RewardViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RewardViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -18,8 +18,8 @@ class RewardAdapter(private val listaRewards: List<Reward>, private val onClickL
         var firstOne  = true
         if(position != 0)
             firstOne = listaRewards[position].tagName != listaRewards[position -1].tagName
-
-        holder.render(firstOne,listaRewards[position], onClickListener)
+        val tagPosition = listTags.indexOf(listaRewards[position].tagName)
+        holder.render(firstOne,tagPosition, listaRewards[position], onClickListener)
     }
 
     override fun getItemCount(): Int = listaRewards.size
