@@ -2,23 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/list"
+        android:id="@+id/BottomList"
         android:icon="@drawable/ic_baseline_list_alt_24"
         android:title="List" />
     <item
-        android:id="@+id/edit"
+        android:id="@+id/BottomEdit"
         android:icon="@drawable/ic_baseline_edit_24"
         android:title="Edit" />
     <item
-        android:id="@+id/delete"
+        android:id="@+id/BottomDelete"
         android:icon="@drawable/ic_baseline_delete_forever_24"
         android:title="Delete" />
     <item
-        android:id="@+id/add"
+        android:id="@+id/BottomAdd"
         android:icon="@drawable/ic_baseline_playlist_add_24"
         android:title="Add" />
     <item
-        android:id="@+id/config"
+        android:id="@+id/BottomConfig"
         android:icon="@drawable/ic_baseline_config"
         android:title="Config" />
 

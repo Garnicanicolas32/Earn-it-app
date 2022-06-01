@@ -111,18 +111,8 @@ class CreateReward : AppCompatActivity() {
         }
         //DELETE
         viewBinding.btnDelete.setOnClickListener {
-            if (obtained.isEdit) { //If delete editing
-                val send = Gson().toJson(SendBack(
-                    isEdit = true,
-                    isDelete = true,
-                    reward = obtained.reward!!,
-                    oldOne = null
-                ))
-                sendAndGo(send)
-            } else { //If delete a new one
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
-            }
         }
         //TAG SPINNER
         val dataAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
@@ -136,7 +126,6 @@ class CreateReward : AppCompatActivity() {
             if (checkIFok(obtained.existingNames)) {
                 val send = SendBack(
                     obtained.isEdit,
-                    false,
                     createReward(),
                     if (obtained.isEdit) obtained.reward else null
                 )

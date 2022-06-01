@@ -50,6 +50,7 @@ private val LETTERS = listOf('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', '
 class MainActivity : AppCompatActivity() {
     //GLOBAL VAR
     private var rewardSelected = false
+    private var optionSelected = 0
     private val listEmpty: List<Reward> = listOf()
     private var globalData = SaveFormat(
         listEmpty,
@@ -90,34 +91,28 @@ class MainActivity : AppCompatActivity() {
         }
 
         //RECYCLER VIEW
-        initRecyclerView(globalData.listActivities)
+        initRecyclerView(globalData.listActivities)//TEMP
 
         viewBinding.btnListActivities.setOnClickListener {
-            initRecyclerView(globalData.listActivities)
+            initRecyclerView(globalData.listActivities)//TEMP
             rewardSelected = false
             viewBinding.btnListActivities.setBackgroundColor(Color.parseColor(SELECTEDCOLOR))
             viewBinding.btnListRewards.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
         }
         viewBinding.btnListRewards.setOnClickListener {
-            initRecyclerView(globalData.listRewards)
+            initRecyclerView(globalData.listRewards)//TEMP
             rewardSelected = true
             viewBinding.btnListActivities.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
             viewBinding.btnListRewards.setBackgroundColor(Color.parseColor(SELECTEDCOLOR))
         }
 
+
         //CREATE REWARD
-        viewBinding.btnCreateReward.setOnClickListener {
-            createRewardGoview(null)
-        }
-        //-- if new reward obtained
         val jsonObtained: String? = intent.getStringExtra(KEYsendAndGo)
         if (!jsonObtained.isNullOrBlank()) {
             val obtained =
                 Gson().fromJson(jsonObtained, SendBack::class.java)
-            if (obtained.isDelete) {//if its deleting an existing one
-                rewardSelected = obtained.reward.basePrice < 0
-                deleteReward(obtained.reward)
-            } else {//new or editing an old one
+            //new or editing an old one
                 if (obtained.isEdit) {
                     deleteReward(obtained.oldOne!!)
                     rewardSelected = obtained.reward.basePrice < 0
@@ -129,7 +124,7 @@ class MainActivity : AppCompatActivity() {
                     globalData.listActivities = globalData.listActivities + obtained.reward
                     rewardSelected = false
                 }
-            }
+
             saveData(globalData)
             refresh()
         }
@@ -181,6 +176,37 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
+        viewBinding.bottomBar.setOnItemSelectedListener { item ->
+            when(item.itemId) {
+                R.id.BottomList -> {
+                    optionSelected = 0
+                    refresh()
+                    true
+                }
+                R.id.BottomAdd -> {
+                    createRewardGoview(null)
+                    true
+                }
+                R.id.BottomEdit -> {
+                    optionSelected = 2
+                    refresh()
+                    true
+                }
+                R.id.BottomDelete -> {
+                    optionSelected = 1
+                    refresh()
+                    true
+                }
+                R.id.BottomConfig -> {
+                    DEBUGMODE = !DEBUGMODE
+                    viewBinding.btnDebugAnything.isVisible = DEBUGMODE
+                    viewBinding.btnRemoveUsage.isVisible = DEBUGMODE
+                    viewBinding.btnDeleteAll.isVisible = DEBUGMODE
+                    true
+                }
+                else -> false
+            }
+        }
         ///- - - - - - - DEBUG FEATURES
         viewBinding.btnDebugAnything.isVisible = DEBUGMODE
         viewBinding.btnRemoveUsage.isVisible = DEBUGMODE
@@ -214,9 +240,9 @@ class MainActivity : AppCompatActivity() {
     ////FUNCTIONS////
 
     //Recycler View
-    private fun initRecyclerView(lista: List<Reward>) {
+    private fun initRecyclerView(lista: List<Reward>){//, option: Int) {
         viewBinding.listOfRewards.layoutManager = LinearLayoutManager(this)
-        viewBinding.listOfRewards.adapter = RewardAdapter(lista, getTags()) { reward ->
+        viewBinding.listOfRewards.adapter = RewardAdapter(lista, getTags(), optionSelected) { reward ->
             onItemSelected(
                 reward
             )
@@ -224,10 +250,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onItemSelected(clickedReward: OnClickReturn) {
-        //modify
-        if (clickedReward.isEdit) {
-            createRewardGoview(clickedReward.reward)
-        } else {
+        //Not modify nor delete
+        if(!clickedReward.isDelete && !clickedReward.isEdit){
             if (mutablePoints.changePoints(clickedReward.reward.price)) {//Enough points
                 //modify
                 if (clickedReward.reward.basePrice < 0)
@@ -243,6 +267,14 @@ class MainActivity : AppCompatActivity() {
                 }//This has to be the last thing because it deletes the reward
             } // else //Not enough points
         }
+        //modify
+        if (clickedReward.isEdit && !clickedReward.isDelete) {
+            createRewardGoview(clickedReward.reward)
+        }
+        //delete
+        if(!clickedReward.isEdit && clickedReward.isDelete)
+        deleteReward(clickedReward.reward)
+
         refresh()
     }
 
@@ -438,11 +470,11 @@ class MainActivity : AppCompatActivity() {
         if (rewardSelected) {
             viewBinding.btnListActivities.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
             viewBinding.btnListRewards.setBackgroundColor(Color.parseColor(SELECTEDCOLOR))
-            initRecyclerView(globalData.listRewards)
+            initRecyclerView(globalData.listRewards)//TEMP)
         } else {
             viewBinding.btnListActivities.setBackgroundColor(Color.parseColor(SELECTEDCOLOR))
             viewBinding.btnListRewards.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
-            initRecyclerView(globalData.listActivities)
+            initRecyclerView(globalData.listActivities)//TEMP)
         }
         saveData(globalData)
     }
@@ -470,27 +502,3 @@ class MainActivity : AppCompatActivity() {
         return saveFormat
     }
 }
-//old code in case needed
-/*
-
-    //Return tags
-    private fun crearTags(lista: List<Reward>): List<String> {
-        val retorno = mutableListOf<String>()
-        lista.forEach {
-            if (!retorno.contains(it.tagName))
-                retorno += it.tagName
-        }
-        return retorno
-    }
-fun startTimeCounter() {
-     object : CountDownTimer(60000, 1000) {
-
-         override fun onTick(millisUntilFinished: Long) {
-         }
-
-         override fun onFinish() {
-             refresh()
-             startTimeCounter()
-         }
-     }.start()
- } */

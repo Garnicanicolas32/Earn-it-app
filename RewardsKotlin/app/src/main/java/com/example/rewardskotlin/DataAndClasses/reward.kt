@@ -45,12 +45,12 @@ data class CreateInformation(
 
 data class SendBack(
     var isEdit: Boolean,
-    var isDelete: Boolean,
     var reward: Reward,
     var oldOne: Reward?
 )
 
 data class OnClickReturn(
     val reward: Reward,
-    val isEdit: Boolean
+    val isEdit: Boolean,
+    val isDelete: Boolean
 )

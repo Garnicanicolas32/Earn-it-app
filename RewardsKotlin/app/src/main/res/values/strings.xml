@@ -12,7 +12,7 @@
     <string name="week">Week</string>
     <string name="add">add</string>
     <string name="submit">SUBMIT</string>
-    <string name="delete">delete</string>
+    <string name="delete">Cancel</string>
     <string name="day">Day</string>
 
     <string-array name="debugView">
