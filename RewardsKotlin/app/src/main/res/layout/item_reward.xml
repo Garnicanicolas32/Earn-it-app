@@ -7,28 +7,27 @@
 
 
     <TextView
-        android:backgroundTint="#E1E1E1"
         android:id="@+id/buttonSubmit"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:autoSizeTextType="uniform"
+        android:background="@drawable/pointsbutton"
+        android:backgroundTint="#E1E1E1"
         android:gravity="center"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp"
+        android:maxLines="1"
         android:shadowColor="#000000"
         android:shadowDx="-2"
         android:shadowDy="1.5"
         android:shadowRadius="2"
-        android:maxLines="1"
-        android:autoSizeTextType="uniform"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/pointsbutton"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         tools:text="+100" />
 
     <TextView
-        android:maxLines="1"
         android:id="@+id/textView"
         android:layout_width="313dp"
         android:layout_height="80dp"
@@ -37,6 +36,7 @@
         android:autoSizeTextType="uniform"
         android:background="@drawable/rewardbutton"
         android:gravity="center"
+        android:maxLines="1"
         android:shadowColor="#2E231F"
         android:shadowDx="-2"
         android:shadowDy="1.5"
@@ -64,5 +64,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="tag" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:backgroundTint="@color/purple_200"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="24dp"
+        android:autoSizeTextType="uniform"
+        android:background="@drawable/rewardbutton"
+        android:gravity="center"
+        android:maxLines="2"
+        android:shadowColor="#2E231F"
+        android:shadowDx="-2"
+        android:shadowDy="1.5"
+        android:shadowRadius="3"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="5\nusos" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

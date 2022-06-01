@@ -2,8 +2,10 @@ package com.example.rewardskotlin.adapter
 
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.text.Html
 import android.view.View
 import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rewardskotlin.dataAndClasses.Reward
@@ -26,13 +28,15 @@ class RewardViewHolder(view: View): RecyclerView.ViewHolder(view) {
             changeColor(binding.textView2.background, TAGCOLOR[position])
         }
 
-
-
         binding.buttonSubmit.text = useThis.price.toString()
         binding.textView.text = useThis.name
         binding.textView2.isVisible = first
         if(useThis.tagName == DEFAULTTAG && first)
             binding.textView2.visibility = View.INVISIBLE
+
+        binding.textView3.isVisible = useThis.limitedTimes > 0
+        if(useThis.limitedTimes > 0)
+        binding.textView3.text = HtmlCompat.fromHtml(useThis.limitedTimes.toString() + " <br> usos", HtmlCompat.FROM_HTML_MODE_LEGACY).toString()
 
         binding.textView2.text = useThis.tagName
 
