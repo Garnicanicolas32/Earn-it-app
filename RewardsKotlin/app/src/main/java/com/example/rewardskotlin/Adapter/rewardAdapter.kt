@@ -15,11 +15,21 @@ class RewardAdapter(private val listaRewards: List<Reward>, private val listTags
     }
 
     override fun onBindViewHolder(holder: RewardViewHolder, position: Int) {
-        var firstOne  = true
+        //Is first in tag
+        val firstOne =
         if(position != 0)
-            firstOne = listaRewards[position].tagName != listaRewards[position -1].tagName
+            listaRewards[position].tagName != listaRewards[position -1].tagName
+        else
+            true
+        //Is last in tag
+        val lastOne =
+        if(position < listaRewards.size - 1)
+            listaRewards[position].tagName != listaRewards[position + 1].tagName
+        else
+            true
+        //TagPosition
         val tagPosition = listTags.indexOf(listaRewards[position].tagName)
-        holder.render(firstOne,tagPosition, listaRewards[position], option, onClickListener)
+        holder.render(firstOne,lastOne,tagPosition, listaRewards[position], option, onClickListener)
     }
 
     override fun getItemCount(): Int = listaRewards.size
