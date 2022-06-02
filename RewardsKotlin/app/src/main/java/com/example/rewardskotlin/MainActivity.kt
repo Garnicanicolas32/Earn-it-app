@@ -4,11 +4,13 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
+import android.text.SpannableString
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.toSpannable
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -207,6 +209,7 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
         ///- - - - - - - DEBUG FEATURES
         viewBinding.btnDebugAnything.isVisible = DEBUGMODE
         viewBinding.btnRemoveUsage.isVisible = DEBUGMODE
