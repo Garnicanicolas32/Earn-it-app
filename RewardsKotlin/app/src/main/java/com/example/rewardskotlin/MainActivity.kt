@@ -32,7 +32,7 @@ private var DEBUGMODE = true //Desactiva o activa features
 
 //--colors
 private const val NOTSELECTEDCOLOR = "#ccbb8b"
-private const val SELECTEDCOLOR = "#fcba03"
+private const val SELECTEDCOLOR = "#B6C454" // "#837569" // "#fcba03"
 
 //SHARED KEYS [CHECK IF == IN OTHER ACTIVITY]
 private const val DEFAULTTAG = "default"

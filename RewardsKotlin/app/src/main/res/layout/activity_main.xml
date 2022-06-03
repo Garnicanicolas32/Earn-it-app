@@ -10,6 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#F6FEDB"
         tools:context=".MainActivity">
 
 
@@ -46,6 +47,7 @@
             tools:layout_editor_absoluteX="0dp" />
 
         <Button
+            android:backgroundTint="#B6C454"
             android:id="@+id/btnListActivities"
             android:layout_width="130dp"
             android:layout_height="60dp"
@@ -60,6 +62,7 @@
             app:layout_constraintTop_toTopOf="@+id/txtPoints" />
 
         <Button
+            android:backgroundTint="#AD7A99"
             android:id="@+id/btnListRewards"
             android:layout_width="130dp"
             android:layout_height="60dp"
@@ -78,7 +81,7 @@
             android:layout_width="350dp"
             android:layout_height="45dp"
             android:background="@drawable/outlined_rounded"
-            android:backgroundTint="#FF8707"
+            android:backgroundTint="#E6D3A3"
             android:layout_marginTop="10dp"
             android:entries="@array/ordenar"
             android:shadowColor="#000000"
@@ -101,6 +104,9 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:itemIconTint="#91972A"
+            app:itemTextColor="#91972A"
+            android:background="#D8D174"
             app:menu="@menu/bottom_nav_menu" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
