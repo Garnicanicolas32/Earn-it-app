@@ -140,6 +140,8 @@
         android:background="@drawable/pointsbutton"
         android:backgroundTint="#E1E1E1"
 
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/txtName"
         app:layout_constraintTop_toTopOf="@+id/txtName"
         app:srcCompat="@drawable/ic_baseline_delete_forever_24" />

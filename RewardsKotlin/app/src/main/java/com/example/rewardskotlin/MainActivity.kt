@@ -4,12 +4,11 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
+import androidx.core.text.HtmlCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rewardskotlin.adapter.RewardAdapter
@@ -86,7 +85,11 @@ class MainActivity : AppCompatActivity() {
         mutablePoints.changePoints(globalData.globalPoints)
 
         mutablePoints.currentPoints.observe(this) {
-            viewBinding.txtPoints.text = it.toString()
+            //viewBinding.txtPoints.text = it.toString()
+            viewBinding.txtPoints.text = HtmlCompat.fromHtml(
+                "$it<br>points",
+                HtmlCompat.FROM_HTML_MODE_LEGACY
+            ).toString()
             globalData.globalPoints = it
         }
 
@@ -151,16 +154,19 @@ class MainActivity : AppCompatActivity() {
                     var listaA = globalData.listActivities
                     when (position) {
                         0 -> {
-
                             listaR = sortAlphabetically(globalData.listRewards)
                             listaA = sortAlphabetically(globalData.listActivities)
                         }
                         1 -> {
+                            listaR = sortReverseAlphabetically(globalData.listRewards)
+                            listaA = sortReverseAlphabetically(globalData.listActivities)
+                        }
+                        2 -> {
 
                             listaR = sortByPoints(globalData.listRewards, LETTERS)
                             listaA = sortByPoints(globalData.listActivities, LETTERS)
                         }
-                        2 -> {
+                        3 -> {
 
                             listaR = sortByPoints(globalData.listRewards, LETTERS.reversed())
                             listaA = sortByPoints(globalData.listActivities, LETTERS.reversed())
@@ -199,41 +205,11 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.BottomConfig -> {
                     DEBUGMODE = !DEBUGMODE
-                    viewBinding.btnDebugAnything.isVisible = DEBUGMODE
-                    viewBinding.btnRemoveUsage.isVisible = DEBUGMODE
-                    viewBinding.btnDeleteAll.isVisible = DEBUGMODE
                     true
                 }
                 else -> false
             }
         }
-
-        ///- - - - - - - DEBUG FEATURES
-        viewBinding.btnDebugAnything.isVisible = DEBUGMODE
-        viewBinding.btnRemoveUsage.isVisible = DEBUGMODE
-        viewBinding.btnDeleteAll.isVisible = DEBUGMODE
-
-        if (DEBUGMODE) {
-            viewBinding.btnDebugAnything.setOnClickListener {
-                Log.i("ver", Gson().toJson(globalData.listActivities.map { it.name } + globalData.listRewards.map { it.name }))
-            }
-            viewBinding.btnDeleteAll.setOnClickListener {
-                globalData.listRewards = emptyList()
-                globalData.listActivities = emptyList()
-                saveData(globalData)
-                refresh()
-            }
-            viewBinding.btnRemoveUsage.setOnClickListener {
-                globalData.listRewards.forEach {
-                    it.usagePercentageCount = 1f
-                }
-                globalData.listActivities.forEach {
-                    it.usagePercentageCount = 1f
-                }
-                refresh()
-            }
-        }
-        //END OF DEBUG FEATURES / / / / / /
 
         refresh() //LASTLY
     }
@@ -366,6 +342,16 @@ class MainActivity : AppCompatActivity() {
             (first + o1.tagName + o1.name).compareTo(second + o2.tagName + o2.name)
         }
         return retorno
+    }
+
+    private fun sortReverseAlphabetically(arrayList: List<Reward>): List<Reward> {
+        val retorno = arrayList.toMutableList()
+        retorno.sortWith { o1: Reward, o2: Reward ->
+            val first = if (o1.tagName == DEFAULTTAG) 'a' else 'b'
+            val second = if (o2.tagName == DEFAULTTAG) 'a' else 'b'
+            (first + o1.tagName + o1.name).compareTo(second + o2.tagName + o2.name)
+        }
+        return retorno.reversed()
     }
 
     private fun sortByPoints(arrayList: List<Reward>, lettersUse: List<Char>): List<Reward> {
