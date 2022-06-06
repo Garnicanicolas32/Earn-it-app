@@ -27,8 +27,8 @@ private const val KEYpackage = "package7"
 //--Colors
 private const val CORRECTCOLOR = "#94d162"
 private const val ERRORCOLOR = "#c71616"
-private const val NOTSELECTEDCOLOR = "#b0a78f"
-private const val SELECTEDCOLOR = "#ffbc00"
+private const val NOTSELECTEDCOLOR = "#ccbb8b" //"#b0a78f"
+private const val SELECTEDCOLOR = "#B6C454" //"#ffbc00"
 
 class CreateReward : AppCompatActivity() {
     //GLOBAL VARS
@@ -123,7 +123,7 @@ class CreateReward : AppCompatActivity() {
 
         //SUBMIT AND GO
         viewBinding.btnSubmit.setOnClickListener {
-            if (checkIFok(obtained.existingNames)) {
+            if (checkIFok(obtained)) {
                 val send = SendBack(
                     obtained.isEdit,
                     createReward(),
@@ -246,15 +246,18 @@ class CreateReward : AppCompatActivity() {
         )
     }
 
-    private fun checkIFok(nombres: List<String>): Boolean {
+    private fun checkIFok(obtained: CreateInformation): Boolean {
         var retorno = true
-        Log.i("Diglet", Gson().toJson(nombres))
-        Log.i("Diglet", viewBinding.txtNombre.text.toString().lowercase())
-        Log.i("Diglet", nombres.contains(viewBinding.txtNombre.text.toString().lowercase()).toString())
-        if (viewBinding.txtNombre.text.trim().isBlank() or nombres.contains(viewBinding.txtNombre.text.toString().lowercase())) {
+
+        val text = viewBinding.txtNombre.text.toString().lowercase()
+        val lista = obtained.existingNames.toMutableList()
+        if(obtained.isEdit)
+        lista.remove(obtained.reward!!.name)
+
+        if (text.trim().isBlank() or lista.contains(text)) {
             viewBinding.txtNombre.setBackgroundColor(Color.parseColor(ERRORCOLOR))
             retorno = false
-        } else viewBinding.txtNombre.setBackgroundColor(Color.parseColor(CORRECTCOLOR))
+        }else viewBinding.txtNombre.setBackgroundColor(Color.parseColor(CORRECTCOLOR))
 
         if (viewBinding.isLimited.isChecked && viewBinding.txtLimitedTimes.text.trim().isBlank()) {
             viewBinding.txtLimitedTimes.setBackgroundColor(Color.parseColor(ERRORCOLOR))

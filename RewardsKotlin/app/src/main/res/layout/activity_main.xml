@@ -15,6 +15,8 @@
 
 
         <TextView
+            android:elevation="10dp"
+
             android:id="@+id/txtPoints"
             android:layout_width="100dp"
             android:layout_height="60dp"
@@ -47,6 +49,7 @@
             tools:layout_editor_absoluteX="0dp" />
 
         <Button
+            android:elevation="10dp"
             android:backgroundTint="#B6C454"
             android:id="@+id/btnListActivities"
             android:layout_width="130dp"
@@ -62,6 +65,8 @@
             app:layout_constraintTop_toTopOf="@+id/txtPoints" />
 
         <Button
+            android:elevation="10dp"
+
             android:backgroundTint="#AD7A99"
             android:id="@+id/btnListRewards"
             android:layout_width="130dp"
@@ -79,22 +84,25 @@
         <Spinner
             android:id="@+id/spinnerSort"
             android:layout_width="350dp"
-            android:layout_height="45dp"
-            android:background="@drawable/outlined_rounded"
-            android:backgroundTint="#E6D3A3"
+            android:layout_height="48dp"
             android:layout_marginTop="10dp"
+            android:background="@drawable/outlined_rounded"
+            android:popupBackground="@drawable/main_spinner"
+            android:overlapAnchor="false"
+
+            android:elevation="10dp"
+
             android:entries="@array/ordenar"
+            android:gravity="center"
+            android:minHeight="48dp"
             android:shadowColor="#000000"
             android:shadowDx="-2"
             android:shadowDy="1.5"
             android:shadowRadius="2"
-            android:gravity="center"
             android:textAlignment="center"
-            android:minHeight="48dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtPoints"
-            tools:ignore="TouchTargetSizeCheck">
+            app:layout_constraintTop_toBottomOf="@+id/txtPoints">
 
         </Spinner>
 

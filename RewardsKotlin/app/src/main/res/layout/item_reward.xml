@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:elevation="10dp"
+    >
 
     <View
         android:id="@+id/spaceTop"
@@ -90,6 +92,8 @@
 
     <TextView
         android:id="@+id/txtName"
+        android:elevation="10dp"
+
         android:layout_width="313dp"
         android:layout_height="80dp"
         android:layout_marginStart="6dp"
@@ -133,6 +137,8 @@
         tools:text="5\nusos" />
 
     <ImageView
+        android:elevation="10dp"
+
         android:id="@+id/btnDelete"
         android:layout_width="80dp"
         android:layout_height="80dp"
@@ -147,6 +153,8 @@
         app:srcCompat="@drawable/ic_baseline_delete_forever_24" />
 
     <ImageView
+        android:elevation="10dp"
+
         android:id="@+id/btnEdit"
         android:layout_width="80dp"
         android:layout_height="80dp"
@@ -159,6 +167,8 @@
         app:srcCompat="@drawable/ic_baseline_edit_24" />
 
     <TextView
+        android:elevation="10dp"
+
         android:id="@+id/btnPoints"
         android:layout_width="80dp"
         android:layout_height="80dp"
@@ -181,6 +191,8 @@
         tools:text="+100" />
 
     <TextView
+        android:elevation="10dp"
+
         android:id="@+id/txtTag"
         android:layout_width="170dp"
         android:layout_height="30dp"
