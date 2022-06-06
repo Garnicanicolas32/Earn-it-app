@@ -23,7 +23,7 @@
 
             android:layout_marginTop="12dp"
             android:autoSizeTextType="uniform"
-            android:background="@drawable/outlined_rounded"
+            android:background="@drawable/general_rounded_outline"
             android:gravity="center"
             android:maxLines="2"
             android:padding="10dp"
@@ -86,8 +86,8 @@
             android:layout_width="350dp"
             android:layout_height="48dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/outlined_rounded"
-            android:popupBackground="@drawable/main_spinner"
+            android:background="@drawable/general_rounded_outline"
+            android:popupBackground="@drawable/spner_sortby"
             android:overlapAnchor="false"
 
             android:elevation="10dp"

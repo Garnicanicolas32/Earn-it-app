@@ -3,23 +3,23 @@
 
     <item
         android:id="@+id/BottomList"
-        android:icon="@drawable/ic_baseline_list_alt_24"
+        android:icon="@drawable/zz_icon_list"
         android:title="List" />
     <item
         android:id="@+id/BottomEdit"
-        android:icon="@drawable/ic_baseline_edit_24"
+        android:icon="@drawable/zz_icon_pencil"
         android:title="Edit" />
     <item
         android:id="@+id/BottomDelete"
-        android:icon="@drawable/ic_baseline_delete_forever_24"
+        android:icon="@drawable/zz_icon_delete"
         android:title="Delete" />
     <item
         android:id="@+id/BottomAdd"
-        android:icon="@drawable/ic_baseline_playlist_add_24"
+        android:icon="@drawable/zz_icon_list_add"
         android:title="Add" />
     <item
         android:id="@+id/BottomConfig"
-        android:icon="@drawable/ic_baseline_config"
+        android:icon="@drawable/zz_icon_config"
         android:title="Config" />
 
 </menu>
