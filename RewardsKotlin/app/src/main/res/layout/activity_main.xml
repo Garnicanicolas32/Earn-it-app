@@ -43,9 +43,9 @@
             android:id="@+id/listOfRewards"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="1dp"
             app:layout_constraintBottom_toTopOf="@+id/bottomBar"
             app:layout_constraintTop_toBottomOf="@+id/spinnerSort"
-            app:layout_constraintVertical_bias="0.0"
             tools:layout_editor_absoluteX="0dp" />
 
         <Button
@@ -87,6 +87,7 @@
             android:layout_height="48dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/general_rounded_outline"
+            android:backgroundTint="#ccbb8b"
             android:popupBackground="@drawable/spner_sortby"
             android:overlapAnchor="false"
 

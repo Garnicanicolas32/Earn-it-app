@@ -2,10 +2,12 @@ package com.example.rewardskotlin
 
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
-import android.util.Log
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.isVisible
 import com.example.rewardskotlin.dataAndClasses.CreateInformation
 import com.example.rewardskotlin.dataAndClasses.MyOwnClock
@@ -143,25 +145,34 @@ class CreateReward : AppCompatActivity() {
             1 -> {
                 dayWeekMonth = 1
                 perMonthMultiplie = 30
-                viewBinding.btnDay.setBackgroundColor(Color.parseColor(SELECTEDCOLOR))
-                viewBinding.btnWeek.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
-                viewBinding.btnMonth.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
+                changeColor(viewBinding.btnDay.background, SELECTEDCOLOR)
+                changeColor(viewBinding.btnWeek.background, NOTSELECTEDCOLOR)
+                changeColor(viewBinding.btnMonth.background, NOTSELECTEDCOLOR)
+                //viewBinding.btnDay.setBackgroundColor(Color.parseColor(SELECTEDCOLOR))
+                //viewBinding.btnWeek.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
+                //viewBinding.btnMonth.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
             }
             //WEEK
             2 -> {
                 dayWeekMonth = 2
                 perMonthMultiplie = 4
-                viewBinding.btnDay.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
-                viewBinding.btnWeek.setBackgroundColor(Color.parseColor(SELECTEDCOLOR))
-                viewBinding.btnMonth.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
+                changeColor(viewBinding.btnDay.background, NOTSELECTEDCOLOR)
+                changeColor(viewBinding.btnWeek.background, SELECTEDCOLOR)
+                changeColor(viewBinding.btnMonth.background, NOTSELECTEDCOLOR)
+                //viewBinding.btnDay.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
+                //viewBinding.btnWeek.setBackgroundColor(Color.parseColor(SELECTEDCOLOR))
+                //viewBinding.btnMonth.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
             }
             //MONTH
             3 -> {
                 dayWeekMonth = 3
                 perMonthMultiplie = 1
-                viewBinding.btnDay.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
-                viewBinding.btnWeek.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
-                viewBinding.btnMonth.setBackgroundColor(Color.parseColor(SELECTEDCOLOR))
+                changeColor(viewBinding.btnDay.background, NOTSELECTEDCOLOR)
+                changeColor(viewBinding.btnWeek.background, NOTSELECTEDCOLOR)
+                changeColor(viewBinding.btnMonth.background, SELECTEDCOLOR)
+                //viewBinding.btnDay.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
+                //viewBinding.btnWeek.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
+                //viewBinding.btnMonth.setBackgroundColor(Color.parseColor(SELECTEDCOLOR))
             }
         }
     }
@@ -176,8 +187,10 @@ class CreateReward : AppCompatActivity() {
                     android.R.layout.simple_spinner_dropdown_item,
                     resources.getStringArray(R.array.Reward)
                 )
-                viewBinding.btnChooseActivty.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
-                viewBinding.btnchooseReward.setBackgroundColor(Color.parseColor(SELECTEDCOLOR))
+                viewBinding.btnChooseActivty.background = changeColor(viewBinding.btnChooseActivty.background, NOTSELECTEDCOLOR)
+                viewBinding.btnchooseReward.background = changeColor(viewBinding.btnchooseReward.background, SELECTEDCOLOR)
+                //viewBinding.btnChooseActivty.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
+                //viewBinding.btnchooseReward.setBackgroundColor(Color.parseColor(SELECTEDCOLOR))
             }
             //Activity
             2 -> {
@@ -187,8 +200,10 @@ class CreateReward : AppCompatActivity() {
                     android.R.layout.simple_spinner_dropdown_item,
                     resources.getStringArray(R.array.Actividad)
                 )
-                viewBinding.btnChooseActivty.setBackgroundColor(Color.parseColor(SELECTEDCOLOR))
-                viewBinding.btnchooseReward.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
+                viewBinding.btnChooseActivty.background = changeColor(viewBinding.btnChooseActivty.background, SELECTEDCOLOR)
+                viewBinding.btnchooseReward.background = changeColor(viewBinding.btnchooseReward.background, NOTSELECTEDCOLOR)
+                //viewBinding.btnChooseActivty.setBackgroundColor(Color.parseColor(SELECTEDCOLOR))
+                //viewBinding.btnchooseReward.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
             }
         }
     }
@@ -255,25 +270,41 @@ class CreateReward : AppCompatActivity() {
         lista.remove(obtained.reward!!.name)
 
         if (text.trim().isBlank() or lista.contains(text)) {
-            viewBinding.txtNombre.setBackgroundColor(Color.parseColor(ERRORCOLOR))
+            viewBinding.txtNombre.background = changeStroke(viewBinding.txtNombre.background, ERRORCOLOR)
             retorno = false
-        }else viewBinding.txtNombre.setBackgroundColor(Color.parseColor(CORRECTCOLOR))
+        }else viewBinding.txtNombre.background = changeStroke(viewBinding.txtNombre.background, CORRECTCOLOR)
+            //viewBinding.txtNombre.setBackgroundColor(Color.parseColor(CORRECTCOLOR))
 
         if (viewBinding.isLimited.isChecked && viewBinding.txtLimitedTimes.text.trim().isBlank()) {
-            viewBinding.txtLimitedTimes.setBackgroundColor(Color.parseColor(ERRORCOLOR))
+            viewBinding.txtLimitedTimes.background = changeStroke(viewBinding.txtLimitedTimes.background, ERRORCOLOR)
             retorno = false
-        } else viewBinding.txtLimitedTimes.setBackgroundColor(Color.parseColor(CORRECTCOLOR))
+        } else viewBinding.txtLimitedTimes.background = changeStroke(viewBinding.txtLimitedTimes.background, CORRECTCOLOR)
+            //viewBinding.txtLimitedTimes.setBackgroundColor(Color.parseColor(CORRECTCOLOR))
 
         if (viewBinding.txtTimesPerMonth.text.trim().isBlank()) {
-            viewBinding.txtTimesPerMonth.setBackgroundColor(Color.parseColor(ERRORCOLOR))
+            viewBinding.txtTimesPerMonth.background = changeStroke(viewBinding.txtTimesPerMonth.background, ERRORCOLOR)
             retorno = false
-        } else viewBinding.txtTimesPerMonth.setBackgroundColor(Color.parseColor(CORRECTCOLOR))
+        } else viewBinding.txtTimesPerMonth.background = changeStroke(viewBinding.txtTimesPerMonth.background, CORRECTCOLOR)
+            //viewBinding.txtTimesPerMonth.setBackgroundColor(Color.parseColor(CORRECTCOLOR))
 
         if (viewBinding.txtNombreTag.text.trim().isBlank()) {
-            viewBinding.txtNombreTag.setBackgroundColor(Color.parseColor(ERRORCOLOR))
+            viewBinding.txtNombreTag.background = changeStroke(viewBinding.txtNombreTag.background, ERRORCOLOR)
             retorno = false
-        } else viewBinding.txtNombreTag.setBackgroundColor(Color.parseColor(CORRECTCOLOR))
+        } else viewBinding.txtNombreTag.background = changeStroke(viewBinding.txtNombreTag.background, CORRECTCOLOR)
+        //viewBinding.txtNombreTag.setBackgroundColor(Color.parseColor(CORRECTCOLOR))
 
         return retorno
+    }
+
+    private fun changeStroke(background: Drawable, color: String): Drawable{
+        (background as? GradientDrawable)?.setStroke(3, Color.parseColor(color))
+        return background
+    }
+
+    private fun changeColor(backg: Drawable, color: String): Drawable {
+        val drawable = DrawableCompat.wrap(backg)
+        DrawableCompat.setTint(drawable, Color.parseColor(color))
+
+        return drawable
     }
 }

@@ -12,7 +12,12 @@
         <entry key="..\:/Users/nicol/AndroidStudioProjects/RewardsKotlin/app/src/main/res/layout/item_reward.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/nicol/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_spinner_dropdown_item.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2255" />
+        <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/drawable/btn_custom.xml" value="0.2255" />
         <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/drawable/btn_points.xml" value="0.2255" />
+        <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/drawable/btn_radio_day.xml" value="0.2255" />
+        <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/drawable/btn_radio_month.xml" value="0.2255" />
+        <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/drawable/btn_radio_week.xml" value="0.2255" />
+        <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/drawable/general_rounded_outline.xml" value="0.2255" />
         <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/drawable/gradient_background.xml" value="0.2255" />
         <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/drawable/ic_baseline_clear_24.xml" value="0.2255" />
         <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/drawable/ic_baseline_config.xml" value="0.116" />
@@ -29,8 +34,11 @@
         <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/drawable/rounded_corner.xml" value="0.2455" />
         <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/drawable/rounded_top.xml" value="0.278" />
         <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/drawable/roundedtextinput.xml" value="0.2255" />
+        <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/drawable/txt_input_rounded.xml" value="0.137" />
+        <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/drawable/txt_timespormonth.xml" value="0.136" />
+        <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/drawable/yy_rounded_bottom.xml" value="0.2255" />
         <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/layout-v26/activity_main.xml" value="0.1265625" />
-        <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/layout/activity_create_reward.xml" value="0.25" />
+        <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/layout/activity_create_reward.xml" value="0.536" />
         <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/layout/activity_main.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/layout/item_reward.xml" value="0.264" />
         <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/menu/bottom_nav_menu.xml" value="0.17407407407407408" />
