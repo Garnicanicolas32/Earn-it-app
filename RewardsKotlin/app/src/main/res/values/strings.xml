@@ -14,6 +14,7 @@
     <string name="submit">SUBMIT</string>
     <string name="delete">Cancel</string>
     <string name="day">Day</string>
+    <string name="edittext_hint"><font size="15">Hint here!</font></string>
 
     <string-array name="debugView">
         <item>x1</item>

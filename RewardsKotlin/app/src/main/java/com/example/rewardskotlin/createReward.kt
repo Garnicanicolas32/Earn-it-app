@@ -145,6 +145,7 @@ class CreateReward : AppCompatActivity() {
             1 -> {
                 dayWeekMonth = 1
                 perMonthMultiplie = 30
+                viewBinding.txtTimesPerMonth.hint = "Per day"
                 changeColor(viewBinding.btnDay.background, SELECTEDCOLOR)
                 changeColor(viewBinding.btnWeek.background, NOTSELECTEDCOLOR)
                 changeColor(viewBinding.btnMonth.background, NOTSELECTEDCOLOR)
@@ -156,6 +157,7 @@ class CreateReward : AppCompatActivity() {
             2 -> {
                 dayWeekMonth = 2
                 perMonthMultiplie = 4
+                viewBinding.txtTimesPerMonth.hint = "Per week"
                 changeColor(viewBinding.btnDay.background, NOTSELECTEDCOLOR)
                 changeColor(viewBinding.btnWeek.background, SELECTEDCOLOR)
                 changeColor(viewBinding.btnMonth.background, NOTSELECTEDCOLOR)
@@ -167,6 +169,7 @@ class CreateReward : AppCompatActivity() {
             3 -> {
                 dayWeekMonth = 3
                 perMonthMultiplie = 1
+                viewBinding.txtTimesPerMonth.hint = "Per month"
                 changeColor(viewBinding.btnDay.background, NOTSELECTEDCOLOR)
                 changeColor(viewBinding.btnWeek.background, NOTSELECTEDCOLOR)
                 changeColor(viewBinding.btnMonth.background, SELECTEDCOLOR)

@@ -17,7 +17,7 @@ private val TAGCOLOR = listOf("#EF9A9A", "#F48FB1", "#CE93D8", "#B39DDB", "#9FA8
 private val BACKGROUNDCOLOR = listOf("#FFCDD2", "#F8BBD0", "#E1BEE7", "#D1C4E9", "#C5CAE9", "#BBDEFB")
 
 // invisible color 00FFFFFF
-private const val DEFAULTTAG = "default"
+private const val  DEFAULTTAG = "default"
 
 class RewardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 

@@ -357,16 +357,24 @@ class MainActivity : AppCompatActivity() {
     private fun sortByPoints(arrayList: List<Reward>, lettersUse: List<Char>): List<Reward> {
         val retorno = arrayList.toMutableList()
         retorno.sortWith { o1: Reward, o2: Reward ->
+
+            val x1 = if(o1.price > o2.price) 'a' else if(o1.price < o2.price) 'b' else 'c'
+            val x2 = when(x1){
+                'a'-> 'b'
+                'b'-> 'a'
+                'c'-> 'c'
+                else -> 'd'
+            }
             var txtPrice = abs(o1.price).toString()
-            var letter = lettersUse[if (txtPrice.length > 10) 10 else txtPrice.length]
+            //var letter = lettersUse[if (txtPrice.length > 10) 10 else txtPrice.length]
             var sepparateDefault = if (o1.tagName == DEFAULTTAG) 'b' else 'a'
-            val compareA: String = sepparateDefault + o1.tagName + letter + txtPrice
+            val compareA: String = sepparateDefault + o1.tagName + x1 //First
 
             txtPrice = abs(o2.price).toString()
-            letter = lettersUse[if (txtPrice.length > 10) 10 else txtPrice.length]
+            //letter = lettersUse[if (txtPrice.length > 10) 10 else txtPrice.length]
             sepparateDefault = if (o2.tagName == DEFAULTTAG) 'b' else 'a'
-            val compareB: String = sepparateDefault + o2.tagName + letter + txtPrice
-            compareA.compareTo(compareB)
+            val compareB: String = sepparateDefault + o2.tagName + x2
+            compareA.compareTo(compareB) //Second
         }
         return retorno
     }
