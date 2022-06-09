@@ -63,7 +63,7 @@ class CreateReward : AppCompatActivity() {
         if (obtained.isEdit){
             val newRewardObtained: Reward = obtained.reward!!
             // name
-            viewBinding.txtNombre.setText(newRewardObtained.name)
+            viewBinding.insertNombre.setText(newRewardObtained.name)
             //is limited
             if (newRewardObtained.limitedTimes > -1) {
                 viewBinding.isLimited.isChecked = true
@@ -233,7 +233,7 @@ class CreateReward : AppCompatActivity() {
         val now = MyOwnClock(LocalDateTime.now())
         // Create variable
         return Reward(
-            viewBinding.txtNombre.text.toString(),
+            viewBinding.insertNombre.text.toString(),
             points.toInt(),
             points,
             limitedtimes,
@@ -254,15 +254,15 @@ class CreateReward : AppCompatActivity() {
     private fun checkIFok(obtained: CreateInformation): Boolean {
         var retorno = true
 
-        val text = viewBinding.txtNombre.text.toString().lowercase()
+        val text = viewBinding.insertNombre.text.toString().lowercase()
         val lista = obtained.existingNames.toMutableList()
         if(obtained.isEdit)
         lista.remove(obtained.reward!!.name)
 
         if (text.trim().isBlank() or lista.contains(text)) {
-            viewBinding.txtNombre.background = changeStroke(viewBinding.txtNombre.background, ERRORCOLOR)
+            viewBinding.insertNombre.background = changeStroke(viewBinding.insertNombre.background, ERRORCOLOR)
             retorno = false
-        }else viewBinding.txtNombre.background = changeStroke(viewBinding.txtNombre.background, CORRECTCOLOR)
+        }else viewBinding.insertNombre.background = changeStroke(viewBinding.insertNombre.background, CORRECTCOLOR)
 
         if (viewBinding.isLimited.isChecked && viewBinding.txtLimitedTimes.text.trim().isBlank()) {
             viewBinding.txtLimitedTimes.background = changeStroke(viewBinding.txtLimitedTimes.background, ERRORCOLOR)

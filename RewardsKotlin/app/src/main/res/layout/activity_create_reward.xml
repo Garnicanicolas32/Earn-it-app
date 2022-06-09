@@ -7,160 +7,152 @@
     android:layout_height="match_parent"
     android:background="#F0F8D7">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:shadowColor="#E3ED96"
-            android:shadowDx="-2"
-            android:shadowDy="4"
-            android:shadowRadius="7"
-            android:text="Create/Edit reward"
-            android:textColor="#2E2E2E"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <View
-            android:id="@+id/view"
-            android:layout_width="350dp"
-            android:layout_height="2dp"
-            android:layout_marginTop="3dp"
-            android:background="@drawable/btn_ultrarounded"
-            android:backgroundTint="#48000000"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+    <!-- head -->
     <TextView
+        android:id="@+id/createreward"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="3dp"
-        android:text="Reward or actvity"
-        app:layout_constraintBottom_toTopOf="@+id/btnchooseReward"
-        app:layout_constraintStart_toStartOf="@+id/btnchooseReward" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="3dp"
-        android:text="Limited uses"
-        app:layout_constraintBottom_toTopOf="@+id/isLimited"
-        app:layout_constraintStart_toStartOf="@+id/isLimited" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginBottom="4dp"
-        android:text="Importance"
-        app:layout_constraintBottom_toTopOf="@+id/getPrioridad"
-        app:layout_constraintStart_toStartOf="@+id/getPrioridad" />
+        android:shadowColor="#E3ED96"
+        android:shadowDx="-2"
+        android:shadowDy="4"
+        android:shadowRadius="7"
+        android:text="Create/Edit reward"
+        android:textColor="#2E2E2E"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/linetop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toTopOf="@id/GrupoHeader"
+        app:layout_constraintVertical_bias="0.41000003"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <View
+        android:id="@+id/linetop"
+        android:layout_width="350dp"
+        android:layout_height="2dp"
+        android:background="@drawable/btn_ultrarounded"
+        android:backgroundTint="#48000000"
+        app:layout_constraintBottom_toBottomOf="@id/GrupoHeader"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createreward"
+        tools:layout_editor_absoluteX="31dp" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginBottom="3dp"
-        android:text="Times per day/week/month"
-        app:layout_constraintBottom_toTopOf="@+id/btnWeek"
-        app:layout_constraintStart_toStartOf="@+id/btnDay" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="3dp"
+        android:layout_marginBottom="2dp"
         android:text="Name"
-        app:layout_constraintBottom_toTopOf="@+id/txtNombre"
-        app:layout_constraintStart_toStartOf="@+id/txtNombre" />
-
+        app:layout_constraintBottom_toTopOf="@+id/insertNombre"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toTopOf="@id/grupoName"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <EditText
-        android:id="@+id/txtNombre"
+        android:id="@+id/insertNombre"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
         android:autoSizeTextType="uniform"
         android:background="@drawable/txt_input_rounded"
         android:elevation="4dp"
-
         android:hint="insert task name"
         android:importantForAutofill="no"
         android:inputType="text"
         android:maxLength="20"
         android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="@id/grupoName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+        app:layout_constraintTop_toBottomOf="@id/name"
+        tools:layout_editor_absoluteY="82dp" />
+
+    <TextView
+        android:id="@+id/rewardoractivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:text="Reward or actvity"
+        app:layout_constraintBottom_toTopOf="@+id/btnchooseReward"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toTopOf="@id/grupoReward"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
         android:id="@+id/btnChooseActivty"
         android:layout_width="135dp"
         android:layout_height="45dp"
-        android:layout_marginStart="8dp"
         android:background="@drawable/btn_radio_month"
         android:elevation="4dp"
         android:gravity="center"
         android:text="@string/activity"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/btnchooseReward"
+        app:layout_constraintBottom_toBottomOf="@+id/btnchooseReward"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.15"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
         app:layout_constraintTop_toTopOf="@+id/btnchooseReward" />
 
     <TextView
         android:id="@+id/btnchooseReward"
         android:layout_width="135dp"
         android:layout_height="45dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="56dp"
         android:background="@drawable/btn_radio_day"
         android:elevation="4dp"
         android:gravity="center"
         android:text="@string/reward"
         android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/grupoReward"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintHorizontal_bias="0.85"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtNombre" />
+        app:layout_constraintTop_toBottomOf="@id/rewardoractivity"
+        tools:layout_editor_absoluteY="189dp" />
+
+    <TextView
+        android:id="@+id/limiteduses"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:text="Limited uses"
+        app:layout_constraintBottom_toTopOf="@id/isLimited"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toTopOf="@id/grupoLimitedUses"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/isLimited"
         android:layout_width="260dp"
         android:layout_height="48dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginEnd="3dp"
         android:background="@drawable/switch_rounded"
         android:backgroundTint="#E3ED96"
         android:elevation="4dp"
         android:text="Limited"
         android:textColor="#5C5C5C"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/txtLimitedTimes"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintBottom_toBottomOf="@id/grupoLimitedUses"
+        app:layout_constraintEnd_toStartOf="@id/txtLimitedTimes"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnchooseReward" />
+        app:layout_constraintTop_toBottomOf="@id/limiteduses"
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
+        android:visibility="gone"
         android:id="@+id/txtLimitedTimes"
         android:layout_width="108dp"
         android:layout_height="48dp"
+        android:layout_marginStart="3dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/btn_radio_month"
         android:elevation="4dp"
@@ -170,55 +162,78 @@
         android:inputType="number"
         android:maxLength="3"
         android:textSize="25sp"
-        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/isLimited"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@id/isLimited"
         app:layout_constraintTop_toTopOf="@+id/isLimited" />
 
     <TextView
-        android:id="@+id/btnDay"
+        android:id="@+id/timesperdayweekmonth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:text="Times per day/week/month"
+        app:layout_constraintBottom_toTopOf="@+id/btnDay"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toTopOf="@id/grouptimesperday"
+        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/btnWeek"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/btn_radio_day"
+        android:background="@drawable/btn_radio_week"
         android:elevation="4dp"
         android:gravity="center"
-        android:text="@string/day"
+        android:text="@string/week"
         android:textSize="18sp"
-
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/btnWeek"
-        app:layout_constraintTop_toTopOf="@+id/btnWeek" />
+        app:layout_constraintBottom_toBottomOf="@+id/btnDay"
+        app:layout_constraintEnd_toStartOf="@+id/btnMonth"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@+id/btnDay"
+        app:layout_constraintTop_toTopOf="@+id/btnDay"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/btnMonth"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:layout_marginStart="4dp"
+        android:layout_marginLeft="12dp"
         android:background="@drawable/btn_radio_month"
         android:elevation="4dp"
         android:gravity="center"
         android:text="Month"
         android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/btnWeek"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toEndOf="@+id/btnWeek"
         app:layout_constraintTop_toTopOf="@+id/btnWeek" />
 
     <TextView
-        android:id="@+id/btnWeek"
+        android:id="@+id/btnDay"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:layout_marginTop="52dp"
-        android:background="@drawable/btn_radio_week"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="12dp"
+        android:background="@drawable/btn_radio_day"
         android:elevation="4dp"
         android:gravity="center"
-        android:text="@string/week"
+        android:text="@string/day"
         android:textSize="18sp"
-
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintBottom_toTopOf="@id/txtTimesPerMonth"
+        app:layout_constraintEnd_toStartOf="@+id/btnWeek"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/isLimited" />
+        app:layout_constraintTop_toBottomOf="@id/timesperdayweekmonth" />
 
     <EditText
         android:id="@+id/txtTimesPerMonth"
@@ -233,42 +248,69 @@
         android:maxLength="3"
         android:minHeight="48dp"
         android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="@id/grouptimesperday"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnWeek"
+        app:layout_constraintTop_toBottomOf="@+id/btnDay"
         tools:text="10" />
+
+    <TextView
+        android:id="@+id/importance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:text="Importance"
+        app:layout_constraintBottom_toTopOf="@+id/getPrioridad"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toTopOf="@id/groupimportance"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <Spinner
         android:id="@+id/getPrioridad"
         android:layout_width="245dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
         android:background="@drawable/spinner_style"
         android:elevation="4dp"
         android:entries="@array/Reward"
         android:minHeight="48dp"
         android:overlapAnchor="false"
         android:popupBackground="@drawable/spinner_item_create"
+        app:layout_constraintBottom_toBottomOf="@id/groupimportance"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.518"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTimesPerMonth" />
+        app:layout_constraintTop_toBottomOf="@id/importance"
+        tools:layout_editor_absoluteY="560dp" />
 
+    <TextView
+        android:id="@+id/tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:text="Tag"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerGetTag"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toTopOf="@id/grupoTag"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <Spinner
         android:id="@+id/spinnerGetTag"
         android:layout_width="150dp"
         android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-
+        android:layout_marginEnd="16dp"
         android:background="@drawable/spinner_style"
         android:elevation="4dp"
         android:entries="@array/debugView"
         android:overlapAnchor="false"
         android:popupBackground="@drawable/spinner_item_create"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
-        app:layout_constraintStart_toStartOf="@+id/getPrioridad"
-        app:layout_constraintTop_toBottomOf="@+id/getPrioridad">
+        app:layout_constraintBottom_toBottomOf="@id/grupoTag"
+        app:layout_constraintEnd_toStartOf="@+id/btnAddTag"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tag"
+        >
 
     </Spinner>
 
@@ -276,27 +318,14 @@
         android:id="@+id/btnAddTag"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="8dp"
         android:text="@string/addPLUS"
-        app:layout_constraintEnd_toEndOf="@+id/getPrioridad"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintBottom_toBottomOf="@+id/spinnerGetTag"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toEndOf="@+id/spinnerGetTag"
         app:layout_constraintTop_toTopOf="@+id/spinnerGetTag" />
-
-    <Button
-        android:id="@+id/commitAddTag"
-        android:layout_width="70dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="12dp"
-        android:backgroundTint="@color/teal_200"
-        android:text="@string/add"
-        android:textSize="11sp"
-        android:visibility="gone"
-        app:layout_constraintStart_toEndOf="@+id/txtNombreTag"
-        app:layout_constraintTop_toBottomOf="@+id/btnAddTag" />
-
-    <!--android:visibility="gone" -->
 
     <EditText
         android:id="@+id/txtNombreTag"
@@ -308,6 +337,7 @@
         android:inputType="text"
         android:maxLength="10"
         android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/grupoTag"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -315,57 +345,150 @@
         tools:ignore="TouchTargetSizeCheck" />
 
     <!-- footer -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="match_parent"
+
+    <ImageButton
+        android:id="@+id/btnDelete"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="4dp"
+
+        android:background="@drawable/btn_ultrarounded"
+        android:backgroundTint="#BF404D"
+        android:elevation="4dp"
+        android:src="@drawable/zz_icon_x"
+
+        app:layout_constraintBottom_toBottomOf="@+id/btnSubmit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@+id/btnSubmit"
+        app:layout_constraintTop_toTopOf="@+id/btnSubmit"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <View
+        android:id="@+id/linebottom"
+        android:layout_width="350dp"
+        android:layout_height="2dp"
+        android:background="@drawable/btn_ultrarounded"
+        android:backgroundTint="#48000000"
+        app:layout_constraintBottom_toTopOf="@id/btnSubmit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/grupoSubmit"
+        tools:layout_editor_absoluteX="30dp"
+        tools:layout_editor_absoluteY="749dp" />
+
+    <TextView
+        android:id="@+id/btnSubmit"
+        android:layout_width="150dp"
+        android:layout_height="55dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/btn_ultrarounded"
+        android:backgroundTint="#97D35B"
+        android:elevation="4dp"
+        android:gravity="center"
+        android:text="@string/submit"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="@id/grupoSubmit"
+        app:layout_constraintEnd_toStartOf="@+id/btnDelete"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linebottom"
+        tools:layout_editor_absoluteY="766dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
-        <View
-            android:id="@+id/view2"
-            android:layout_width="350dp"
-            android:layout_height="2dp"
-            android:layout_marginTop="14dp"
-            android:background="@drawable/btn_ultrarounded"
-            android:backgroundTint="#48000000"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.26" />
 
-        <TextView
-            android:id="@+id/btnSubmit"
-            android:layout_width="150dp"
-            android:layout_height="55dp"
-            android:layout_marginStart="104dp"
-            android:layout_marginTop="22dp"
-            android:layout_marginBottom="22dp"
-            android:background="@drawable/btn_ultrarounded"
-            android:backgroundTint="#97D35B"
-            android:elevation="4dp"
-            android:gravity="center"
-            android:text="@string/submit"
-            android:textSize="22sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view2" />
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/GrupoHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:constraint_referenced_ids="linetop,createreward"
+        app:layout_constraintBottom_toTopOf="@+id/grupoName"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread_inside" />
 
-        <ImageButton
-            android:id="@+id/btnDelete"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_marginStart="12dp"
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/grupoName"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:constraint_referenced_ids="insertNombre,name"
+        app:layout_constraintBottom_toTopOf="@+id/grupoReward"
+        app:layout_constraintTop_toBottomOf="@+id/GrupoHeader"
+        app:layout_constraintVertical_chainStyle="spread_inside" />
 
-            android:background="@drawable/btn_ultrarounded"
-            android:backgroundTint="#BF404D"
-            android:elevation="4dp"
-            android:src="@drawable/zz_icon_x"
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/grupoReward"
+        android:layout_width="wrap_content"
+        app:layout_constraintVertical_chainStyle="spread_inside"
+        android:layout_height="0dp"
+        app:constraint_referenced_ids="btnchooseReward,rewardoractivity,btnChooseActivty"
+        app:layout_constraintBottom_toTopOf="@+id/grupoLimitedUses"
+        app:layout_constraintTop_toBottomOf="@+id/grupoName" />
 
-            app:layout_constraintStart_toEndOf="@+id/btnSubmit"
-            app:layout_constraintTop_toTopOf="@+id/btnSubmit"
-            tools:ignore="SpeakableTextPresentCheck" />
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/grupoLimitedUses"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        app:constraint_referenced_ids="isLimited,limiteduses"
+        app:layout_constraintBottom_toTopOf="@+id/grouptimesperday"
+        app:layout_constraintTop_toBottomOf="@+id/grupoReward"
+        app:layout_constraintVertical_chainStyle="spread_inside" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/grouptimesperday"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="16dp"
+        app:constraint_referenced_ids="txtTimesPerMonth,btnMonth,timesperdayweekmonth,btnDay,btnWeek"
+        app:layout_constraintBottom_toTopOf="@+id/groupimportance"
+        app:layout_constraintTop_toBottomOf="@+id/grupoLimitedUses"
+        app:layout_constraintVertical_chainStyle="spread_inside" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupimportance"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:constraint_referenced_ids="importance,getPrioridad"
+        app:layout_constraintBottom_toTopOf="@+id/grupoTag"
+        app:layout_constraintTop_toBottomOf="@+id/grouptimesperday"
+        app:layout_constraintVertical_chainStyle="spread_inside" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/grupoTag"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        app:constraint_referenced_ids="tag,btnAddTag,spinnerGetTag"
+        app:layout_constraintBottom_toTopOf="@+id/grupoSubmit"
+        app:layout_constraintTop_toBottomOf="@+id/groupimportance"
+        app:layout_constraintVertical_chainStyle="spread_inside" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/grupoSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        app:constraint_referenced_ids="linebottom,btnSubmit,btnDelete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/grupoTag"
+        app:layout_constraintVertical_chainStyle="spread_inside" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
