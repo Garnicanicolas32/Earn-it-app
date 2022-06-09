@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.view.WindowManager
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.drawable.DrawableCompat
@@ -37,6 +38,7 @@ class CreateReward : AppCompatActivity() {
     private var perMonthMultiplie = 30
     private var dayWeekMonth = 1
     private var isReward = true
+    private var popup = false
 
     //LATEINIT VARS
     private lateinit var viewBinding: ActivityCreateRewardBinding
@@ -86,6 +88,11 @@ class CreateReward : AppCompatActivity() {
         else{
             switchRewardOrActivity(1)
             switchDayWeekMonth(1) //default
+        }
+
+
+        viewBinding.btnAddTag.setOnClickListener{
+            switchCreateTag()
         }
 
         //REWARD OR ACTIVITY CHOOSEN
@@ -292,5 +299,18 @@ class CreateReward : AppCompatActivity() {
         DrawableCompat.setTint(drawable, Color.parseColor(color))
 
         return drawable
+    }
+
+    private fun switchCreateTag(){
+        popup = !popup
+        viewBinding.PopUpWindow.isVisible = popup
+
+        viewBinding.insertNombre.isEnabled = !popup
+        viewBinding.txtTimesPerMonth.isEnabled = !popup
+        viewBinding.txtLimitedTimes.isEnabled = !popup
+        viewBinding.spinnerGetTag.isEnabled = !popup
+        viewBinding.getPrioridad.isEnabled = !popup
+
+
     }
 }

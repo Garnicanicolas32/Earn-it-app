@@ -137,20 +137,22 @@
         tools:text="5\nusos" />
 
     <ImageView
-        android:elevation="10dp"
-
         android:id="@+id/btnDelete"
+
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginStart="8dp"
         android:background="@drawable/btn_points"
         android:backgroundTint="#E1E1E1"
+        android:elevation="10dp"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/txtName"
         app:layout_constraintTop_toTopOf="@+id/txtName"
-        app:srcCompat="@drawable/zz_icon_delete" />
+        app:srcCompat="@drawable/zz_icon_delete"
+        tools:ignore="ImageContrastCheck"
+        android:contentDescription="TODO" />
 
     <ImageView
         android:elevation="10dp"
@@ -191,12 +193,12 @@
         tools:text="+100" />
 
     <TextView
-        android:elevation="10dp"
-
         android:id="@+id/txtTag"
+
         android:layout_width="170dp"
         android:layout_height="30dp"
         android:background="@drawable/btn_points"
+        android:elevation="10dp"
         android:gravity="center"
         android:shadowColor="#2E231F"
         android:shadowDx="-2"
@@ -208,6 +210,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spaceTag"
+        tools:ignore="TextContrastCheck"
         tools:text="tag" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
