@@ -85,23 +85,23 @@
             android:id="@+id/spinnerSort"
             android:layout_width="350dp"
             android:layout_height="48dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/general_rounded_outline"
-            android:backgroundTint="#ccbb8b"
-            android:popupBackground="@drawable/spner_sortby"
-            android:overlapAnchor="false"
-
+            android:layout_marginTop="8dp"
+            android:background="@drawable/spinner_style"
             android:elevation="10dp"
-
             android:entries="@array/ordenar"
+
             android:gravity="center"
+
             android:minHeight="48dp"
+            android:overlapAnchor="false"
+            android:popupBackground="@drawable/spner_sortby"
             android:shadowColor="#000000"
             android:shadowDx="-2"
             android:shadowDy="1.5"
             android:shadowRadius="2"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.491"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtPoints">
 

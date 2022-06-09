@@ -149,9 +149,6 @@ class CreateReward : AppCompatActivity() {
                 changeColor(viewBinding.btnDay.background, SELECTEDCOLOR)
                 changeColor(viewBinding.btnWeek.background, NOTSELECTEDCOLOR)
                 changeColor(viewBinding.btnMonth.background, NOTSELECTEDCOLOR)
-                //viewBinding.btnDay.setBackgroundColor(Color.parseColor(SELECTEDCOLOR))
-                //viewBinding.btnWeek.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
-                //viewBinding.btnMonth.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
             }
             //WEEK
             2 -> {
@@ -161,9 +158,6 @@ class CreateReward : AppCompatActivity() {
                 changeColor(viewBinding.btnDay.background, NOTSELECTEDCOLOR)
                 changeColor(viewBinding.btnWeek.background, SELECTEDCOLOR)
                 changeColor(viewBinding.btnMonth.background, NOTSELECTEDCOLOR)
-                //viewBinding.btnDay.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
-                //viewBinding.btnWeek.setBackgroundColor(Color.parseColor(SELECTEDCOLOR))
-                //viewBinding.btnMonth.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
             }
             //MONTH
             3 -> {
@@ -173,9 +167,6 @@ class CreateReward : AppCompatActivity() {
                 changeColor(viewBinding.btnDay.background, NOTSELECTEDCOLOR)
                 changeColor(viewBinding.btnWeek.background, NOTSELECTEDCOLOR)
                 changeColor(viewBinding.btnMonth.background, SELECTEDCOLOR)
-                //viewBinding.btnDay.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
-                //viewBinding.btnWeek.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
-                //viewBinding.btnMonth.setBackgroundColor(Color.parseColor(SELECTEDCOLOR))
             }
         }
     }
@@ -192,8 +183,6 @@ class CreateReward : AppCompatActivity() {
                 )
                 viewBinding.btnChooseActivty.background = changeColor(viewBinding.btnChooseActivty.background, NOTSELECTEDCOLOR)
                 viewBinding.btnchooseReward.background = changeColor(viewBinding.btnchooseReward.background, SELECTEDCOLOR)
-                //viewBinding.btnChooseActivty.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
-                //viewBinding.btnchooseReward.setBackgroundColor(Color.parseColor(SELECTEDCOLOR))
             }
             //Activity
             2 -> {
@@ -205,8 +194,6 @@ class CreateReward : AppCompatActivity() {
                 )
                 viewBinding.btnChooseActivty.background = changeColor(viewBinding.btnChooseActivty.background, SELECTEDCOLOR)
                 viewBinding.btnchooseReward.background = changeColor(viewBinding.btnchooseReward.background, NOTSELECTEDCOLOR)
-                //viewBinding.btnChooseActivty.setBackgroundColor(Color.parseColor(SELECTEDCOLOR))
-                //viewBinding.btnchooseReward.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
             }
         }
     }
@@ -276,25 +263,21 @@ class CreateReward : AppCompatActivity() {
             viewBinding.txtNombre.background = changeStroke(viewBinding.txtNombre.background, ERRORCOLOR)
             retorno = false
         }else viewBinding.txtNombre.background = changeStroke(viewBinding.txtNombre.background, CORRECTCOLOR)
-            //viewBinding.txtNombre.setBackgroundColor(Color.parseColor(CORRECTCOLOR))
 
         if (viewBinding.isLimited.isChecked && viewBinding.txtLimitedTimes.text.trim().isBlank()) {
             viewBinding.txtLimitedTimes.background = changeStroke(viewBinding.txtLimitedTimes.background, ERRORCOLOR)
             retorno = false
         } else viewBinding.txtLimitedTimes.background = changeStroke(viewBinding.txtLimitedTimes.background, CORRECTCOLOR)
-            //viewBinding.txtLimitedTimes.setBackgroundColor(Color.parseColor(CORRECTCOLOR))
 
         if (viewBinding.txtTimesPerMonth.text.trim().isBlank()) {
             viewBinding.txtTimesPerMonth.background = changeStroke(viewBinding.txtTimesPerMonth.background, ERRORCOLOR)
             retorno = false
         } else viewBinding.txtTimesPerMonth.background = changeStroke(viewBinding.txtTimesPerMonth.background, CORRECTCOLOR)
-            //viewBinding.txtTimesPerMonth.setBackgroundColor(Color.parseColor(CORRECTCOLOR))
 
         if (viewBinding.txtNombreTag.text.trim().isBlank()) {
             viewBinding.txtNombreTag.background = changeStroke(viewBinding.txtNombreTag.background, ERRORCOLOR)
             retorno = false
         } else viewBinding.txtNombreTag.background = changeStroke(viewBinding.txtNombreTag.background, CORRECTCOLOR)
-        //viewBinding.txtNombreTag.setBackgroundColor(Color.parseColor(CORRECTCOLOR))
 
         return retorno
     }

@@ -44,8 +44,6 @@ private const val SHARED = "Shared7"
 private const val KEY = "MainKey7"
 private const val FIRSTIME = "IsFirstTime7"
 
-private val LETTERS = listOf('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k')
-
 class MainActivity : AppCompatActivity() {
     //GLOBAL VAR
     private var rewardSelected = false
@@ -154,22 +152,22 @@ class MainActivity : AppCompatActivity() {
                     var listaA = globalData.listActivities
                     when (position) {
                         0 -> {
-                            listaR = sortAlphabetically(globalData.listRewards)
-                            listaA = sortAlphabetically(globalData.listActivities)
+                            listaR = sortAlphabetically(globalData.listRewards, false)
+                            listaA = sortAlphabetically(globalData.listActivities, false)
                         }
                         1 -> {
-                            listaR = sortReverseAlphabetically(globalData.listRewards)
-                            listaA = sortReverseAlphabetically(globalData.listActivities)
+                            listaR = sortAlphabetically(globalData.listRewards, true)
+                            listaA = sortAlphabetically(globalData.listActivities, true)
                         }
                         2 -> {
 
-                            listaR = sortByPoints(globalData.listRewards, LETTERS)
-                            listaA = sortByPoints(globalData.listActivities, LETTERS)
+                            listaR = sortByPoints(globalData.listRewards, true)
+                            listaA = sortByPoints(globalData.listActivities, true)
                         }
                         3 -> {
 
-                            listaR = sortByPoints(globalData.listRewards, LETTERS.reversed())
-                            listaA = sortByPoints(globalData.listActivities, LETTERS.reversed())
+                            listaR = sortByPoints(globalData.listRewards, false)
+                            listaA = sortByPoints(globalData.listActivities, false)
                         }
                     }
                     globalData.listActivities = listaA
@@ -334,44 +332,35 @@ class MainActivity : AppCompatActivity() {
     }
 
     //DATA FUNCTIONS
-    private fun sortAlphabetically(arrayList: List<Reward>): List<Reward> {
-        val retorno = arrayList.toMutableList()
+    private fun sortAlphabetically(arrayList: List<Reward>, reverse: Boolean): List<Reward> {
+        var retorno = arrayList.toMutableList()
+        var x = listOf('a','b')
+        if (reverse) x = x.reversed()
         retorno.sortWith { o1: Reward, o2: Reward ->
-            val first = if (o1.tagName == DEFAULTTAG) 'b' else 'a'
-            val second = if (o2.tagName == DEFAULTTAG) 'b' else 'a'
+            val first = if (o1.tagName == DEFAULTTAG) x[1] else x[0]
+            val second = if (o2.tagName == DEFAULTTAG) x[1] else x[0]
             (first + o1.tagName + o1.name).compareTo(second + o2.tagName + o2.name)
         }
+        if(reverse) retorno = retorno.reversed().toMutableList()
         return retorno
     }
 
-    private fun sortReverseAlphabetically(arrayList: List<Reward>): List<Reward> {
+    private fun sortByPoints(arrayList: List<Reward>, reverse: Boolean): List<Reward> {
         val retorno = arrayList.toMutableList()
-        retorno.sortWith { o1: Reward, o2: Reward ->
-            val first = if (o1.tagName == DEFAULTTAG) 'a' else 'b'
-            val second = if (o2.tagName == DEFAULTTAG) 'a' else 'b'
-            (first + o1.tagName + o1.name).compareTo(second + o2.tagName + o2.name)
-        }
-        return retorno.reversed()
-    }
+        var x = listOf('a','b','c')
 
-    private fun sortByPoints(arrayList: List<Reward>, lettersUse: List<Char>): List<Reward> {
-        val retorno = arrayList.toMutableList()
+        if (reverse) x = x.reversed()
         retorno.sortWith { o1: Reward, o2: Reward ->
-
-            val x1 = if(o1.price > o2.price) 'a' else if(o1.price < o2.price) 'b' else 'c'
+            val x1 = if(abs(o1.price) > abs(o2.price)) x[0] else if(abs(o1.price) < abs(o2.price)) x[1] else x[2]
             val x2 = when(x1){
-                'a'-> 'b'
-                'b'-> 'a'
-                'c'-> 'c'
+                'a'-> x[1]
+                'b'-> x[0]
+                'c'-> x[2]
                 else -> 'd'
             }
-            var txtPrice = abs(o1.price).toString()
-            //var letter = lettersUse[if (txtPrice.length > 10) 10 else txtPrice.length]
             var sepparateDefault = if (o1.tagName == DEFAULTTAG) 'b' else 'a'
             val compareA: String = sepparateDefault + o1.tagName + x1 //First
 
-            txtPrice = abs(o2.price).toString()
-            //letter = lettersUse[if (txtPrice.length > 10) 10 else txtPrice.length]
             sepparateDefault = if (o2.tagName == DEFAULTTAG) 'b' else 'a'
             val compareB: String = sepparateDefault + o2.tagName + x2
             compareA.compareTo(compareB) //Second
