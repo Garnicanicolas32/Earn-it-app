@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
-import android.view.WindowManager
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.drawable.DrawableCompat
@@ -61,6 +60,15 @@ class CreateReward : AppCompatActivity() {
             else
             Gson().fromJson(jsonObtained, CreateInformation::class.java)
 
+        //TAG SPINNER
+        val list = obtained.tags.toMutableList()
+        list[0] = "No tag"
+        val dataAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
+            this,
+            android.R.layout.simple_spinner_dropdown_item, list
+        )
+        viewBinding.spinnerGetTag.adapter = dataAdapter
+
         //IF EDITING REWARD
         if (obtained.isEdit){
             val newRewardObtained: Reward = obtained.reward!!
@@ -83,7 +91,10 @@ class CreateReward : AppCompatActivity() {
             //spinner
             viewBinding.getPrioridad.setSelection(newRewardObtained.options[2])
             //tag name
-            viewBinding.txtNombreTag.setText(newRewardObtained.tagName)
+            val i = obtained.tags.indexOf(obtained.reward!!.tagName)
+            if(i>=0 && obtained.reward!!.tagName != DEFAULTTAG) viewBinding.spinnerGetTag.setSelection(i)
+            else if(obtained.reward!!.tagName == DEFAULTTAG)
+                viewBinding.spinnerGetTag.setSelection(0)
         }
         else{
             switchRewardOrActivity(1)
@@ -92,20 +103,24 @@ class CreateReward : AppCompatActivity() {
 
 
         viewBinding.btnAddTag.setOnClickListener{
-            switchCreateTag()
+            if(!popup) switchCreateTag(true)
+        }
+
+        viewBinding.btnCancelCreateTag.setOnClickListener {
+            switchCreateTag(false)
         }
 
         //REWARD OR ACTIVITY CHOOSEN
         viewBinding.btnChooseActivty.setOnClickListener {
-            switchRewardOrActivity(2)
+            if(!popup) switchRewardOrActivity(2)
         }
         viewBinding.btnchooseReward.setOnClickListener {
-            switchRewardOrActivity(1)
+            if(!popup) switchRewardOrActivity(1)
         }
 
         //IS LIMITED LISTENER
         viewBinding.isLimited.setOnCheckedChangeListener { _, isChecked ->
-            viewBinding.txtLimitedTimes.isVisible = isChecked
+           if(!popup) viewBinding.txtLimitedTimes.isVisible = isChecked
         }
 
         //DAY WEEK MONTH BUTTONS
@@ -120,18 +135,31 @@ class CreateReward : AppCompatActivity() {
         }
         //DELETE
         viewBinding.btnDelete.setOnClickListener {
+            if(!popup){
                 val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                startActivity(intent)}
         }
-        //TAG SPINNER
-        val dataAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
-            this,
-            android.R.layout.simple_spinner_dropdown_item, obtained.tags
-        )
-        viewBinding.spinnerGetTag.adapter = dataAdapter
+
+        //---addNewTag
+        viewBinding.btnCreateTag.setOnClickListener{
+            var pass = viewBinding.txtCreateTag.text.toString().isNotBlank()
+            val text = viewBinding.txtCreateTag.text.toString().lowercase()
+            if(pass)
+                pass = !obtained.tags.contains(viewBinding.txtCreateTag.text.toString()) && viewBinding.txtCreateTag.text.toString() != DEFAULTTAG.lowercase()
+            if(pass){
+                list.add(text)
+                viewBinding.spinnerGetTag.adapter = ArrayAdapter(
+                    this,
+                    android.R.layout.simple_spinner_dropdown_item, list
+                )
+                switchCreateTag(false)
+                viewBinding.spinnerGetTag.setSelection(list.indexOf(text))
+            }else viewBinding.txtCreateTag.background = changeStroke(viewBinding.txtCreateTag.background, ERRORCOLOR)
+        }
 
         //SUBMIT AND GO
         viewBinding.btnSubmit.setOnClickListener {
+            if(!popup){
             if (checkIFok(obtained)) {
                 val send = SendBack(
                     obtained.isEdit,
@@ -140,6 +168,7 @@ class CreateReward : AppCompatActivity() {
                 )
                 sendAndGo(Gson().toJson(send))
             }
+            }
         }
     }
 
@@ -147,6 +176,7 @@ class CreateReward : AppCompatActivity() {
 
     //SWITCHS
     private fun switchDayWeekMonth(option: Int) {
+       if(!popup){
         when (option) {
             //DAY
             1 -> {
@@ -175,7 +205,7 @@ class CreateReward : AppCompatActivity() {
                 changeColor(viewBinding.btnWeek.background, NOTSELECTEDCOLOR)
                 changeColor(viewBinding.btnMonth.background, SELECTEDCOLOR)
             }
-        }
+        }}
     }
 
     private fun switchRewardOrActivity(option: Int) {
@@ -252,7 +282,7 @@ class CreateReward : AppCompatActivity() {
             ),
             1f,
             now,
-            viewBinding.txtNombreTag.text.toString(), //"default", //temp
+            if(viewBinding.spinnerGetTag.selectedItemPosition != 0) viewBinding.spinnerGetTag.selectedItem.toString().lowercase() else DEFAULTTAG ,  //viewBinding.txtNombreTag.text.toString(), //"default", //temp
             now,
             0
         )
@@ -281,11 +311,6 @@ class CreateReward : AppCompatActivity() {
             retorno = false
         } else viewBinding.txtTimesPerMonth.background = changeStroke(viewBinding.txtTimesPerMonth.background, CORRECTCOLOR)
 
-        if (viewBinding.txtNombreTag.text.trim().isBlank()) {
-            viewBinding.txtNombreTag.background = changeStroke(viewBinding.txtNombreTag.background, ERRORCOLOR)
-            retorno = false
-        } else viewBinding.txtNombreTag.background = changeStroke(viewBinding.txtNombreTag.background, CORRECTCOLOR)
-
         return retorno
     }
 
@@ -301,8 +326,8 @@ class CreateReward : AppCompatActivity() {
         return drawable
     }
 
-    private fun switchCreateTag(){
-        popup = !popup
+    private fun switchCreateTag(opt: Boolean){
+        popup = opt
         viewBinding.PopUpWindow.isVisible = popup
 
         viewBinding.insertNombre.isEnabled = !popup
@@ -310,6 +335,7 @@ class CreateReward : AppCompatActivity() {
         viewBinding.txtLimitedTimes.isEnabled = !popup
         viewBinding.spinnerGetTag.isEnabled = !popup
         viewBinding.getPrioridad.isEnabled = !popup
+        viewBinding.isLimited.isEnabled = !popup
 
 
     }

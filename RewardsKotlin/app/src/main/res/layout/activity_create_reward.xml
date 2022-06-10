@@ -302,7 +302,7 @@
         <Spinner
             android:id="@+id/spinnerGetTag"
             android:layout_width="150dp"
-            android:layout_height="48dp"
+            android:layout_height="50dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/spinner_style"
             android:elevation="4dp"
@@ -319,35 +319,25 @@
 
         </Spinner>
 
-        <Button
+        <TextView
             android:id="@+id/btnAddTag"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="8dp"
+            android:layout_width="70dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/btn_radio_month"
+            android:backgroundTint="#B8C64D"
+            android:elevation="4dp"
+            android:gravity="center"
             android:text="@string/addPLUS"
+            android:textSize="21sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/spinnerGetTag"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toEndOf="@+id/spinnerGetTag"
-            app:layout_constraintTop_toTopOf="@+id/spinnerGetTag" />
-
-        <EditText
-            android:id="@+id/txtNombreTag"
-            android:layout_width="128dp"
-            android:layout_height="45dp"
-            android:layout_marginTop="16dp"
-            android:hint="New tag name"
-            android:importantForAutofill="no"
-            android:inputType="text"
-            android:maxLength="10"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@id/grupoTag"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerGetTag"
-            tools:ignore="TouchTargetSizeCheck" />
+            app:layout_constraintTop_toTopOf="@+id/spinnerGetTag"
+            app:layout_constraintVertical_bias="0.7" />
 
         <!-- footer -->
 
@@ -449,7 +439,7 @@
             android:id="@+id/grupoLimitedUses"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="16dp"
             app:constraint_referenced_ids="isLimited,limiteduses"
             app:layout_constraintBottom_toTopOf="@+id/grouptimesperday"
             app:layout_constraintTop_toBottomOf="@+id/grupoReward"
@@ -459,7 +449,7 @@
             android:id="@+id/grouptimesperday"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="32dp"
             android:layout_marginBottom="16dp"
             app:constraint_referenced_ids="txtTimesPerMonth,btnMonth,timesperdayweekmonth,btnDay,btnWeek"
             app:layout_constraintBottom_toTopOf="@+id/groupimportance"
@@ -507,7 +497,6 @@
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:visibility="gone"
             android:layout_width="300dp"
             android:layout_height="240dp"
             android:background="@drawable/general_rounded"
@@ -575,13 +564,13 @@
                 android:gravity="center"
                 android:text="Create"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="@+id/cancel_Create_tag"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_cancel_Create_tag"
                 app:layout_constraintEnd_toEndOf="@+id/txtCreateTag"
-                app:layout_constraintStart_toEndOf="@+id/cancel_Create_tag"
-                app:layout_constraintTop_toTopOf="@+id/cancel_Create_tag" />
+                app:layout_constraintStart_toEndOf="@+id/btn_cancel_Create_tag"
+                app:layout_constraintTop_toTopOf="@+id/btn_cancel_Create_tag" />
 
             <ImageButton
-                android:id="@+id/cancel_Create_tag"
+                android:id="@+id/btn_cancel_Create_tag"
                 android:layout_width="70dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
