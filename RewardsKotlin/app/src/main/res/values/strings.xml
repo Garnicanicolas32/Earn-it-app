@@ -23,21 +23,21 @@
     </string-array>
 
     <string-array name="Reward">
-        <item> >5 min</item>
-        <item> >30 min</item>
-        <item> >1 Hora</item>
+        <item>Short duration</item>
+        <item>Average duration</item>
+        <item>Long duration</item>
     </string-array>
 
     <string-array name="Actividad">
-        <item>Normal</item>
-        <item>Importante</item>
-        <item>Importantisimisimosuper</item>
+        <item>Less important / Short</item>
+        <item>Important / Average</item>
+        <item>High priority/ Long</item>
     </string-array>
 
     <string-array name="ordenar">
-    <item>Sort By: alphabetical</item>
-    <item>Sort By: alphabetical REVERSE</item>
-    <item>Sort By: price</item>
-    <item>Sort By: price REVERSE</item>
+        <item>Sort By: alphabetical</item>
+        <item>Sort By: alphabetical REVERSE</item>
+        <item>Sort By: price</item>
+        <item>Sort By: price REVERSE</item>
     </string-array>
 </resources>

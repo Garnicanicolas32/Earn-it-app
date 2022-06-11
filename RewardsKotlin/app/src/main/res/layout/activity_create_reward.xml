@@ -264,7 +264,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="2dp"
-            android:text="Importance"
+            android:text="Importance / duration"
             app:layout_constraintBottom_toTopOf="@+id/getPrioridad"
             app:layout_constraintStart_toStartOf="@+id/guideline5"
             app:layout_constraintTop_toTopOf="@id/groupimportance"
@@ -412,6 +412,7 @@
             android:id="@+id/GrupoHeader"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
             app:constraint_referenced_ids="linetop,createreward"
             app:layout_constraintBottom_toTopOf="@+id/grupoName"
             app:layout_constraintTop_toTopOf="parent"
@@ -429,11 +430,11 @@
         <androidx.constraintlayout.widget.Group
             android:id="@+id/grupoReward"
             android:layout_width="wrap_content"
-            app:layout_constraintVertical_chainStyle="spread_inside"
             android:layout_height="0dp"
             app:constraint_referenced_ids="btnchooseReward,rewardoractivity,btnChooseActivty"
             app:layout_constraintBottom_toTopOf="@+id/grupoLimitedUses"
-            app:layout_constraintTop_toBottomOf="@+id/grupoName" />
+            app:layout_constraintTop_toBottomOf="@+id/grupoName"
+            app:layout_constraintVertical_chainStyle="spread_inside" />
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/grupoLimitedUses"
@@ -450,7 +451,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginTop="32dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="8dp"
             app:constraint_referenced_ids="txtTimesPerMonth,btnMonth,timesperdayweekmonth,btnDay,btnWeek"
             app:layout_constraintBottom_toTopOf="@+id/groupimportance"
             app:layout_constraintTop_toBottomOf="@+id/grupoLimitedUses"
@@ -470,7 +471,6 @@
             android:id="@+id/grupoTag"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginBottom="8dp"
             app:constraint_referenced_ids="tag,btnAddTag,spinnerGetTag"
             app:layout_constraintBottom_toTopOf="@+id/grupoSubmit"
             app:layout_constraintTop_toBottomOf="@+id/groupimportance"
@@ -486,6 +486,19 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/grupoTag"
             app:layout_constraintVertical_chainStyle="spread_inside" />
+
+        <TextView
+            android:id="@+id/error_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:text="Name already used"
+            android:visibility="gone"
+            android:textColor="#A50000"
+            app:layout_constraintBottom_toTopOf="@+id/insertNombre"
+            app:layout_constraintEnd_toEndOf="@+id/insertNombre"
+            app:layout_constraintHorizontal_bias="0.76"
+            app:layout_constraintStart_toStartOf="@+id/insertNombre" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -502,11 +515,23 @@
             android:background="@drawable/general_rounded"
             android:backgroundTint="#E5FFC7"
             android:elevation="8dp"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <TextView
+                android:id="@+id/alreadyExist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="Tag already exist"
+                android:textColor="#C61313"
+                app:layout_constraintBottom_toTopOf="@+id/txtCreateTag"
+                app:layout_constraintEnd_toEndOf="@+id/txtCreateTag"
+                app:layout_constraintHorizontal_bias="0.77"
+                app:layout_constraintStart_toStartOf="@+id/txtCreateTag" />
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
@@ -533,6 +558,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
             <TextView
+                android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"

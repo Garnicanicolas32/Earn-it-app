@@ -9,6 +9,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RewardsKotlin">
         <activity
+            android:name=".Config"
+            android:exported="false" />
+        <activity
             android:name=".CreateReward"
             android:exported="false" />
         <activity

@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.core.graphics.drawable.DrawableCompat
-import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rewardskotlin.dataAndClasses.OnClickReturn
@@ -34,6 +33,8 @@ class RewardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             changeColor(binding.btnPoints.background, POINTSCOLOR[position])
             changeColor(binding.btnDelete.background, POINTSCOLOR[position])
             changeColor(binding.btnEdit.background, POINTSCOLOR[position])
+
+            changeColor(binding.txtUsos.background, POINTSCOLOR[position])
 
             changeColor(binding.txtName.background, BUTTONCOLOR[position])
             changeColor(binding.txtTag.background, TAGCOLOR[position])
@@ -91,12 +92,9 @@ class RewardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         binding.backMiddle.isVisible = !(last || first)
 
         //limited times
-        // binding.txtUsos.isVisible = useThis.limitedTimes > 0 //REMOVE THIS
+        binding.txtUsos.isVisible = useThis.limitedTimes > 0 //REMOVE THIS
         if (useThis.limitedTimes > 0)
-            binding.txtUsos.text = HtmlCompat.fromHtml(
-                useThis.limitedTimes.toString() + " <br> usos",
-                HtmlCompat.FROM_HTML_MODE_LEGACY
-            ).toString()
+            binding.txtUsos.text = useThis.limitedTimes.toString() + " uses"
 
         binding.btnPoints.setOnClickListener {
             onClickListener(OnClickReturn(useThis, false, isDelete = false))
