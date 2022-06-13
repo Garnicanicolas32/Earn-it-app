@@ -4,9 +4,11 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.ViewModelProvider
@@ -23,26 +25,29 @@ import kotlin.math.abs
 ///      import export data
 ///      ADD DISCOUNTS
 ///      IMPLEMENT CONFIGURATION
-/// LIMITED TIMES (implementado solo falta AVISAR)
+//       Configuracion de que tanto te sube el precio el USAGE
+
 
 //FIXED VALUES YOU CAN EDIT
 private var USAGEPORCENTAGEADD = 0.25f
 private var howManyDaysToDiscount = 2
-private var DEBUGMODE = true //Desactiva o activa features
+//private var DEBUGMODE = true //Desactiva o activa features
 
 //--colors
 private const val NOTSELECTEDCOLOR = "#ccbb8b"
-private const val SELECTEDCOLOR = "#B6C454" // "#837569" // "#fcba03"
+private const val SELECTEDCOLOR = "#B6C454"
 
 //SHARED KEYS [CHECK IF == IN OTHER ACTIVITY]
 private const val DEFAULTTAG = "default"
-private const val KEYsendAndGo = "recieve7"
-private const val KEYpackage = "package7"
+private const val KEYsendAndGo = "recieve8"
+private const val KEYpackage = "package8"
+private const val MAINACTIVITYKEY = "configtomain2"
 
 //KEYS
-private const val SHARED = "Shared7"
-private const val KEY = "MainKey7"
-private const val FIRSTIME = "IsFirstTime7"
+private const val SHARED = "Shared8"
+private const val KEY = "MainKey8"
+
+
 
 class MainActivity : AppCompatActivity() {
     //GLOBAL VAR
@@ -53,7 +58,8 @@ class MainActivity : AppCompatActivity() {
         listEmpty,
         listEmpty,
         0,
-        1f
+        1f,
+        true
     )
 
     //LATEINIT VARS
@@ -62,7 +68,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mutablePoints: MutablePoints
 
     ///// ON CREATE /////
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) { //is limited != finite uses -- Create limited per day week or month
         super.onCreate(savedInstanceState)
         //INFLATE BINDING
         viewBinding = ActivityMainBinding.inflate(layoutInflater)
@@ -70,11 +76,13 @@ class MainActivity : AppCompatActivity() {
 
         //DATA MANAGMENT
         preferences = this.getSharedPreferences(SHARED, 0)
-        if (preferences.getBoolean(FIRSTIME, true)) {
-            //first time (STILL DOESN'T WORK)
-            preferences.edit().putBoolean(FIRSTIME, false).apply()
-        }
         globalData = loadData()
+        //First time
+        if (globalData.firstTime) {
+            Toast.makeText(this, "FIRST TIME!", Toast.LENGTH_LONG).show()
+            Log.i("excuse", "First time")
+            globalData.firstTime = false
+        }
 
         //MUTABLE POINTS
         mutablePoints = ViewModelProvider(this).get(MutablePoints::class.java)
@@ -202,13 +210,21 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.BottomConfig -> {
-                    DEBUGMODE = !DEBUGMODE
+                    val intent = Intent(this, Config::class.java)
+                    startActivity(intent)
                     true
                 }
                 else -> false
             }
         }
 
+        val optionObtained: Int = intent.getIntExtra(MAINACTIVITYKEY, -1)
+        if (optionObtained != -1) {
+           if(optionObtained == 4)
+               createRewardGoview(null)
+            else
+            optionSelected = optionObtained
+        }
         refresh() //LASTLY
     }
 
@@ -475,7 +491,8 @@ class MainActivity : AppCompatActivity() {
             listEmpty,
             listEmpty,
             0,
-            1.2f
+            1.2f,
+            true
         )
         //check if exist
 

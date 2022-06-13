@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
-import android.util.Log
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.drawable.DrawableCompat
@@ -26,14 +25,15 @@ private val listActivitiesMOD = listOf(1f, 1.25f, 1.75f)
 
 //SHARED KEYS [CHECK IF == IN OTHER ACTIVITY]
 private const val DEFAULTTAG = "default"
-private const val KEYsendAndGo = "recieve7"
-private const val KEYpackage = "package7"
+private const val KEYsendAndGo = "recieve8"
+private const val KEYpackage = "package8"
 
 //--Colors
 private const val CORRECTCOLOR = "#94d162"
 private const val ERRORCOLOR = "#c71616"
 private const val NOTSELECTEDCOLOR = "#ccbb8b" //"#b0a78f"
 private const val SELECTEDCOLOR = "#B6C454" //"#ffbc00"
+private const val TRANSPAREN = "#00FFFFFF"
 
 class CreateReward : AppCompatActivity() {  //  TODO : USAGE REWORK : LANDSCAPE MODE :
     //GLOBAL VARS
@@ -63,9 +63,18 @@ class CreateReward : AppCompatActivity() {  //  TODO : USAGE REWORK : LANDSCAPE 
         else
             Gson().fromJson(jsonObtained, CreateInformation::class.java)
 
+        changeStroke(viewBinding.txtTimesPerMonth.background, TRANSPAREN)
+        changeStroke(viewBinding.txtLimitedTimes.background, TRANSPAREN)
+        changeStroke(viewBinding.insertNombre.background, TRANSPAREN)
+        changeStroke(viewBinding.txtCreateTag.background, TRANSPAREN)
+
         //TAG SPINNER
         val list = obtained.tags.toMutableList()
-        list[0] = "No tag"
+        if(list.isEmpty())
+            list.add("No tag")
+        else
+            list[0] = "No tag"
+
         val dataAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
             this,
             android.R.layout.simple_spinner_dropdown_item, list
@@ -163,6 +172,7 @@ class CreateReward : AppCompatActivity() {  //  TODO : USAGE REWORK : LANDSCAPE 
                 viewBinding.spinnerGetTag.setSelection(list.indexOf(text))
             } else viewBinding.txtCreateTag.background =
                 changeStroke(viewBinding.txtCreateTag.background, ERRORCOLOR)
+
         }
 
         //SUBMIT AND GO
@@ -331,6 +341,7 @@ class CreateReward : AppCompatActivity() {  //  TODO : USAGE REWORK : LANDSCAPE 
         if (text.trim().isBlank() or lista.contains(text)) {
             viewBinding.insertNombre.background =
                 changeStroke(viewBinding.insertNombre.background, ERRORCOLOR)
+
             retorno = false
         } else viewBinding.insertNombre.background =
             changeStroke(viewBinding.insertNombre.background, CORRECTCOLOR)
@@ -338,13 +349,21 @@ class CreateReward : AppCompatActivity() {  //  TODO : USAGE REWORK : LANDSCAPE 
         if (viewBinding.isLimited.isChecked && viewBinding.txtLimitedTimes.text.trim().isBlank()) {
             viewBinding.txtLimitedTimes.background =
                 changeStroke(viewBinding.txtLimitedTimes.background, ERRORCOLOR)
+
             retorno = false
         } else viewBinding.txtLimitedTimes.background =
             changeStroke(viewBinding.txtLimitedTimes.background, CORRECTCOLOR)
 
-        if (viewBinding.txtTimesPerMonth.text.trim().isBlank()) {
+
+        var timesPerMonth = -1
+        try {
+            timesPerMonth = viewBinding.txtTimesPerMonth.text.toString().toInt()
+        } catch (nfe: NumberFormatException) {}
+        val zeroException = timesPerMonth > 0
+        if (viewBinding.txtTimesPerMonth.text.trim().isBlank() or !zeroException) {
             viewBinding.txtTimesPerMonth.background =
                 changeStroke(viewBinding.txtTimesPerMonth.background, ERRORCOLOR)
+
             retorno = false
         } else viewBinding.txtTimesPerMonth.background =
             changeStroke(viewBinding.txtTimesPerMonth.background, CORRECTCOLOR)

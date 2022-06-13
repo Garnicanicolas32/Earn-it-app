@@ -35,9 +35,9 @@
     </string-array>
 
     <string-array name="ordenar">
-        <item>Sort By: alphabetical</item>
-        <item>Sort By: alphabetical REVERSE</item>
-        <item>Sort By: price</item>
-        <item>Sort By: price REVERSE</item>
+        <item>Sort By: Alphabetical - A > Z</item>
+        <item>Sort By: Alphabetical - Z > A</item>
+        <item>Sort By: Price - Cheap > Expensive</item>
+        <item>Sort By: Price - Expensive > Cheap</item>
     </string-array>
 </resources>

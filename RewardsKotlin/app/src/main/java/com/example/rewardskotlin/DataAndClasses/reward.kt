@@ -33,7 +33,8 @@ data class SaveFormat(
     var listRewards: List<Reward>,
     var listActivities: List<Reward>,
     var globalPoints: Int,
-    var rewardRatio: Float
+    var rewardRatio: Float,
+    var firstTime: Boolean
 )
 
 data class CreateInformation(
