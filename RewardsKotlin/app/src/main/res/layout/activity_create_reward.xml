@@ -10,8 +10,8 @@
     <!-- head -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
+
         <TextView
             android:id="@+id/createreward"
             android:layout_width="wrap_content"
@@ -153,7 +153,6 @@
             tools:ignore="TextContrastCheck" />
 
         <EditText
-            android:visibility="gone"
             android:id="@+id/txtLimitedTimes"
             android:layout_width="108dp"
             android:layout_height="48dp"
@@ -167,6 +166,7 @@
             android:inputType="number"
             android:maxLength="3"
             android:textSize="25sp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/isLimited"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="packed"
@@ -314,8 +314,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tag"
-            >
+            app:layout_constraintTop_toBottomOf="@id/tag">
 
         </Spinner>
 
@@ -345,21 +344,40 @@
             android:id="@+id/btnDelete"
             android:layout_width="55dp"
             android:layout_height="55dp"
-            android:layout_marginStart="4dp"
 
+            android:layout_marginEnd="16dp"
             android:background="@drawable/btn_ultrarounded"
             android:backgroundTint="#BF404D"
             android:contentDescription="close"
             android:elevation="4dp"
-
             android:src="@drawable/zz_icon_x"
             app:layout_constraintBottom_toBottomOf="@+id/btnSubmit"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnSubmit"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toEndOf="@+id/btnSubmit"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/btnSubmit"
+            app:layout_constraintVertical_bias="0.0"
             tools:ignore="SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/btnSubmit"
+            android:layout_width="150dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/btn_ultrarounded"
+            android:backgroundTint="#ABE86E"
+            android:elevation="4dp"
+            android:gravity="center"
+            android:text="@string/submit"
+            android:textColor="#546E7A"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="@id/grupoSubmit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btnDelete"
+            app:layout_constraintTop_toBottomOf="@id/linebottom"
+            tools:ignore="TextContrastCheck" />
 
         <View
             android:id="@+id/linebottom"
@@ -373,26 +391,6 @@
             app:layout_constraintTop_toTopOf="@id/grupoSubmit"
             tools:layout_editor_absoluteX="30dp"
             tools:layout_editor_absoluteY="749dp" />
-
-        <TextView
-            android:id="@+id/btnSubmit"
-            android:layout_width="150dp"
-            android:layout_height="55dp"
-            android:layout_marginEnd="12dp"
-            android:background="@drawable/btn_ultrarounded"
-            android:backgroundTint="#97D35B"
-            android:elevation="4dp"
-            android:gravity="center"
-            android:text="@string/submit"
-            android:textColor="#546E7A"
-            android:textSize="22sp"
-            app:layout_constraintBottom_toBottomOf="@id/grupoSubmit"
-            app:layout_constraintEnd_toStartOf="@+id/btnDelete"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/linebottom"
-            tools:ignore="TextContrastCheck" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline4"
@@ -493,8 +491,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="2dp"
             android:text="Name already used"
-            android:visibility="gone"
             android:textColor="#A50000"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/insertNombre"
             app:layout_constraintEnd_toEndOf="@+id/insertNombre"
             app:layout_constraintHorizontal_bias="0.76"

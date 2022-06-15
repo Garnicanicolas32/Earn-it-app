@@ -33,7 +33,7 @@ private const val CORRECTCOLOR = "#94d162"
 private const val ERRORCOLOR = "#c71616"
 private const val NOTSELECTEDCOLOR = "#ccbb8b" //"#b0a78f"
 private const val SELECTEDCOLOR = "#B6C454" //"#ffbc00"
-private const val TRANSPAREN = "#00FFFFFF"
+private const val TRANSPAREN = "#FF1A6300"
 
 class CreateReward : AppCompatActivity() {  //  TODO : USAGE REWORK : LANDSCAPE MODE :
     //GLOBAL VARS
@@ -154,14 +154,14 @@ class CreateReward : AppCompatActivity() {  //  TODO : USAGE REWORK : LANDSCAPE 
             }
         }
 
-        //---addNewTag
+        //NEW TAG
         viewBinding.btnCreateTag.setOnClickListener {
             var pass = viewBinding.txtCreateTag.text.toString().isNotBlank()
             val text = viewBinding.txtCreateTag.text.toString().lowercase()
-            if (pass)
+            if (pass){
                 pass =
                     !obtained.tags.contains(viewBinding.txtCreateTag.text.toString()) && viewBinding.txtCreateTag.text.toString() != DEFAULTTAG.lowercase()
-            viewBinding.alreadyExist.isVisible = pass
+            viewBinding.alreadyExist.isVisible = !pass}
             if (pass) {
                 list.add(text)
                 viewBinding.spinnerGetTag.adapter = ArrayAdapter(
@@ -372,7 +372,7 @@ class CreateReward : AppCompatActivity() {  //  TODO : USAGE REWORK : LANDSCAPE 
     }
 
     private fun changeStroke(background: Drawable, color: String): Drawable {
-        (background as? GradientDrawable)?.setStroke(3, Color.parseColor(color))
+        (background as? GradientDrawable)?.setStroke(if(color == TRANSPAREN)0 else 3, Color.parseColor(color))
         return background
     }
 
