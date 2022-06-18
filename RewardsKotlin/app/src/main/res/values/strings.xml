@@ -14,6 +14,7 @@
     <string name="submit">SUBMIT</string>
     <string name="delete">Cancel</string>
     <string name="day">Day</string>
+    <string name="firstFragment">Name is a app that brings balance between task and rewards in your life using an points system </string>
     <string name="edittext_hint"><font size="15">Hint here!</font></string>
 
     <string-array name="debugView">

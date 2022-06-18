@@ -23,7 +23,7 @@
             android:layout_marginTop="12dp"
 
             android:autoSizeTextType="uniform"
-            android:background="@drawable/general_rounded_outline"
+            android:background="@drawable/txt_points"
             android:elevation="10dp"
             android:gravity="center"
             android:maxLines="2"
