@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RewardsKotlin">
         <activity
-            android:name=".First_time_activity"
+            android:name=".FirstTimeActivity"
             android:exported="false" />
         <activity
             android:name=".Config"

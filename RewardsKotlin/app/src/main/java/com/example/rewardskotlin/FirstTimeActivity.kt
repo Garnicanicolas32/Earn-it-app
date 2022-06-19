@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.rewardskotlin.databinding.ActivityFirstTimeBinding
 
-class First_time_activity : AppCompatActivity() {
+class FirstTimeActivity : AppCompatActivity() {
 
     private lateinit var viewBinding: ActivityFirstTimeBinding
     override fun onCreate(savedInstanceState: Bundle?) {
