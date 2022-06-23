@@ -5,56 +5,53 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SeekBar
 import com.example.rewardskotlin.R
+import com.example.rewardskotlin.databinding.FragmentLplusRatioBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [LplusRatioFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class LplusRatioFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
+    private var _binding:FragmentLplusRatioBinding? = null
+    private val binding get() = _binding!!
+    private var give = 2
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_lplus_ratio, container, false)
+        _binding = FragmentLplusRatioBinding.inflate(inflater,container,false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment LplusRatioFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            LplusRatioFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        //binding.seekBar
+        binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+                if (p0 != null){
+                    change(p0.progress)
+                    give = p0.progress
                 }
             }
+
+            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+            }
+        })
+
+    }
+
+    private fun change(num: Int){
+        when(num){
+            0->{ binding.imageView6.setImageResource(R.drawable.img_balance_one) }
+            1->{ binding.imageView6.setImageResource(R.drawable.img_balance_two) }
+            2->{ binding.imageView6.setImageResource(R.drawable.img_balance_three) }
+            3->{ binding.imageView6.setImageResource(R.drawable.img_balance_four) }
+            4->{ binding.imageView6.setImageResource(R.drawable.img_balance_five) }
+            else->{ binding.imageView6.setImageResource(R.drawable.img_balance_three) }
+        }
     }
 }

@@ -1,14 +1,199 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F6FEDB"
     tools:context=".firstTimeFragment.LplusRatioFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <View
+        android:id="@+id/view7"
+        android:layout_width="329dp"
+        android:layout_height="250dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/btn_ultrarounded"
+        android:backgroundTint="#F6F6F6"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/view8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:layout_constraintVertical_bias="0.42000002"
+        app:layout_constraintVertical_chainStyle="packed" />
 
-</FrameLayout>
+    <View
+        android:id="@+id/view8"
+        android:layout_width="329dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/btn_ultrarounded"
+        android:backgroundTint="#F6F6F6"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view7"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/opensans_bold"
+        android:gravity="center"
+        android:shadowColor="#46AFB59B"
+        android:shadowDx="-5"
+        android:shadowDy="3"
+        android:shadowRadius="2"
+        android:text="Global Ratio"
+        android:textColor="#717171"
+        android:textSize="50sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:text="When creating a reward or task the price will change bases by the global ratio, select favoring one over the other or the same"
+        android:textColor="#717171"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:gravity="center"
+        android:text="Favor rewards"
+        android:textColor="#717171"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/view8"
+        app:layout_constraintStart_toStartOf="@+id/view8" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:gravity="center"
+        android:text="Favor tasks"
+        android:textColor="#717171"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/view8"
+        app:layout_constraintEnd_toEndOf="@+id/view8" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="320dp"
+        android:layout_height="230dp"
+        android:contentDescription="image"
+        android:elevation="5dp"
+        android:src="@drawable/img_balance_three"
+        app:layout_constraintBottom_toBottomOf="@+id/view7"
+        app:layout_constraintEnd_toEndOf="@+id/view7"
+        app:layout_constraintStart_toStartOf="@+id/view7"
+        app:layout_constraintTop_toTopOf="@+id/view7"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="ImageContrastCheck" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
+        android:background="@drawable/circle_shape"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toBottomOf="@id/view5"
+        app:layout_constraintEnd_toStartOf="@+id/view6"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@+id/view5"
+        app:layout_constraintTop_toTopOf="@id/view5" />
+
+    <View
+        android:id="@+id/view5"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/circle_shape"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/view2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="23dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="2dp"
+        android:background="@drawable/circle_shape"
+        android:backgroundTint="#A3B13F"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toBottomOf="@id/view5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/view6"
+        app:layout_constraintTop_toTopOf="@id/view5" />
+
+    <View
+        android:id="@+id/view6"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
+        android:background="@drawable/circle_shape"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toBottomOf="@id/view5"
+        app:layout_constraintEnd_toStartOf="@+id/view3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/view2"
+        app:layout_constraintTop_toTopOf="@id/view5" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="183dp"
+        android:layout_height="20dp"
+        android:elevation="5dp"
+        android:max="4"
+        android:progress="2"
+        android:progressDrawable="@drawable/fragment_seekbar"
+        android:scaleX="2"
+        android:scaleY="2"
+        android:thumb="@drawable/fragment_thumb"
+        app:layout_constraintBottom_toBottomOf="@+id/view8"
+        app:layout_constraintEnd_toEndOf="@+id/view8"
+        app:layout_constraintStart_toStartOf="@+id/view8"
+        app:layout_constraintTop_toTopOf="@+id/view8" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="230dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="45dp"
+        android:backgroundTint="#B6C454"
+        android:elevation="5dp"
+        android:text="Start"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/view5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
