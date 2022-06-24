@@ -42,7 +42,7 @@ private const val DEFAULTTAG = "default"
 private const val KEYsendAndGo = "recieve8"
 private const val KEYpackage = "package8"
 private const val MAINACTIVITYKEY = "configtomain2"
-
+private const val KEYTUTORIAL = "finishTutorial"
 //KEYS
 private const val SHARED = "Shared8"
 private const val KEY = "MainKey8"
@@ -51,6 +51,7 @@ private const val KEY = "MainKey8"
 
 class MainActivity : AppCompatActivity() {
     //GLOBAL VAR
+    private var listRatios = listOf(0.75f,0.875f,1f,1.125f,1.25f)
     private var rewardSelected = false
     private var optionSelected = 0
     private val listEmpty: List<Reward> = listOf()
@@ -77,11 +78,20 @@ class MainActivity : AppCompatActivity() {
         //DATA MANAGMENT
         preferences = this.getSharedPreferences(SHARED, 0)
         globalData = loadData()
+
+        //Finish tuto
+        val res = intent.getIntExtra(KEYTUTORIAL, -1)
+        if(res >= 0){
+            globalData.firstTime = false
+            globalData.rewardRatio = listRatios[res]
+            Log.i("excuse", listRatios[res].toString())
+        }
+
         //First time
         if (globalData.firstTime) {
-            Toast.makeText(this, "FIRST TIME!", Toast.LENGTH_LONG).show()
             Log.i("excuse", "First time")
-            globalData.firstTime = false
+            val intent = Intent(this, FirstTimeActivity::class.java)
+            startActivity(intent)
         }
 
         //MUTABLE POINTS

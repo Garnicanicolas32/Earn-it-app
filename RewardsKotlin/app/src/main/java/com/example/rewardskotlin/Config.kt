@@ -1,8 +1,8 @@
 package com.example.rewardskotlin
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.rewardskotlin.databinding.ActivityConfigBinding
 
 private const val MAINACTIVITYKEY = "configtomain2"
@@ -15,6 +15,11 @@ class Config : AppCompatActivity() {
         setContentView(viewBinding.root)
 
         viewBinding.bottomBar.menu.getItem(4).isChecked = true
+
+        viewBinding.btnFirsttime.setOnClickListener {
+            val intent = Intent(this, FirstTimeActivity::class.java)
+            startActivity(intent)
+        }
 
         viewBinding.bottomBar.setOnItemSelectedListener { item ->
             when(item.itemId) {

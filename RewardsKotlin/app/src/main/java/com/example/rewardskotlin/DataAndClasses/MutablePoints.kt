@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 class MutablePoints : ViewModel() {
 
     private var points: Int = 0
+
     val currentPoints: MutableLiveData<Int> by lazy{
         MutableLiveData<Int>()
     }

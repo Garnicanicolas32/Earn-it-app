@@ -20,6 +20,7 @@
         <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/drawable/btn_reward.xml" value="0.2255" />
         <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/drawable/btn_ultrarounded.xml" value="0.2255" />
         <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/drawable/circle_shape.xml" value="0.2735" />
+        <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/drawable/circle_shape_outlined.xml" value="0.235" />
         <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/drawable/color_gradient.xml" value="0.2735" />
         <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/drawable/fragment_seekbar.xml" value="0.2605" />
         <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/drawable/fragment_thumb.xml" value="0.2605" />
@@ -53,7 +54,7 @@
         <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/layout-v26/activity_main.xml" value="0.1265625" />
         <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/layout/activity_config.xml" value="0.22530996152201796" />
         <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/layout/activity_create_reward.xml" value="0.264" />
-        <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/layout/activity_first_time.xml" value="0.22530996152201796" />
+        <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/layout/activity_first_time.xml" value="0.1522633744855967" />
         <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/layout/activity_main.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/layout/fragment_creating_reward.xml" value="0.22530996152201796" />
         <entry key="..\:/Users/nicol/Documents/GitHub/AntiProcrastinationAPP/RewardsKotlin/app/src/main/res/layout/fragment_lplus_ratio.xml" value="0.264" />
