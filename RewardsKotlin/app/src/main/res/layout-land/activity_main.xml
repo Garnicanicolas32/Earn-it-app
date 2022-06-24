@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swiperefresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F6FEDB"
+        tools:context=".MainActivity">
+
+
+        <TextView
+            android:id="@+id/txtPoints"
+
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+
+            android:autoSizeTextType="uniform"
+            android:background="@drawable/txt_points"
+            android:elevation="10dp"
+            android:gravity="center"
+            android:maxLines="2"
+            android:padding="10dp"
+            android:shadowColor="#000000"
+            android:shadowDx="-2"
+            android:shadowDy="1.5"
+            android:shadowRadius="2"
+            android:textColor="#FFFFFF"
+
+            android:textSize="35sp"
+            app:layout_constraintBottom_toBottomOf="@+id/spinnerSort"
+            app:layout_constraintEnd_toStartOf="@+id/spinnerSort"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btnListRewards"
+            app:layout_constraintTop_toTopOf="@+id/spinnerSort"
+            tools:ignore="TextContrastCheck"
+            tools:text="puntos" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listOfRewards"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/bottomBar"
+            app:layout_constraintTop_toBottomOf="@+id/txtPoints"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <Button
+            android:id="@+id/btnListActivities"
+            android:layout_width="132dp"
+            android:layout_height="57dp"
+            android:backgroundTint="#B6C454"
+            android:elevation="10dp"
+            android:shadowColor="#000000"
+            android:shadowDx="-2"
+            android:shadowDy="1.5"
+            android:shadowRadius="2"
+            android:text="@string/activities"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/btnListRewards"
+            app:layout_constraintEnd_toStartOf="@+id/btnListRewards"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnListRewards"
+            tools:ignore="TextContrastCheck" />
+
+        <Button
+            android:id="@+id/btnListRewards"
+
+            android:layout_width="130dp"
+            android:layout_height="60dp"
+            android:backgroundTint="#AD7A99"
+            android:elevation="10dp"
+            android:shadowColor="#000000"
+            android:shadowDx="-2"
+            android:shadowDy="1.5"
+            android:shadowRadius="2"
+            android:text="@string/rewards"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/txtPoints"
+            app:layout_constraintEnd_toStartOf="@+id/txtPoints"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btnListActivities"
+            app:layout_constraintTop_toTopOf="@+id/txtPoints"
+            tools:ignore="TextContrastCheck" />
+
+        <Spinner
+            android:id="@+id/spinnerSort"
+            android:layout_width="350dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/spinner_style"
+            android:elevation="10dp"
+
+            android:entries="@array/ordenar"
+
+            android:gravity="center"
+            android:minHeight="48dp"
+            android:overlapAnchor="false"
+            android:popupBackground="@drawable/spner_sortby"
+            android:shadowColor="#000000"
+            android:shadowDx="-2"
+            android:shadowDy="1.5"
+            android:shadowRadius="2"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/txtPoints"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </Spinner>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#D8D174"
+            app:itemIconTint="#91972A"
+            app:itemTextColor="#91972A"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/bottom_nav_menu" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
