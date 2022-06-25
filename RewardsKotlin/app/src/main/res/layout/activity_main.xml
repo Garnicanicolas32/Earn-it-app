@@ -10,9 +10,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity"
         android:background="#F6FEDB"
-        >
+        tools:context=".MainActivity">
 
 
         <TextView
@@ -36,6 +35,7 @@
 
             android:textSize="35sp"
             app:layout_constraintEnd_toStartOf="@+id/btnListRewards"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/btnListActivities"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="TextContrastCheck"
@@ -63,6 +63,8 @@
             android:shadowRadius="2"
             android:text="@string/activities"
             android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@+id/txtPoints"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/txtPoints"
             tools:ignore="TextContrastCheck" />
@@ -82,6 +84,8 @@
             android:text="@string/rewards"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/txtPoints"
             app:layout_constraintTop_toTopOf="@+id/txtPoints"
             tools:ignore="TextContrastCheck" />
 
