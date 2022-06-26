@@ -1,7 +1,9 @@
 package com.example.rewardskotlin
 
+import android.animation.ValueAnimator
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -17,9 +19,18 @@ import com.example.rewardskotlin.adapter.RewardAdapter
 import com.example.rewardskotlin.dataAndClasses.*
 import com.example.rewardskotlin.databinding.ActivityMainBinding
 import com.google.gson.Gson
+import nl.dionsegijn.konfetti.core.Party
+import nl.dionsegijn.konfetti.core.Position
+import nl.dionsegijn.konfetti.core.Rotation
+import nl.dionsegijn.konfetti.core.emitter.Emitter
+import nl.dionsegijn.konfetti.core.models.Shape
+import nl.dionsegijn.konfetti.core.models.Size
+import nl.dionsegijn.konfetti.xml.KonfettiView
 import java.time.Duration
 import java.time.LocalDateTime
+import java.util.concurrent.TimeUnit
 import kotlin.math.abs
+
 
 ///TO-DO:
 ///      import export data
@@ -95,7 +106,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         //MUTABLE POINTS
-        mutablePoints = ViewModelProvider(this).get(MutablePoints::class.java)
+        mutablePoints = ViewModelProvider(this)[MutablePoints::class.java]
 
         viewBinding.txtPoints.text = globalData.globalPoints.toString()
         mutablePoints.changePoints(globalData.globalPoints)
@@ -113,12 +124,14 @@ class MainActivity : AppCompatActivity() {
         initRecyclerView(globalData.listActivities)//TEMP
 
         viewBinding.btnListActivities.setOnClickListener {
+
             initRecyclerView(globalData.listActivities)//TEMP
             rewardSelected = false
             viewBinding.btnListActivities.setBackgroundColor(Color.parseColor(SELECTEDCOLOR))
             viewBinding.btnListRewards.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
         }
         viewBinding.btnListRewards.setOnClickListener {
+
             initRecyclerView(globalData.listRewards)//TEMP
             rewardSelected = true
             viewBinding.btnListActivities.setBackgroundColor(Color.parseColor(NOTSELECTEDCOLOR))
@@ -221,7 +234,9 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.BottomConfig -> {
                     val intent = Intent(this, Config::class.java)
+                    overridePendingTransition(0, 0)
                     startActivity(intent)
+                    overridePendingTransition(0, 0)
                     true
                 }
                 else -> false
@@ -232,18 +247,48 @@ class MainActivity : AppCompatActivity() {
         if (optionObtained != -1) {
            if(optionObtained == 4)
                createRewardGoview(null)
-            else
-            optionSelected = optionObtained
+            else{
+               optionSelected = optionObtained
+               when(optionSelected){
+                   0->{
+                       viewBinding.bottomBar.selectedItemId = R.id.BottomList
+                   }
+                   1->{
+                       viewBinding.bottomBar.selectedItemId = R.id.BottomDelete
+                   }
+                   2->{
+                       viewBinding.bottomBar.selectedItemId = R.id.BottomEdit
+                   }
+                   else->{}
+               }
+            }
+
         }
+
+
         refresh() //LASTLY
     }
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            finish()
+            overridePendingTransition(0, 0)
+            startActivity(intent)
+            overridePendingTransition(0, 0)
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            finish()
+            overridePendingTransition(0, 0)
+            startActivity(intent)
+            overridePendingTransition(0, 0)
+        }
+    }
     ////FUNCTIONS////
 
     //Recycler View
     private fun initRecyclerView(lista: List<Reward>){//, option: Int) {
         viewBinding.listOfRewards.layoutManager = LinearLayoutManager(this)
-        viewBinding.listOfRewards.adapter = RewardAdapter(lista, getTags(), optionSelected) { reward ->
+        viewBinding.listOfRewards.adapter = RewardAdapter(lista, getTags(), optionSelected, mutablePoints.currentPoints.value!!) { reward ->
             onItemSelected(
                 reward
             )
@@ -253,7 +298,10 @@ class MainActivity : AppCompatActivity() {
     private fun onItemSelected(clickedReward: OnClickReturn) {
         //Not modify nor delete
         if(!clickedReward.isDelete && !clickedReward.isEdit){
+            val from: Int? = mutablePoints.currentPoints.value
             if (mutablePoints.changePoints(clickedReward.reward.price)) {//Enough points
+                confetiPoints()
+                startCountAnimation(from!!, mutablePoints.currentPoints.value!!)
                 //modify
                 if (clickedReward.reward.basePrice < 0)
                     clickedReward.reward.usagePercentageCount += USAGEPORCENTAGEADD
@@ -266,7 +314,16 @@ class MainActivity : AppCompatActivity() {
                 if (clickedReward.reward.limitedTimes > -1) if (minusOneLimited(clickedReward.reward)) { //IF bought and limited
                     deleteReward(clickedReward.reward)
                 }//This has to be the last thing because it deletes the reward
-            } // else //Not enough points
+            }else
+                Toast.makeText(this, "Not enough points", Toast.LENGTH_SHORT).show()
+        /* else{//Not enough points
+                viewBinding.txtPoints.animate().apply {
+                    duration = 3000
+                    viewBinding.txtPoints.setTextColor(Color.parseColor("#d43149"))
+                }.withEndAction{
+                    viewBinding.txtPoints.setTextColor(Color.parseColor("#FFFFFF"))
+                }.start()
+            }*/
         }
         //modify
         if (clickedReward.isEdit && !clickedReward.isDelete) {
@@ -511,5 +568,36 @@ class MainActivity : AppCompatActivity() {
             saveFormat = Gson().fromJson(str, SaveFormat::class.java)
 
         return saveFormat
+    }
+
+    private fun confetiPoints(){
+        val konfettiView: KonfettiView = viewBinding.confet
+        val a = Party(
+            speed = 20f,
+            maxSpeed = 23f,
+            damping = 0.6f,
+            spread = 360,
+            timeToLive = 1200,
+            fadeOutEnabled = true,
+            size =  listOf(Size.SMALL, Size.MEDIUM),
+            shapes = listOf(Shape.Circle),
+            rotation = Rotation.disabled(),
+            colors = listOf(0x7CA3993B, 0xd5eb42, 0xd1d472),
+            emitter = Emitter(duration = 100, TimeUnit.MILLISECONDS).max(20),
+            position = Position.Relative(0.5, 0.35)
+        )
+        konfettiView.start(a)
+    }
+
+    private fun startCountAnimation(from: Int, to: Int) {
+        val animator = ValueAnimator.ofInt(from, to)
+        animator.duration = 800
+        animator.addUpdateListener { animation ->
+            viewBinding.txtPoints.text = HtmlCompat.fromHtml(
+                animation.animatedValue.toString() +"<br>points",
+                HtmlCompat.FROM_HTML_MODE_LEGACY
+            ).toString()
+        }
+        animator.start()
     }
 }

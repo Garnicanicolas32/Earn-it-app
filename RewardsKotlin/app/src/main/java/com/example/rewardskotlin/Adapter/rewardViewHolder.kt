@@ -3,12 +3,16 @@ package com.example.rewardskotlin.adapter
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.view.View
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rewardskotlin.dataAndClasses.OnClickReturn
 import com.example.rewardskotlin.dataAndClasses.Reward
 import com.example.rewardskotlin.databinding.ItemRewardBinding
+import pl.droidsonroids.gif.AnimationListener
+
 
 private val BUTTONCOLOR = listOf("#EF5350", "#EC407A", "#AB47BC", "#7E57C2", "#5C6BC0", "#42A5F5")
 private val POINTSCOLOR = listOf("#EF9A9A", "#F48FB1", "#CE93D8", "#B39DDB", "#9FA8DA", "#90CAF9")
@@ -18,9 +22,11 @@ private val BACKGROUNDCOLOR = listOf("#FFCDD2", "#F8BBD0", "#E1BEE7", "#D1C4E9",
 // invisible color 00FFFFFF
 private const val  DEFAULTTAG = "default"
 
-class RewardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class RewardViewHolder(view: View, ActPoints: Int) : RecyclerView.ViewHolder(view) {
 
     private val binding = ItemRewardBinding.bind(view)
+    private val Act = ActPoints
+
     fun render(
         first: Boolean,
         last: Boolean,
@@ -97,8 +103,40 @@ class RewardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             binding.txtUsos.text = useThis.limitedTimes.toString() + " uses"
 
         binding.btnPoints.setOnClickListener {
-            onClickListener(OnClickReturn(useThis, false, isDelete = false))
+            if(useThis.price < 0 && Act + useThis.price >= 0){
+            binding.btnPoints.animate().apply {
+                duration = 300
+                translationYBy(-30f)
+                binding.btnPoints.setTextColor(Color.parseColor("#DEF6DA"))
+            }.withEndAction{
+                binding.btnPoints.animate().apply {
+                    duration = 300
+                    translationYBy(30f)
+                }
+            }.withEndAction{
+                onClickListener(OnClickReturn(useThis, false, isDelete = false))
+            }.start()}
+            else if(useThis.price > 0){
+                binding.btnPoints.animate().apply {
+                    duration = 100
+                    scaleXBy(0.1f)
+                    scaleYBy(0.1f)
+                    binding.btnPoints.setTextColor(Color.parseColor("#DEF6DA"))
+                }.withEndAction{
+                    onClickListener(OnClickReturn(useThis, false, isDelete = false))
+                }
+            }
+            if(useThis.price < 0 && Act + useThis.price < 0){
+                binding.btnPoints.animate().apply {
+                    binding.btnPoints.setTextColor(Color.parseColor("#d43149"))
+                    duration = 300
+                    translationXBy(-10f)
+                }.withEndAction{
+                    onClickListener(OnClickReturn(useThis, false, isDelete = false))
+                }.start()
+            }
         }
+
         binding.btnEdit.setOnClickListener {
             onClickListener(OnClickReturn(useThis, true, isDelete = false))
         }

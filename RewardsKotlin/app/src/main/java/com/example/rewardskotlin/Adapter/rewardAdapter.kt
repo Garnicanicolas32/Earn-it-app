@@ -7,11 +7,11 @@ import com.example.rewardskotlin.dataAndClasses.Reward
 import com.example.rewardskotlin.R
 import com.example.rewardskotlin.dataAndClasses.OnClickReturn
 
-class RewardAdapter(private val listaRewards: List<Reward>, private val listTags: List<String>,private val option: Int , private val onClickListener:(OnClickReturn) -> Unit) : RecyclerView.Adapter<RewardViewHolder>() {
+class RewardAdapter(private val listaRewards: List<Reward>, private val listTags: List<String>,private val option: Int , private val points: Int, private val onClickListener:(OnClickReturn) -> Unit) : RecyclerView.Adapter<RewardViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RewardViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return RewardViewHolder(layoutInflater.inflate(R.layout.item_reward, parent, false))
+        return RewardViewHolder(layoutInflater.inflate(R.layout.item_reward, parent, false), points)
     }
 
     override fun onBindViewHolder(holder: RewardViewHolder, position: Int) {

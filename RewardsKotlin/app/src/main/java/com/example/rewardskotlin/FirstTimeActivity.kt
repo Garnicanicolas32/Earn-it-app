@@ -28,7 +28,7 @@ class FirstTimeActivity : AppCompatActivity() {
         viewBinding = ActivityFirstTimeBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
-        mutableFragmentEnable = ViewModelProvider(this).get(MutableFragmentEnable::class.java)
+        mutableFragmentEnable = ViewModelProvider(this)[MutableFragmentEnable::class.java]
 
 
 

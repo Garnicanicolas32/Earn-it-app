@@ -46,6 +46,8 @@ class Config : AppCompatActivity() {
     private fun changeAct(option: Int){
         val intent = Intent(this, MainActivity::class.java)
         intent.putExtra(MAINACTIVITYKEY, option)
+        overridePendingTransition(0, 0)
         startActivity(intent)
+        overridePendingTransition(0, 0)
     }
 }

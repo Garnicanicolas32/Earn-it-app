@@ -138,6 +138,7 @@
             android:layout_width="260dp"
             android:layout_height="48dp"
             android:layout_marginEnd="3dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/switch_rounded"
             android:backgroundTint="#E3ED96"
             android:elevation="4dp"
@@ -177,6 +178,7 @@
             android:id="@+id/timesperdayweekmonth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="2dp"
             android:text="Times per day/week/month"
             app:layout_constraintBottom_toTopOf="@+id/btnDay"
@@ -413,7 +415,9 @@
             android:layout_marginBottom="8dp"
             app:constraint_referenced_ids="linetop,createreward"
             app:layout_constraintBottom_toTopOf="@+id/grupoName"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
             app:layout_constraintVertical_chainStyle="spread_inside" />
 
         <androidx.constraintlayout.widget.Group
@@ -422,6 +426,7 @@
             android:layout_height="0dp"
             app:constraint_referenced_ids="insertNombre,name"
             app:layout_constraintBottom_toTopOf="@+id/grupoReward"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/GrupoHeader"
             app:layout_constraintVertical_chainStyle="spread_inside" />
 
@@ -431,6 +436,7 @@
             android:layout_height="0dp"
             app:constraint_referenced_ids="btnchooseReward,rewardoractivity,btnChooseActivty"
             app:layout_constraintBottom_toTopOf="@+id/grupoLimitedUses"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/grupoName"
             app:layout_constraintVertical_chainStyle="spread_inside" />
 
@@ -441,6 +447,7 @@
             android:layout_marginBottom="16dp"
             app:constraint_referenced_ids="isLimited,limiteduses"
             app:layout_constraintBottom_toTopOf="@+id/grouptimesperday"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/grupoReward"
             app:layout_constraintVertical_chainStyle="spread_inside" />
 
@@ -448,10 +455,11 @@
             android:id="@+id/grouptimesperday"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="42dp"
             android:layout_marginBottom="8dp"
             app:constraint_referenced_ids="txtTimesPerMonth,btnMonth,timesperdayweekmonth,btnDay,btnWeek"
             app:layout_constraintBottom_toTopOf="@+id/groupimportance"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/grupoLimitedUses"
             app:layout_constraintVertical_chainStyle="spread_inside" />
 
@@ -462,6 +470,7 @@
             android:layout_marginTop="8dp"
             app:constraint_referenced_ids="importance,getPrioridad"
             app:layout_constraintBottom_toTopOf="@+id/grupoTag"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/grouptimesperday"
             app:layout_constraintVertical_chainStyle="spread_inside" />
 
@@ -471,6 +480,7 @@
             android:layout_height="0dp"
             app:constraint_referenced_ids="tag,btnAddTag,spinnerGetTag"
             app:layout_constraintBottom_toTopOf="@+id/grupoSubmit"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/groupimportance"
             app:layout_constraintVertical_chainStyle="spread_inside" />
 
@@ -482,6 +492,7 @@
             android:layout_marginBottom="16dp"
             app:constraint_referenced_ids="linebottom,btnSubmit,btnDelete"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/grupoTag"
             app:layout_constraintVertical_chainStyle="spread_inside" />
 

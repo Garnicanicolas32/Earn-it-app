@@ -13,6 +13,15 @@
         android:background="#F6FEDB"
         tools:context=".MainActivity">
 
+        <nl.dionsegijn.konfetti.xml.KonfettiView
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:id="@+id/confet"
+            android:elevation="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/txtPoints"
+            app:layout_constraintEnd_toEndOf="@+id/txtPoints"
+            app:layout_constraintStart_toStartOf="@+id/txtPoints"
+            app:layout_constraintTop_toTopOf="@+id/txtPoints" />
 
         <TextView
             android:id="@+id/txtPoints"
@@ -20,18 +29,20 @@
             android:layout_width="100dp"
             android:layout_height="60dp"
 
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:autoSizeTextType="uniform"
             android:background="@drawable/txt_points"
-            android:elevation="10dp"
+            android:elevation="4dp"
             android:gravity="center"
             android:maxLines="2"
             android:padding="10dp"
             android:shadowColor="#000000"
             android:shadowDx="-2"
             android:shadowDy="1.5"
+
             android:shadowRadius="2"
             android:textColor="#FFFFFF"
-
             android:textSize="35sp"
             app:layout_constraintBottom_toBottomOf="@+id/spinnerSort"
             app:layout_constraintEnd_toStartOf="@+id/spinnerSort"
@@ -53,6 +64,8 @@
             android:id="@+id/btnListActivities"
             android:layout_width="132dp"
             android:layout_height="57dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:backgroundTint="#B6C454"
             android:elevation="10dp"
             android:shadowColor="#000000"
@@ -72,7 +85,7 @@
             android:id="@+id/btnListRewards"
 
             android:layout_width="130dp"
-            android:layout_height="60dp"
+            android:layout_height="57dp"
             android:backgroundTint="#AD7A99"
             android:elevation="10dp"
             android:shadowColor="#000000"
@@ -90,14 +103,16 @@
 
         <Spinner
             android:id="@+id/spinnerSort"
-            android:layout_width="350dp"
+            android:layout_width="0dp"
             android:layout_height="48dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+
             android:background="@drawable/spinner_style"
+
             android:elevation="10dp"
-
             android:entries="@array/ordenar"
-
             android:gravity="center"
             android:minHeight="48dp"
             android:overlapAnchor="false"

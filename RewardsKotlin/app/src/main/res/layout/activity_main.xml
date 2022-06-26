@@ -11,8 +11,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#F6FEDB"
+        android:id="@+id/mainView"
         tools:context=".MainActivity">
 
+        <nl.dionsegijn.konfetti.xml.KonfettiView
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:id="@+id/confet"
+            android:elevation="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/txtPoints"
+            app:layout_constraintEnd_toEndOf="@+id/txtPoints"
+            app:layout_constraintStart_toStartOf="@+id/txtPoints"
+            app:layout_constraintTop_toTopOf="@+id/txtPoints" />
 
         <TextView
             android:id="@+id/txtPoints"
@@ -23,7 +33,7 @@
 
             android:autoSizeTextType="uniform"
             android:background="@drawable/txt_points"
-            android:elevation="10dp"
+            android:elevation="4dp"
             android:gravity="center"
             android:maxLines="2"
             android:padding="10dp"
