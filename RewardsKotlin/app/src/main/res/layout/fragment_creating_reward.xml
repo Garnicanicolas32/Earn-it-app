@@ -72,7 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="When creating a task the cost will be determined by the the times per day/week/month and its importance"
+        android:text="When creating an item the cost will be determined by the the times per day/week/month you can/want to do it and its importance or duration"
         android:textColor="#717171"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/imageView"

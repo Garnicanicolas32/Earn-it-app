@@ -7,7 +7,6 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
 import com.example.rewardskotlin.adapter.ViewPageAdapter
 import com.example.rewardskotlin.dataAndClasses.MutableFragmentEnable
 import com.example.rewardskotlin.databinding.ActivityFirstTimeBinding

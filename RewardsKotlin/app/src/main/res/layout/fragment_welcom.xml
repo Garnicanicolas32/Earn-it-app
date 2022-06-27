@@ -71,7 +71,7 @@
         android:layout_width="310dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/firstFragment"
+        android:text="[untitled] is an app that brings balance between tasks and rewards in your life using a points system!"
         android:textColor="#717171"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/view4"

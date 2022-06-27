@@ -82,7 +82,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
         android:gravity="center"
-        android:text="When creating a reward or task the price will change bases by the global ratio, select favoring one over the other or the same"
+        android:text="You can favor rewards or tasks one over the other, all prices will be affected based on the global ratio (it is recommended to balance 1:1, 2:1 or 1:2)"
         android:textColor="#717171"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"

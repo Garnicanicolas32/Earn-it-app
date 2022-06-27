@@ -15,7 +15,7 @@
     <string name="delete">Cancel</string>
     <string name="day">Day</string>
     <string name="btnFIRSTSCREEN">First screen &amp; Ratio</string>
-    <string name="firstFragment">Name is an app that brings balance between tasks and rewards in your life using a points system </string>
+    <string name="firstFragment">[untitled] is an app that brings balance between tasks and rewards in your life using a points system! </string>
     <string name="secondFragment">Name is an app that brings balance between tasks and rewards in your life using a points system </string>
     <string name="edittext_hint"><font size="15">Hint here!</font></string>
 

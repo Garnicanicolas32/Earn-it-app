@@ -206,7 +206,7 @@
         android:layout_width="340dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Task and rewards can be organized with the use of tags"
+        android:text="Tags and rewards can be grouped and organized with the use of tags"
         android:textColor="#717171"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/imageView5"
