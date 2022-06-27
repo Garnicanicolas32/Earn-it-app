@@ -2,16 +2,15 @@ package com.example.rewardskotlin.adapter
 
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.media.MediaPlayer
 import android.view.View
-import android.view.animation.AlphaAnimation
-import android.view.animation.Animation
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.example.rewardskotlin.R
 import com.example.rewardskotlin.dataAndClasses.OnClickReturn
 import com.example.rewardskotlin.dataAndClasses.Reward
 import com.example.rewardskotlin.databinding.ItemRewardBinding
-import pl.droidsonroids.gif.AnimationListener
 
 
 private val BUTTONCOLOR = listOf("#EF5350", "#EC407A", "#AB47BC", "#7E57C2", "#5C6BC0", "#42A5F5")
@@ -25,7 +24,11 @@ private const val  DEFAULTTAG = "default"
 class RewardViewHolder(view: View, ActPoints: Int) : RecyclerView.ViewHolder(view) {
 
     private val binding = ItemRewardBinding.bind(view)
-    private val Act = ActPoints
+    private val actualpoints = ActPoints
+
+    private var taskSound: MediaPlayer? = MediaPlayer.create(view.context, R.raw.sound2)
+    private var rewardSound: MediaPlayer? = MediaPlayer.create(view.context, R.raw.sound3)
+    private var noPointsSound: MediaPlayer? = MediaPlayer.create(view.context, R.raw.sound1)
 
     fun render(
         first: Boolean,
@@ -103,8 +106,9 @@ class RewardViewHolder(view: View, ActPoints: Int) : RecyclerView.ViewHolder(vie
             binding.txtUsos.text = useThis.limitedTimes.toString() + " uses"
 
         binding.btnPoints.setOnClickListener {
-            if(useThis.price < 0 && Act + useThis.price >= 0){
+            if(useThis.price < 0 && actualpoints + useThis.price >= 0){
             binding.btnPoints.animate().apply {
+                rewardSound?.start()
                 duration = 300
                 translationYBy(-30f)
                 binding.btnPoints.setTextColor(Color.parseColor("#DEF6DA"))
@@ -118,6 +122,7 @@ class RewardViewHolder(view: View, ActPoints: Int) : RecyclerView.ViewHolder(vie
             }.start()}
             else if(useThis.price > 0){
                 binding.btnPoints.animate().apply {
+                    taskSound?.start()
                     duration = 100
                     scaleXBy(0.1f)
                     scaleYBy(0.1f)
@@ -126,8 +131,9 @@ class RewardViewHolder(view: View, ActPoints: Int) : RecyclerView.ViewHolder(vie
                     onClickListener(OnClickReturn(useThis, false, isDelete = false))
                 }
             }
-            if(useThis.price < 0 && Act + useThis.price < 0){
+            if(useThis.price < 0 && actualpoints + useThis.price < 0){
                 binding.btnPoints.animate().apply {
+                    noPointsSound?.start()
                     binding.btnPoints.setTextColor(Color.parseColor("#d43149"))
                     duration = 300
                     translationXBy(-10f)

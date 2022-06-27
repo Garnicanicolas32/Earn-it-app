@@ -5,6 +5,9 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.graphics.Color
+import android.media.AudioAttributes
+import android.media.MediaPlayer
+import android.media.SoundPool
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -78,6 +81,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var preferences: SharedPreferences
     private lateinit var viewBinding: ActivityMainBinding
     private lateinit var mutablePoints: MutablePoints
+
+
 
     ///// ON CREATE /////
     override fun onCreate(savedInstanceState: Bundle?) { //is limited != finite uses -- Create limited per day week or month
@@ -262,7 +267,6 @@ class MainActivity : AppCompatActivity() {
                    else->{}
                }
             }
-
         }
 
 
@@ -283,6 +287,9 @@ class MainActivity : AppCompatActivity() {
             overridePendingTransition(0, 0)
         }
     }
+
+
+
     ////FUNCTIONS////
 
     //Recycler View
@@ -296,11 +303,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onItemSelected(clickedReward: OnClickReturn) {
+
+
+
+
         //Not modify nor delete
         if(!clickedReward.isDelete && !clickedReward.isEdit){
             val from: Int? = mutablePoints.currentPoints.value
             if (mutablePoints.changePoints(clickedReward.reward.price)) {//Enough points
                 confetiPoints()
+
                 startCountAnimation(from!!, mutablePoints.currentPoints.value!!)
                 //modify
                 if (clickedReward.reward.basePrice < 0)
@@ -314,8 +326,9 @@ class MainActivity : AppCompatActivity() {
                 if (clickedReward.reward.limitedTimes > -1) if (minusOneLimited(clickedReward.reward)) { //IF bought and limited
                     deleteReward(clickedReward.reward)
                 }//This has to be the last thing because it deletes the reward
-            }else
+            }else{
                 Toast.makeText(this, "Not enough points", Toast.LENGTH_SHORT).show()
+            }
         /* else{//Not enough points
                 viewBinding.txtPoints.animate().apply {
                     duration = 3000

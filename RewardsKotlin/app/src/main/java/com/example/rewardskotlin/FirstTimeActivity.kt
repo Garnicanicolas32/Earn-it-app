@@ -1,6 +1,7 @@
 package com.example.rewardskotlin
 
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -18,7 +19,6 @@ import com.example.rewardskotlin.firstTimeFragment.welcomFragment
 private const val KEY = "finishTutorial"
 
 class FirstTimeActivity : AppCompatActivity() {
-
 
     private lateinit var mutableFragmentEnable: MutableFragmentEnable
     private lateinit var viewBinding: ActivityFirstTimeBinding
@@ -39,10 +39,12 @@ class FirstTimeActivity : AppCompatActivity() {
             LplusRatioFragment()
         )
 
+        
         val adapter = ViewPageAdapter(fragments, this)
         viewBinding.viewPager.adapter = adapter
         viewBinding.viewPager.isUserInputEnabled = false
         mutableFragmentEnable.currenPage.observe(this){
+            MediaPlayer.create(this, R.raw.sound4).start()
             if(it in 0..3)
                 Log.i("Excuse", "PASE BIEN")
             viewBinding.viewPager.currentItem = it
