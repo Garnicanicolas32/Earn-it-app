@@ -1,17 +1,18 @@
 package com.example.rewardskotlin
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.rewardskotlin.dataAndClasses.Reward
 import com.example.rewardskotlin.dataAndClasses.SaveFormat
 import com.example.rewardskotlin.databinding.ActivityConfigBinding
 import com.google.gson.Gson
-import java.io.ByteArrayInputStream
-import java.io.ByteArrayOutputStream
-import java.io.IOException
-import java.util.zip.GZIPInputStream
-import java.util.zip.GZIPOutputStream
+import com.google.gson.GsonBuilder
+
 
 private const val MAINACTIVITYKEY = "configtomain2"
 private const val SHARED = "Shared8"
@@ -20,7 +21,7 @@ private const val KEY = "MainKey8"
 class Config : AppCompatActivity() {
     private lateinit var viewBinding: ActivityConfigBinding
     private val listEmpty: List<Reward> = listOf()
-
+    private var left = 3
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityConfigBinding.inflate(layoutInflater)
@@ -33,6 +34,7 @@ class Config : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val preferences = this.getSharedPreferences(SHARED, 0)
         //first blank
         var saveFormat = Gson().toJson(SaveFormat(
             listEmpty,
@@ -43,10 +45,32 @@ class Config : AppCompatActivity() {
         ))
 
         //check if exist
-        val str: String? = this.getSharedPreferences(SHARED, 0).getString(KEY, "hello")//saveFormat)
-
+        val str: String? = preferences.getString(KEY, saveFormat)//saveFormat)
 
         viewBinding.txtOutput.text = str
+
+        viewBinding.button3.setOnClickListener {
+            try {
+                val o: SaveFormat = Gson().fromJson(viewBinding.txtInput.text.toString(), SaveFormat::class.java)
+                if(left > 0){
+                    Toast.makeText(this, "Press $left more times to import data", Toast.LENGTH_SHORT).show()
+                    left --
+                }else{
+                    preferences.edit().clear().apply()
+                    preferences.edit().putString(KEY, Gson().toJson(o)).apply()
+                    Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        viewBinding.button.setOnClickListener {
+            val clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clipData = ClipData.newPlainText("text", str)
+            clipboardManager.setPrimaryClip(clipData)
+            Toast.makeText(this, "Text Copied!", Toast.LENGTH_SHORT).show()
+        }
 
         viewBinding.bottomBar.setOnItemSelectedListener { item ->
             when(item.itemId) {
@@ -76,32 +100,5 @@ class Config : AppCompatActivity() {
         overridePendingTransition(0, 0)
         startActivity(intent)
         overridePendingTransition(0, 0)
-    }
-
-    @Throws(IOException::class)
-    fun compress(string: String): ByteArray? {
-        val os = ByteArrayOutputStream(string.length)
-        val gos = GZIPOutputStream(os)
-        gos.write(string.toByteArray())
-        gos.close()
-        val compressed: ByteArray = os.toByteArray()
-        os.close()
-        return compressed
-    }
-
-    @Throws(IOException::class)
-    fun decompress(compressed: ByteArray?): String? {
-        val BUFFER_SIZE = 32
-        val `is` = ByteArrayInputStream(compressed)
-        val gis = GZIPInputStream(`is`, BUFFER_SIZE)
-        val string = StringBuilder()
-        val data = ByteArray(BUFFER_SIZE)
-        var bytesRead: Int
-        while (gis.read(data).also { bytesRead = it } != -1) {
-            string.append(String(data, 0, bytesRead))
-        }
-        gis.close()
-        `is`.close()
-        return string.toString()
     }
 }
