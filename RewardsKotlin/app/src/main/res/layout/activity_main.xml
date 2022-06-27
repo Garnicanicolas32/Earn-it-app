@@ -57,14 +57,16 @@
             android:layout_height="0dp"
             android:layout_marginTop="1dp"
             app:layout_constraintBottom_toTopOf="@+id/bottomBar"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerSort"
-            tools:layout_editor_absoluteX="0dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerSort" />
 
         <Button
             android:id="@+id/btnListActivities"
-            android:layout_width="130dp"
+            android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
             android:backgroundTint="#B6C454"
             android:elevation="10dp"
             android:shadowColor="#000000"
@@ -82,8 +84,9 @@
         <Button
             android:id="@+id/btnListRewards"
 
-            android:layout_width="130dp"
+            android:layout_width="0dp"
             android:layout_height="60dp"
+            android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
             android:backgroundTint="#AD7A99"
             android:elevation="10dp"
@@ -105,7 +108,7 @@
             android:layout_height="48dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/spinner_style"
-            android:elevation="10dp"
+            android:elevation="4dp"
             android:entries="@array/ordenar"
 
             android:gravity="center"

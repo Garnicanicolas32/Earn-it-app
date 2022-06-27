@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">RewardsKotlin</string>
-    <string name="activities">Activities</string>
+    <string name="activities">Tasks</string>
     <string name="rewards">REWARDS</string>
     <string name="addPLUS">+New</string>
     <string name="delete_all">delete</string>
     <string name="usage">USAGE</string>
-    <string name="activity">Activity</string>
+    <string name="activity">Task</string>
     <string name="reward">Reward</string>
     <string name="is_limited">is limited?</string>
     <string name="month">month</string>
@@ -14,6 +14,7 @@
     <string name="submit">SUBMIT</string>
     <string name="delete">Cancel</string>
     <string name="day">Day</string>
+    <string name="btnFIRSTSCREEN">First screen &amp; Ratio</string>
     <string name="firstFragment">Name is an app that brings balance between tasks and rewards in your life using a points system </string>
     <string name="secondFragment">Name is an app that brings balance between tasks and rewards in your life using a points system </string>
     <string name="edittext_hint"><font size="15">Hint here!</font></string>

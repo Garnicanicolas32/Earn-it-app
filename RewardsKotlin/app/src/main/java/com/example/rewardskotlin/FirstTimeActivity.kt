@@ -39,7 +39,7 @@ class FirstTimeActivity : AppCompatActivity() {
             LplusRatioFragment()
         )
 
-        
+
         val adapter = ViewPageAdapter(fragments, this)
         viewBinding.viewPager.adapter = adapter
         viewBinding.viewPager.isUserInputEnabled = false

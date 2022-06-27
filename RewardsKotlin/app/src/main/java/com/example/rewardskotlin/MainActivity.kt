@@ -575,7 +575,6 @@ class MainActivity : AppCompatActivity() {
             true
         )
         //check if exist
-
         val str: String? = preferences.getString(KEY, "")
         if (!str.isNullOrBlank())
             saveFormat = Gson().fromJson(str, SaveFormat::class.java)

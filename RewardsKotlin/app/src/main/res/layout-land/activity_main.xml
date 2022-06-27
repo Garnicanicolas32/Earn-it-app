@@ -57,8 +57,9 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@+id/bottomBar"
-            app:layout_constraintTop_toBottomOf="@+id/txtPoints"
-            tools:layout_editor_absoluteX="0dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtPoints" />
 
         <Button
             android:id="@+id/btnListActivities"
@@ -84,7 +85,7 @@
         <Button
             android:id="@+id/btnListRewards"
 
-            android:layout_width="130dp"
+            android:layout_width="132dp"
             android:layout_height="57dp"
             android:backgroundTint="#AD7A99"
             android:elevation="10dp"

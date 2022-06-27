@@ -30,7 +30,7 @@
             app:layout_constraintStart_toStartOf="parent"
 
             app:layout_constraintTop_toTopOf="@id/GrupoHeader"
-            app:layout_constraintVertical_bias="0.41000003"
+            app:layout_constraintVertical_bias="0.47000003"
             app:layout_constraintVertical_chainStyle="packed" />
 
         <View
@@ -60,7 +60,8 @@
         <EditText
             android:id="@+id/insertNombre"
             android:layout_width="280dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
             android:autoSizeTextType="uniform"
             android:background="@drawable/txt_input_rounded"
             android:elevation="4dp"
@@ -80,7 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="2dp"
-            android:text="Reward or actvity"
+            android:text="Reward or task"
             app:layout_constraintBottom_toTopOf="@+id/btnchooseReward"
             app:layout_constraintStart_toStartOf="@+id/guideline5"
             app:layout_constraintTop_toTopOf="@id/grupoReward"
@@ -90,7 +91,7 @@
         <TextView
             android:id="@+id/btnChooseActivty"
             android:layout_width="135dp"
-            android:layout_height="45dp"
+            android:layout_height="0dp"
             android:background="@drawable/btn_radio_month"
             android:elevation="4dp"
             android:gravity="center"
@@ -106,7 +107,8 @@
         <TextView
             android:id="@+id/btnchooseReward"
             android:layout_width="135dp"
-            android:layout_height="45dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/btn_radio_day"
             android:elevation="4dp"
             android:gravity="center"
@@ -118,8 +120,7 @@
             app:layout_constraintHorizontal_bias="0.85"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rewardoractivity"
-            tools:layout_editor_absoluteY="189dp" />
+            app:layout_constraintTop_toBottomOf="@id/rewardoractivity" />
 
         <TextView
             android:id="@+id/limiteduses"
@@ -136,9 +137,9 @@
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/isLimited"
             android:layout_width="260dp"
-            android:layout_height="48dp"
+            android:layout_height="0dp"
             android:layout_marginEnd="3dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/switch_rounded"
             android:backgroundTint="#E3ED96"
             android:elevation="4dp"
@@ -156,7 +157,7 @@
         <EditText
             android:id="@+id/txtLimitedTimes"
             android:layout_width="108dp"
-            android:layout_height="48dp"
+            android:layout_height="0dp"
             android:layout_marginStart="3dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/txt_limitedtimes"
@@ -178,8 +179,7 @@
             android:id="@+id/timesperdayweekmonth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="2dp"
+            android:layout_marginTop="24dp"
             android:text="Times per day/week/month"
             app:layout_constraintBottom_toTopOf="@+id/btnDay"
             app:layout_constraintStart_toStartOf="@+id/guideline5"
@@ -276,7 +276,8 @@
         <Spinner
             android:id="@+id/getPrioridad"
             android:layout_width="245dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/spinner_style"
             android:elevation="4dp"
             android:entries="@array/Reward"
@@ -286,8 +287,7 @@
             app:layout_constraintBottom_toBottomOf="@id/groupimportance"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/importance"
-            tools:layout_editor_absoluteY="560dp" />
+            app:layout_constraintTop_toBottomOf="@id/importance" />
 
         <TextView
             android:id="@+id/tag"
@@ -304,8 +304,9 @@
         <Spinner
             android:id="@+id/spinnerGetTag"
             android:layout_width="150dp"
-            android:layout_height="50dp"
+            android:layout_height="0dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/spinner_style"
             android:elevation="4dp"
             android:entries="@array/debugView"
@@ -313,7 +314,6 @@
             android:popupBackground="@drawable/spinner_item_create"
             app:layout_constraintBottom_toBottomOf="@id/grupoTag"
             app:layout_constraintEnd_toStartOf="@+id/btnAddTag"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tag">
@@ -323,7 +323,7 @@
         <TextView
             android:id="@+id/btnAddTag"
             android:layout_width="70dp"
-            android:layout_height="48dp"
+            android:layout_height="0dp"
             android:layout_marginStart="4dp"
             android:background="@drawable/btn_radio_month"
             android:backgroundTint="#B8C64D"
@@ -344,8 +344,8 @@
 
         <ImageButton
             android:id="@+id/btnDelete"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
+            android:layout_width="70dp"
+            android:layout_height="0dp"
 
             android:layout_marginEnd="16dp"
             android:background="@drawable/btn_ultrarounded"
@@ -365,8 +365,10 @@
         <TextView
             android:id="@+id/btnSubmit"
             android:layout_width="150dp"
-            android:layout_height="55dp"
+            android:layout_height="0dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/btn_ultrarounded"
             android:backgroundTint="#ABE86E"
             android:elevation="4dp"
@@ -412,7 +414,6 @@
             android:id="@+id/GrupoHeader"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginBottom="8dp"
             app:constraint_referenced_ids="linetop,createreward"
             app:layout_constraintBottom_toTopOf="@+id/grupoName"
             app:layout_constraintStart_toStartOf="parent"
@@ -444,7 +445,7 @@
             android:id="@+id/grupoLimitedUses"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="8dp"
             app:constraint_referenced_ids="isLimited,limiteduses"
             app:layout_constraintBottom_toTopOf="@+id/grouptimesperday"
             app:layout_constraintStart_toStartOf="parent"
@@ -455,8 +456,7 @@
             android:id="@+id/grouptimesperday"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginTop="42dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="32dp"
             app:constraint_referenced_ids="txtTimesPerMonth,btnMonth,timesperdayweekmonth,btnDay,btnWeek"
             app:layout_constraintBottom_toTopOf="@+id/groupimportance"
             app:layout_constraintStart_toStartOf="parent"
@@ -488,8 +488,6 @@
             android:id="@+id/grupoSubmit"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
             app:constraint_referenced_ids="linebottom,btnSubmit,btnDelete"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
