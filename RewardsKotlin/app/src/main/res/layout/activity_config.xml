@@ -11,6 +11,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="32dp"
         android:text="Settings"
         android:textSize="34sp"
@@ -51,13 +52,13 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="94dp"
         android:background="@drawable/general_rounded_outline"
         android:backgroundTint="#F3F3F3"
         android:elevation="6dp"
         android:gravity="center_vertical"
         android:paddingStart="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_firsttime"
+        app:layout_constraintBottom_toTopOf="@+id/bottomBar"
         app:layout_constraintEnd_toStartOf="@+id/button"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -105,25 +106,23 @@
         android:layout_width="0dp"
         android:layout_height="80dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:text="@string/btnFIRSTSCREEN"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/bottomBar"
+        app:layout_constraintBottom_toBottomOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtOutput" />
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toTopOf="@+id/button3" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="65dp"
-        android:layout_marginEnd="16dp"
         android:text="copy"
         app:layout_constraintBottom_toBottomOf="@+id/txtOutput"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/txtOutput"
         app:layout_constraintTop_toTopOf="@+id/txtOutput" />
@@ -132,34 +131,18 @@
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="65dp"
-        android:layout_marginEnd="16dp"
         android:text="import"
         app:layout_constraintBottom_toBottomOf="@+id/txtInput"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/txtInput"
         app:layout_constraintTop_toTopOf="@+id/txtInput" />
 
-    <TextView
-        android:id="@+id/testa"
-        android:layout_width="150dp"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/testb"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_firsttime" />
-
-    <TextView
-        android:id="@+id/testb"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/testa"
-        app:layout_constraintTop_toBottomOf="@+id/btn_firsttime" />
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="423dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

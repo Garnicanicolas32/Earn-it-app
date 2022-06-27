@@ -4,9 +4,12 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.media.MediaPlayer
 import android.view.View
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import com.example.rewardskotlin.R
 import com.example.rewardskotlin.dataAndClasses.OnClickReturn
 import com.example.rewardskotlin.dataAndClasses.Reward
@@ -84,12 +87,27 @@ class RewardViewHolder(view: View, ActPoints: Int) : RecyclerView.ViewHolder(vie
 
         //tag & line
         binding.txtTag.isVisible = first
-        if(useThis.tagName == DEFAULTTAG)
+        if(useThis.tagName == DEFAULTTAG) {
             binding.txtTag.visibility = View.INVISIBLE
+        }
         binding.txtTag.text = useThis.tagName
 
+        if(!(last || first)){
+            val params = binding.txtName.layoutParams as ConstraintLayout.LayoutParams
+            params.topToTop = binding.backMiddle.id
+            params.bottomToBottom = binding.backMiddle.id
+            binding.txtName.requestLayout()
+        }
+
+        if(last && !first){
+            val params = binding.txtName.layoutParams as ConstraintLayout.LayoutParams
+            params.topToTop = binding.backLast.id
+            params.bottomToBottom = binding.backLast.id
+            binding.txtName.requestLayout()
+        }
+
         //Background
-        binding.spaceTop.isVisible = first
+        binding.spaceTop.isVisible = first // || useThis.tagName == DEFAULTTAG
         binding.spaceTag.isVisible = first
 
         binding.spaceBot.isVisible = last && !first
@@ -136,7 +154,7 @@ class RewardViewHolder(view: View, ActPoints: Int) : RecyclerView.ViewHolder(vie
                     noPointsSound?.start()
                     binding.btnPoints.setTextColor(Color.parseColor("#d43149"))
                     duration = 300
-                    translationXBy(-10f)
+                    YoYo.with(Techniques.RubberBand).duration(300).repeat(1).playOn(binding.btnPoints)
                 }.withEndAction{
                     onClickListener(OnClickReturn(useThis, false, isDelete = false))
                 }.start()

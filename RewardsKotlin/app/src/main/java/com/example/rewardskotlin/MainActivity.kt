@@ -11,13 +11,17 @@ import android.media.SoundPool
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.animation.Animation
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import com.example.rewardskotlin.adapter.RewardAdapter
 import com.example.rewardskotlin.dataAndClasses.*
 import com.example.rewardskotlin.databinding.ActivityMainBinding
@@ -268,7 +272,11 @@ class MainActivity : AppCompatActivity() {
                }
             }
         }
-
+        val isEmpty = globalData.listActivities.size + globalData.listRewards.size == 0
+        viewBinding.imgEmpty.isVisible = isEmpty
+        if(isEmpty){
+            YoYo.with(Techniques.Bounce).duration(1500).repeat(Animation.INFINITE).playOn(viewBinding.imgEmpty)
+        }
 
         refresh() //LASTLY
     }
@@ -585,8 +593,8 @@ class MainActivity : AppCompatActivity() {
     private fun confetiPoints(){
         val konfettiView: KonfettiView = viewBinding.confet
         val a = Party(
-            speed = 20f,
-            maxSpeed = 23f,
+            speed = 15f,
+            maxSpeed = 30f,
             damping = 0.6f,
             spread = 360,
             timeToLive = 1200,

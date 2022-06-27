@@ -11,7 +11,7 @@
         android:id="@+id/spaceTop"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-
+android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -19,7 +19,7 @@
         android:id="@+id/spaceTag"
         android:layout_width="match_parent"
         android:layout_height="15dp"
-
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -81,9 +81,9 @@
 
         android:background="@drawable/yy_rounded_bottom"
         android:backgroundTint="#FF9191"
-        android:visibility="gone"
+
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spaceTop" />
 
@@ -107,12 +107,12 @@
         android:id="@+id/backMiddle"
         android:layout_width="0dp"
         android:layout_height="115dp"
-
+    android:visibility="gone"
         android:layout_marginStart="16dp"
 
         android:layout_marginEnd="16dp"
         android:background="#A591FF"
-        android:visibility="gone"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -129,7 +129,7 @@
         android:layout_marginEnd="8dp"
         android:autoSizeTextType="uniform"
         android:background="@drawable/btn_reward"
-        android:elevation="5dp"
+        android:elevation="2dp"
         android:gravity="center"
         android:maxLines="1"
         android:shadowColor="#2E231F"
@@ -155,7 +155,7 @@
         android:backgroundTint="#E1E1E1"
 
         android:contentDescription="TODO"
-        android:elevation="5dp"
+        android:elevation="2dp"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/backFirst2"
         app:layout_constraintTop_toTopOf="@+id/txtName"
@@ -172,7 +172,7 @@
         android:backgroundTint="#E1E1E1"
 
         android:contentDescription="TODO"
-        android:elevation="5dp"
+        android:elevation="2dp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/backFirst2"
         app:layout_constraintTop_toTopOf="@+id/txtName"
@@ -187,7 +187,7 @@
         android:layout_marginEnd="16dp"
         android:background="@drawable/btn_points"
         android:backgroundTint="#E1E1E1"
-        android:elevation="5dp"
+        android:elevation="2dp"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/backFirst2"
         app:layout_constraintTop_toTopOf="@+id/txtName"
@@ -202,7 +202,7 @@
         android:autoSizeTextType="uniform"
         android:background="@drawable/btn_points"
         android:backgroundTint="#E1E1E1"
-        android:elevation="5dp"
+        android:elevation="2dp"
         android:gravity="center"
         android:maxLines="1"
         android:shadowColor="#000000"
@@ -219,11 +219,11 @@
 
     <TextView
         android:id="@+id/txtTag"
-
+        android:visibility="gone"
         android:layout_width="170dp"
         android:layout_height="30dp"
         android:background="@drawable/btn_points"
-        android:elevation="5dp"
+        android:elevation="2dp"
         android:gravity="center"
         android:shadowColor="#2E231F"
         android:shadowDx="-2"
@@ -245,7 +245,7 @@
         android:layout_marginStart="20dp"
         android:autoSizeTextType="uniform"
         android:background="@drawable/general_rounded_outline"
-        android:elevation="6dp"
+        android:elevation="3dp"
         android:gravity="center"
         android:maxLines="1"
         android:shadowColor="#2E231F"

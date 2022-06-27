@@ -102,6 +102,17 @@
             app:layout_constraintTop_toTopOf="@+id/txtPoints"
             tools:ignore="TextContrastCheck" />
 
+        <ImageView
+            android:id="@+id/imgEmpty"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/listOfRewards"
+            app:layout_constraintEnd_toEndOf="@+id/bottomBar"
+            app:layout_constraintHorizontal_bias="0.71"
+            app:layout_constraintStart_toStartOf="@+id/bottomBar"
+            app:srcCompat="@drawable/img_start" />
+
         <Spinner
             android:id="@+id/spinnerSort"
             android:layout_width="0dp"
