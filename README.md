@@ -1,5 +1,5 @@
 # AntiProcrastinationAPP
-System of rewards with points and live algorythm
+System of rewards with points
 
 # V0.1.0 Alpha AntiprocrastinationAPP / Point system
 - Android 8.0(oreo) or higher
