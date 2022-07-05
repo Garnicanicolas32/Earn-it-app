@@ -105,37 +105,35 @@
         android:id="@+id/btn_firsttime"
         android:layout_width="0dp"
         android:layout_height="80dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="32dp"
         android:text="@string/btnFIRSTSCREEN"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/bottomBar"
+        app:layout_constraintBottom_toBottomOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtOutput" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toTopOf="@+id/button3" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="65dp"
-        android:layout_marginEnd="16dp"
         android:text="copy"
         app:layout_constraintBottom_toBottomOf="@+id/txtOutput"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/txtOutput"
-        app:layout_constraintTop_toTopOf="@+id/txtOutput"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="@+id/txtOutput" />
 
     <Button
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="65dp"
-        android:layout_marginEnd="16dp"
         android:text="import"
         app:layout_constraintBottom_toBottomOf="@+id/txtInput"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/txtInput"
         app:layout_constraintTop_toTopOf="@+id/txtInput" />
