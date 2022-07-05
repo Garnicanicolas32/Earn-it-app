@@ -1,5 +1,5 @@
 # AntiProcrastinationAPP
-System of rewards with points
+An app that balances between tasks and rewards in your daily routine with a point system
 
 # V0.1.0 Alpha AntiprocrastinationAPP / Point system
 - Android 8.0(oreo) or higher
