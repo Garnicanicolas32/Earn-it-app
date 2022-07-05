@@ -2,7 +2,7 @@
 <img src="/AntiProcrastinationEXTRA/logo.png" width="300">
 
 # Earn it!
-## Anti.procrastination.APP
+#### Anti.procrastination.APP
 An app that balances between tasks and rewards in your daily routine with a point system
 - The app calculates with a formula the amount of points that Rewards/Task give.
 - You can also customize if you want to favour rewards or task
