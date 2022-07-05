@@ -1,5 +1,5 @@
 
-<img src="/AntiProcrastinationEXTRA/Logo.png" width="100"
+<img src="/AntiProcrastinationEXTRA/logo.png" width="100">
 
 # AntiProcrastinationAPP
 An app that balances between tasks and rewards in your daily routine with a point system
