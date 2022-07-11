@@ -16,10 +16,10 @@ import com.example.rewardskotlin.dataAndClasses.Reward
 import com.example.rewardskotlin.databinding.ItemRewardBinding
 
 
-private val BUTTONCOLOR = listOf("#EF5350", "#EC407A", "#AB47BC", "#7E57C2", "#5C6BC0", "#42A5F5")
-private val POINTSCOLOR = listOf("#EF9A9A", "#F48FB1", "#CE93D8", "#B39DDB", "#9FA8DA", "#90CAF9")
-private val TAGCOLOR = listOf("#EF9A9A", "#F48FB1", "#CE93D8", "#B39DDB", "#9FA8DA", "#90CAF9")
-private val BACKGROUNDCOLOR = listOf("#FFCDD2", "#F8BBD0", "#E1BEE7", "#D1C4E9", "#C5CAE9", "#BBDEFB")
+private val BUTTONCOLOR = listOf("#EF5350", "#EC407A", "#AB47BC", "#7E57C2", "#5C6BC0", "#42A5F5", "#EFA350", "#DBEF50", "#50ebef")
+private val POINTSCOLOR = listOf("#EF9A9A", "#F48FB1", "#CE93D8", "#B39DDB", "#9FA8DA", "#90CAF9", "#EFC49A", "#E6EF9A", "#9aefef")
+private val TAGCOLOR = listOf("#EF9A9A", "#F48FB1", "#CE93D8", "#B39DDB", "#9FA8DA", "#90CAF9", "#EFC49A", "#E6EF9A", "#9aefef")
+private val BACKGROUNDCOLOR = listOf("#FFCDD2", "#F8BBD0", "#E1BEE7", "#D1C4E9", "#C5CAE9", "#BBDEFB", "#FFE1CD", "#FFFFCD", "#cdfffa")
 
 // invisible color 00FFFFFF
 private const val  DEFAULTTAG = "default"

@@ -158,14 +158,15 @@ class MainActivity : AppCompatActivity() {
                     deleteReward(obtained.oldOne!!)
                     rewardSelected = obtained.reward.basePrice < 0
                 }
-                if (obtained.reward.basePrice < 0) {
+                val namesA = globalData.listRewards.map { it.name }
+                val namesB = globalData.listActivities.map { it.name }
+                if (obtained.reward.basePrice < 0 && !namesA.contains(obtained.reward.name)) {
                     globalData.listRewards = globalData.listRewards + obtained.reward
                     rewardSelected = true
-                } else {
+                } else if(obtained.reward.basePrice >= 0 && !namesB.contains(obtained.reward.name)){
                     globalData.listActivities = globalData.listActivities + obtained.reward
                     rewardSelected = false
                 }
-
             saveData(globalData)
             refresh()
         }
