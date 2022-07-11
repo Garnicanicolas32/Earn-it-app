@@ -10,6 +10,8 @@ An app that balances between tasks and rewards in your daily routine with a poin
 
 # V0.1.1 Alpha
 - Android 8.0(oreo) or higher
+- now less bugs! thanks mica for destroying the app in 10 seconds
+
 ### Download [Here](https://github.com/Garnicanicolas32/Earn-it-app/releases/tag/v0.1.1)
 #### Inform bugs and sugerences ([Discord](https://discord.gg/srBPUMjdG8)) 
 
