@@ -13,7 +13,6 @@ An app that balances between tasks and rewards in your daily routine with a poin
 - now less bugs! thanks mica for destroying the app in 10 seconds
 
 ### Download [Here](https://github.com/Garnicanicolas32/Earn-it-app/releases/tag/v0.1.1)
-#### Inform bugs and sugerences ([Discord](https://discord.gg/srBPUMjdG8)) 
 
 ## Screenshots
 <img src="/AntiProcrastinationEXTRA/Rewards.png" width="228">  <img src="/AntiProcrastinationEXTRA/Tasks.png" width="228"> <br/>
