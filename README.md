@@ -1,3 +1,4 @@
+This is a project was to learn kotlin and for me, sorry if it works badly
 
 <img src="/AntiProcrastinationEXTRA/logo.png" width="300">
 
@@ -8,7 +9,7 @@ An app that balances between tasks and rewards in your daily routine with a poin
 - You can also customize if you want to favour rewards or task
 - Can also sort with tags for more organization
 
-# V0.1.1 Alpha
+# V1.0.1
 - Android 8.0(oreo) or higher
 - now less bugs! thanks mica for destroying the app in 10 seconds
 
